@@ -23,7 +23,7 @@
       }
 
       .hero-section {
-        background-image: url("img/fondo4.png");
+        background-image: url("img/primera.jpg");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -68,7 +68,7 @@
 
       .card-socio img {
         object-fit: cover;
-        height: 250px;
+        height: 360px;
         border-radius: 0.5rem 0.5rem 0 0;
       }
 
@@ -90,12 +90,28 @@
       }
 
       .card-servicio {
-        height: 395px;
-        max-width: 830px;
+        height: 495px;
+        max-width: 930px;
         margin: 0 auto;
         display: flex;
         flex-direction: column;
         justify-content: center;
+      }
+
+      .nav-link-custom {
+        color: #004ab9;
+      }
+
+      .text-gold {
+        color: #d4af37;
+      }
+
+      .text-azul {
+        color: #1331b6;
+      }
+
+      .bg-celeste {
+        background-color: #00bcd4;
       }
     </style>
   </head>
@@ -103,9 +119,14 @@
   <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
-      <a class="navbar-brand fw-bold text-primary" href="#"
-        >Cámara de Comercio Loja</a
-      >
+      <a class="navbar-brand fw-bold text-primary" href="#">
+        <img
+          src="/img/logo.png"
+          alt="Logo Cámara de Comercio Loja"
+          height="55"
+        />
+      </a>
+
       <button
         class="navbar-toggler"
         type="button"
@@ -116,12 +137,17 @@
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="#">Servicios</a></li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Quiénes somos</a>
+            <a class="nav-link nav-link-custom" href="#">Servicios</a>
           </li>
           <li class="nav-item">
-            <a href="/login" class="btn btn-outline-primary ms-3">Login</a>
+            <a class="nav-link nav-link-custom" href="#">Quiénes somos</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/login" class="btn btn-dorado rounded-pill px-4 py-2"
+              >Login</a
+            >
           </li>
         </ul>
       </div>
@@ -133,19 +159,29 @@
         class="container d-flex flex-column flex-md-row align-items-center justify-content-between"
       >
         <div class="col-md-6 mb-4">
-          <h1 class="fw-bold text-primary mb-3">¿Quiénes somos?</h1>
+          <h1 class="fw-bold text-gold mb-3">¿Quiénes somos?</h1>
+          <br />
+          <br />
           <p class="mb-4">
-            Somos una organización comprometida con el desarrollo económico y
-            empresarial de Loja. Brindamos apoyo, asesoría y servicios a
-            emprendedores y empresas para potenciar sus capacidades y
-            oportunidades de crecimiento.
+            La Cámara de Comercio de Loja es una organización comprometida con
+            el desarrollo económico y empresarial de nuestra provincia.
+            Brindamos apoyo, asesoría y servicios especializados a
+            emprendedores, comerciantes y empresas, fortaleciendo sus
+            capacidades y generando oportunidades de crecimiento.
           </p>
           <a href="/register" class="btn btn-dorado rounded-pill px-4 py-2"
             >Registrarse</a
           >
         </div>
-        <div class="col-md-5 text-center bg-light p-5 rounded shadow-sm">
-          Imagen aquí
+        <div
+          class="col-md-5 text-center p-5 rounded shadow-sm"
+          style="background-color: transparent;"
+        >
+          <img
+            src="/img/logo2.png"
+            alt="Imagen representativa"
+            class="img-fluid"
+          />
         </div>
       </div>
     </section>
@@ -153,12 +189,17 @@
     <!-- Beneficios -->
     <section class="py-5 bg-white">
       <div class="container">
-        <h2 class="fw-bold text-primary mb-4 text-center">
-          Beneficios de ser un socio
-        </h2>
+        <h2 class="fw-bold mb-4 text-azul">Beneficios de ser un socio</h2>
+        <br />
         <div class="row">
           <div class="col-md-5 mb-4 text-center">
-            <div class="bg-light rounded shadow p-4">Imagen aquí</div>
+            <div class="bg-light rounded shadow p-4">
+              <img
+                src="/img/imagen1.png"
+                alt="Imagen representativa"
+                class="img-fluid"
+              />
+            </div>
           </div>
           <div class="col-md-7">
             <div class="mb-3 tabs-beneficios">
@@ -177,22 +218,24 @@
                 >
               </div>
             </div>
-            <div class="bg-light p-4 rounded shadow text-dark mb-4">
+            <div class="bg-light p-4 rounded shadow text-dark mb-4 text-center">
               <p class="fs-5 mb-0">
                 Accede a capacitaciones exclusivas para fortalecer tu
                 emprendimiento.
               </p>
             </div>
-            <a href="/register" class="btn btn-dark btn-lg">Registrarse →</a>
+            <div class="text-center">
+              <a href="/register" class="btn btn-dark btn-lg">Registrarse →</a>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Servicios (Carrusel) -->
-    <section class="py-5" style="background-color: #111;">
+    <section class="py-5" style="background-color: #111; position: relative;">
       <div class="container">
-        <h2 class="fw-bold text-white mb-4 text-center">Nuestros Servicios</h2>
+        <h1 class="fw-bold text-white mb-4 text-center">Servicios</h1>
         <div
           id="carouselServicios"
           class="carousel slide"
@@ -201,39 +244,55 @@
           <div class="carousel-inner">
             <div class="carousel-item active">
               <div
-                class="card-servicio bg-primary text-white p-4 rounded text-center"
+                class="card-servicio bg-celeste text-white p-4 rounded text-center"
+                style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/img/3.png'); background-size: cover; background-position: center; background-repeat: no-repeat;"
               >
                 <h3>Firma Electrónica</h3>
                 <p>
                   Ofrecemos emisión y renovación de firma electrónica con
                   respaldo legal.
                 </p>
-                <a href="/register" class="btn btn-warning px-4 py-2 mx-auto"
-                  >Registrarse →</a
+                <a
+                  href="/register"
+                  class="btn btn-warning px-4 py-2 mx-auto text-white fw-bold"
                 >
+                  Registrarse →
+                </a>
               </div>
             </div>
             <div class="carousel-item">
               <div
-                class="card-servicio bg-secondary text-white p-4 rounded text-center"
+                class="card-servicio bg-celeste text-white p-4 rounded text-center"
+                style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/img/2.png'); background-size: cover; background-position: center; background-repeat: no-repeat;"
               >
                 <h3>Asesoría Legal</h3>
                 <p>
                   Apoyo jurídico especializado para tus decisiones
                   empresariales.
                 </p>
-                <a href="/register" class="btn btn-warning">Registrarse →</a>
+                <a
+                  href="/register"
+                  class="btn btn-warning px-4 py-2 mx-auto text-white fw-bold"
+                >
+                  Registrarse →
+                </a>
               </div>
             </div>
             <div class="carousel-item">
               <div
-                class="card-servicio bg-success text-white p-4 rounded text-center"
+                class="card-servicio bg-celeste text-white p-4 rounded text-center"
+                style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/img/1.png'); background-size: cover; background-position: center; background-repeat: no-repeat;"
               >
                 <h3>Capacitaciones</h3>
                 <p>
                   Accede a cursos, talleres y formación empresarial continua.
                 </p>
-                <a href="/register" class="btn btn-warning">Registrarse →</a>
+                <a
+                  href="/register"
+                  class="btn btn-warning px-4 py-2 mx-auto text-white fw-bold"
+                >
+                  Registrarse →
+                </a>
               </div>
             </div>
           </div>
@@ -255,32 +314,88 @@
           </button>
         </div>
       </div>
+      <div
+        style="
+          position: absolute;
+          bottom: 20px;
+          right: 20px;
+          background-color: rgba(255, 255, 255, 0.65); /* blanco semitransparente */
+          padding: 12px 20px;
+          border-radius: 8px;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+          z-index: 10;"
+      >
+        <h6 class="fw-bold mb-2 text-center">Servicios</h6>
+        <a
+          href="#"
+          class="btn fw-bold px-3 py-1"
+          style="background-color: #000; color: #d4af37; border: none;"
+        >
+          Servicios →
+        </a>
+      </div>
     </section>
 
     <!-- Nuestros Socios -->
     <section class="bg-white py-5">
       <div class="container">
-        <h2 class="fw-bold text-primary mb-4 text-center">Nuestros Socios</h2>
+        <h2 class="fw-bold mb-4 text-azul">Nuestros Socios</h2>
+        <br />
         <div class="row g-4">
+          <!-- Socio 1 -->
           <div class="col-md-4">
             <div class="card card-socio border-0 shadow">
-              <img src="#" class="card-img-top" alt="Socio 1" />
+              <img src="/img/imagen2.png" class="card-img-top" alt="Socio 1" />
               <div class="card-body text-center">
                 <h5 class="card-title">Dr. Joaquín Lopez</h5>
                 <p class="card-text">Director de Clínica Santa Inés</p>
               </div>
             </div>
           </div>
+
+          <!-- Socio 2 -->
           <div class="col-md-4">
             <div class="card card-socio border-0 shadow">
-              <img src="#" class="card-img-top" alt="Socio 2" />
+              <img src="/img/imagen2.png" class="card-img-top" alt="Socio 2" />
               <div class="card-body text-center">
                 <h5 class="card-title">Dra. Marlene Ojeda</h5>
                 <p class="card-text">Gerente de Salud Integral</p>
               </div>
             </div>
           </div>
-          <!-- Más socios pueden agregarse aquí -->
+
+          <!-- Socio 3 -->
+          <div class="col-md-4">
+            <div class="card card-socio border-0 shadow">
+              <img src="/img/imagen2.png" class="card-img-top" alt="Socio 3" />
+              <div class="card-body text-center">
+                <h5 class="card-title">Ing. Marco Ruiz</h5>
+                <p class="card-text">Fundador de TechLoja</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Socio 4 -->
+          <div class="col-md-4">
+            <div class="card card-socio border-0 shadow">
+              <img src="/img/imagen2.png" class="card-img-top" alt="Socio 4" />
+              <div class="card-body text-center">
+                <h5 class="card-title">Lic. Sofía Andrade</h5>
+                <p class="card-text">CEO de Consultora Loja</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Socio 5 -->
+          <div class="col-md-4">
+            <div class="card card-socio border-0 shadow">
+              <img src="/img/imagen2.png" class="card-img-top" alt="Socio 5" />
+              <div class="card-body text-center">
+                <h5 class="card-title">Eco. Luis Rivadeneira</h5>
+                <p class="card-text">Asesor Económico Independiente</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
