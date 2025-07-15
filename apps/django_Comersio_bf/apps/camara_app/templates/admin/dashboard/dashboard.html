@@ -1,0 +1,139 @@
+{% extends 'admin/master/masteradmin.html' %}
+{% load static %}
+
+{% block title %}Dashboard - Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+{% endblock %}
+
+{% block admin_content %}
+<div class="dashboard-scroll-container">
+  <div class="dashboard-summary-cards">
+    <div class="summary-card registered-users">
+      <div class="card-value">100</div>
+      <div class="card-title">Usuarios Registrados</div>
+    </div>
+    <div class="summary-card registered-partners">
+      <div class="card-value">15</div>
+      <div class="card-title">Socios Registrados</div>
+    </div>
+  </div>
+
+  <div class="dashboard-sections">
+    <div class="chart-card">
+      <div class="card-header">
+        <h4>Subservicio más usado</h4>
+        <div class="dropdown">
+          <label for="subservice-select" class="visually-hidden">Categoría</label>
+          <select id="subservice-select">
+            <option value="categoria1">Categoría</option>
+            <option value="categoria2">Opción 2</option>
+            <option value="categoria3">Opción 3</option>
+          </select>
+          <label for="subservice-dropdown" class="visually-hidden">Subservicio</label>
+          <select id="subservice-dropdown">
+            <option value="subservicio1">Subservicio</option>
+            <option value="subservicio2">Opción A</option>
+            <option value="subservicio3">Opción B</option>
+          </select>
+        </div>
+      </div>
+      <div class="bar-chart-container">
+        <div class="bar" style="height: 80%;">
+          <span class="bar-label">Vida</span>
+        </div>
+        <div class="bar" style="height: 60%;">
+          <span class="bar-label">Incapacidad</span>
+        </div>
+        <div class="bar" style="height: 40%;">
+          <span class="bar-label">Anticipos</span>
+        </div>
+        <div class="bar" style="height: 70%;">
+          <span class="bar-label">Gastos</span>
+        </div>
+        <div class="bar" style="height: 50%;">
+          <span class="bar-label">Renta</span>
+        </div>
+        <div class="bar" style="height: 90%;">
+          <span class="bar-label">Otros</span>
+        </div>
+      </div>
+      <div class="card-header" style="margin-top: 2rem;">
+        <h4>Usuarios</h4>
+      </div>
+      <div class="most-used-profiles">
+        <div class="profile-card">
+          <img src="{% static 'images/imagen2.png' %}" alt="William Riofrio" class="profile-img">
+          <div class="profile-name">William Riofrio</div>
+          <button class="btn-info">Ver Info</button>
+        </div>
+        <div class="profile-card">
+          <img src="{% static 'images/imagen2.png' %}" alt="Carla Sofia" class="profile-img">
+          <div class="profile-name">Carla Sofia</div>
+          <button class="btn-info">Ver Info</button>
+        </div>
+        <div class="profile-card">
+          <img src="{% static 'images/imagen2.png' %}" alt="Cinthia Rojas" class="profile-img">
+          <div class="profile-name">Cinthia Rojas</div>
+          <button class="btn-info">Ver Info</button>
+        </div>
+        <div class="profile-card">
+          <img src="{% static 'images/imagen2.png' %}" alt="Gabriela Riofrio" class="profile-img">
+          <div class="profile-name">Gabriela Riofrio</div>
+          <button class="btn-info">Ver Info</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="most-used-categories">
+      <div class="card-header">
+        <h4>Categoría más usada</h4>
+      </div>
+      <div class="category-item">
+        <div class="category-circle salud">10</div>
+        <div class="category-name">Salud</div>
+      </div>
+      <div class="category-item">
+        <div class="category-circle educacion">5</div>
+        <div class="category-name">Educacion</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-card service-usage-chart-card">
+    <div class="card-header">
+      <h4>Servicio más usado</h4>
+      <div class="dropdown">
+        <label for="service-category-select" class="visually-hidden">Categoría</label>
+        <select id="service-category-select">
+          <option value="all">Categoría</option>
+          <option value="catA">Categoría A</option>
+          <option value="catB">Categoría B</option>
+        </select>
+      </div>
+    </div>
+    <div class="chart-and-legend">
+      <div class="donut-chart-container">
+        <div class="donut-chart-center"></div>
+      </div>
+      <ul class="chart-legend">
+        <li>
+          <div class="color-box blue"></div> Farmacia Cruzhamba
+        </li>
+        <li>
+          <div class="color-box yellow"></div> Farmacia Cruz Azul
+        </li>
+        <li>
+          <div class="color-box lightblue"></div> Clínica San Jose
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/dashboard.js' %}" defer></script>
+<script src="{% static 'js/usuarios_logic.js' %}" defer></script>
+{% endblock %}

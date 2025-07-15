@@ -1,0 +1,50 @@
+.form-main-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-top: 1.5rem;
+}
+
+.form-main-container .section-heading {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #343a40;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.form-tab-bar {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-tab-bar .form-tab-button {
+    background-color: #e9ecef;
+    border: none;
+    padding: 0.8rem 1.8rem;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #6c757d;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-tab-bar .form-tab-button:hover {
+    background-color: #dee2e6;
+    color: #495057;
+}
+
+.form-tab-bar .form-tab-button.active {
+    background-color: #3D36BF;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-content-wrapper {
+    padding-top: 1.5rem;
+}

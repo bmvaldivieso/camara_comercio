@@ -1,0 +1,129 @@
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 350px;
+    height: 100%;
+    background-color: white;
+    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease-in-out;
+    z-index: 1050;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+}
+
+.cart-sidebar.open {
+    right: 0;
+}
+
+.cart-sidebar .cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+}
+
+.cart-sidebar .cart-header h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #3D36BF;
+    margin-bottom: 0;
+}
+
+.cart-sidebar .cart-header .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6c757d;
+    transition: color 0.2s ease;
+}
+
+.cart-sidebar .cart-header .close-btn:hover {
+    color: #343a40;
+}
+
+.cart-sidebar .cart-items {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px dashed #e9ecef;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item .item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-right: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.cart-item .item-details {
+    flex-grow: 1;
+}
+
+.cart-item .item-details .item-name {
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 0.2rem;
+}
+
+.cart-item .item-details .item-price {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.cart-sidebar .cart-footer {
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.cart-sidebar .btn-pay {
+    background-color: #3D36BF;
+    border-color: #3D36BF;
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    font-size: 1.2rem;
+}
+
+.cart-sidebar .btn-pay:hover {
+    background-color: #302a9b;
+    border-color: #302a9b;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}

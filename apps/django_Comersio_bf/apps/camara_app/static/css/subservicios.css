@@ -1,0 +1,95 @@
+#cards-container.categories-scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 1.5rem;
+  padding: 1rem 2rem 2rem 2rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.category-card.card-salud {
+  width: 360px;
+  height: 400px;
+  background-color: #ffffff;
+  color: #343a40;
+  border-radius: 1rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  flex: 0 0 280px;
+}
+
+.category-card.card-salud:hover {
+  background: linear-gradient(180deg, #857FF1E0 0%, #A0F6FF 100%);
+}
+
+.category-card.card-salud .card-title i {
+  color: #003f87;
+  transition: color 0.3s ease;
+}
+
+.category-card.card-salud:hover .card-title i {
+  color: #ffc107;
+}
+
+.category-card.card-salud .card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.category-card.card-salud .card-description {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.category-card.card-salud:hover .card-description {
+  color: white;
+}
+
+.category-card.card-salud .btn-ingresar {
+  background: linear-gradient(to right, #B58314, #F0DC5F);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.6rem 1.5rem;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.category-card.card-salud:hover .btn-ingresar {
+  background-color: white;
+  background-image: none;
+  color: #343a40;
+}
+
+.btn-volver {
+  background-color: #3D36BF;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-volver:hover {
+  background-color: #3D36BF;
+}
+
+.banner-servicios img {
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  display: block;
+  border-bottom: 4px solid white;
+}

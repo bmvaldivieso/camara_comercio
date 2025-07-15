@@ -1,0 +1,27 @@
+{% load static %}
+<aside class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h3><i class="fas fa-shopping-cart"></i> Carrito</h3>
+      <button class="close-btn" id="close-cart-sidebar"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-items">
+      <div class="cart-item">
+        <img src="{% static 'images/firma_electronica.png' %}" alt="Firma Electrónica" class="item-image">
+        <div class="item-details">
+          <div class="item-name">Firma electrónica</div>
+          <div class="item-price">1000$</div>
+        </div>
+      </div>
+      <div class="cart-item">
+        <img src="{% static 'images/centro_mediacion.png' %}" alt="Servicios-Centro de Mediación" class="item-image">
+        <div class="item-details">
+          <div class="item-name">Servicios-Centro de Mediación</div>
+          <div class="item-price">1000$</div>
+        </div>
+      </div>
+    </div>
+    <div class="cart-footer">
+      <button class="btn btn-pay">Pagar</button>
+    </div>
+  </aside>
+  <div class="overlay" id="overlay"></div>

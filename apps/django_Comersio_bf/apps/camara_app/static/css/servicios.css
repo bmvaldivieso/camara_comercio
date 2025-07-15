@@ -1,0 +1,77 @@
+.btn-volver {
+  background-color: #A095F1;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.6rem 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.btn-volver:hover {
+  background-color: #8a7eef;
+}
+
+.category-card {
+  width: 360px;
+  height: 400px;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  flex: 0 0 280px;
+}
+
+.category-card .card-title {
+  font-size: 1.6rem;
+  color: #3D36BF;
+  margin-bottom: 1rem;
+}
+
+.category-card .card-description {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.category-card .btn-ingresar {
+  background: linear-gradient(to right, #007AFF, #A0F6FF);
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 0.5rem 1.4rem;
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+}
+
+.category-card:hover {
+  background-color: #3D36BF;
+}
+
+.category-card:hover .card-title,
+.category-card:hover .card-description {
+  color: white;
+}
+
+.category-card:hover .btn-ingresar {
+  background-color: white;
+  background-image: none;
+  color: #3D36BF;
+}
+
+#cards-container.categories-scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 1.5rem;
+  padding: 1rem 2rem 2rem 2rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}

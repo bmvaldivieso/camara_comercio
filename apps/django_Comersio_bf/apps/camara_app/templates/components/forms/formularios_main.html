@@ -1,0 +1,30 @@
+{% extends 'master/side_bar/master.html' %}
+{% load static %}
+
+{% block title %}Formularios - Cámara de Comercio de Loja{% endblock %}
+{% block page_title %}Formularios{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/formularios_main.css' %}">
+<link rel="stylesheet" href="{% static 'css/formularios_content.css' %}">
+{% endblock %}
+
+{% block page_content %}
+
+<div class="form-main-container">
+  <h3 class="section-heading">Formularios</h3>
+  <hr>
+  <div class="form-tab-bar">
+    <button class="form-tab-button active" data-tab-target="formulario-a">Formulario A</button>
+    <button class="form-tab-button" data-tab-target="formulario-b">Formulario B</button>
+  </div>
+
+  <div id="form-tab-content-container" class="form-content-wrapper">
+    {% include 'components/forms/formularios_form_a.html' %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/formularios_tabs.js' %}" defer></script>
+{% endblock %}

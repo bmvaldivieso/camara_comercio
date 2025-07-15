@@ -1,0 +1,214 @@
+{% extends 'admin/master/masteradmin.html' %}
+{% load static %}
+
+{% block title %}Usuarios - Incremento de Compras - Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/usuarios.css' %}" />
+<link rel="stylesheet" href="{% static 'css/usuarios_incremento.css' %}" />
+{% endblock %}
+
+{% block admin_content %}
+<div class="users-section">
+  <h4>Incremento de compras por usuarios</h4>
+  <hr>
+  <div class="filters-section">
+    <span style="color: #343a40; font-weight: 500;">Aplicar filtro:</span>
+    <button class="filter-button" id="filter-mas-compras">Mas Compras</button>
+    <button class="filter-button" id="filter-mas-gasto">Mas gasto</button>
+    <button class="filter-button" id="filter-ultima-compra">Ultima Compra</button>
+  </div>
+
+  <div class="users-list">
+    <div class="user-card increment">
+      <div class="user-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Nombre" class="user-avatar">
+
+        <div class="user-text-zone">
+          <span class="user-name">Carla Sofia</span>
+
+          <div class="user-columns">
+            <div class="col-user">
+              <span class="detail-item">Numero de compras:</span>
+              <strong>15</strong>
+            </div>
+            <div class="col-user">
+              <span class="detail-item">Total gastado:</span>
+              <strong>$450</strong>
+            </div>
+            <div class="col-user">
+              <span class="detail-item">Última compra:</span>
+              <strong>01/07/2025</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-apply-discount">Aplicar descuento</button>
+    </div>
+
+    <div class="user-card increment">
+      <div class="user-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Nombre" class="user-avatar">
+
+        <div class="user-text-zone">
+          <span class="user-name">Andres Sanchez</span>
+
+          <div class="user-columns">
+            <div class="col-user">
+              <span class="detail-item">Numero de compras:</span>
+              <strong>15</strong>
+            </div>
+            <div class="col-user">
+              <span class="detail-item">Total gastado:</span>
+              <strong>$450</strong>
+            </div>
+            <div class="col-user">
+              <span class="detail-item">Última compra:</span>
+              <strong>01/07/2025</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-apply-discount">Aplicar descuento</button>
+    </div>
+
+    <div class="user-card increment">
+      <div class="user-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Nombre" class="user-avatar">
+
+        <div class="user-text-zone">
+          <span class="user-name">Roberto Carlos</span>
+
+          <div class="user-columns">
+            <div class="col-user">
+              <span class="detail-item">Numero de compras:</span>
+              <strong>15</strong>
+            </div>
+            <div class="col-user">
+              <span class="detail-item">Total gastado:</span>
+              <strong>$450</strong>
+            </div>
+            <div class="col-user">
+              <span class="detail-item">Última compra:</span>
+              <strong>01/07/2025</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-apply-discount">Aplicar descuento</button>
+    </div>
+
+    <div class="user-card increment">
+      <div class="user-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Nombre" class="user-avatar">
+
+        <div class="user-text-zone">
+          <span class="user-name">Carlos Lopez</span>
+
+          <div class="user-columns">
+            <div class="col-user">
+              <span class="detail-item">Numero de compras:</span>
+              <strong>15</strong>
+            </div>
+            <div class="col-user">
+              <span class="detail-item">Total gastado:</span>
+              <strong>$450</strong>
+            </div>
+            <div class="col-user">
+              <span class="detail-item">Última compra:</span>
+              <strong>01/07/2025</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-apply-discount">Aplicar descuento</button>
+    </div>
+
+    <div class="user-card increment">
+      <div class="user-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Nombre" class="user-avatar">
+
+        <div class="user-text-zone">
+          <span class="user-name">Andres Sanchez</span>
+
+          <div class="user-columns">
+            <div class="col-user">
+              <span class="detail-item">Numero de compras:</span>
+              <strong>15</strong>
+            </div>
+            <div class="col-user">
+              <span class="detail-item">Total gastado:</span>
+              <strong>$450</strong>
+            </div>
+            <div class="col-user">
+              <span class="detail-item">Última compra:</span>
+              <strong>01/07/2025</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-apply-discount">Aplicar descuento</button>
+    </div>
+
+    <div class="user-card increment">
+      <div class="user-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Nombre" class="user-avatar">
+
+        <div class="user-text-zone">
+          <span class="user-name">Roberto Carlos</span>
+
+          <div class="user-columns">
+            <div class="col-user">
+              <span class="detail-item">Numero de compras:</span>
+              <strong>15</strong>
+            </div>
+            <div class="col-user">
+              <span class="detail-item">Total gastado:</span>
+              <strong>$450</strong>
+            </div>
+            <div class="col-user">
+              <span class="detail-item">Última compra:</span>
+              <strong>01/07/2025</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-apply-discount">Aplicar descuento</button>
+    </div>
+
+    <div class="user-card increment">
+      <div class="user-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Nombre" class="user-avatar">
+
+        <div class="user-text-zone">
+          <span class="user-name">Carlos Lopez</span>
+
+          <div class="user-columns">
+            <div class="col-user">
+              <span class="detail-item">Numero de compras:</span>
+              <strong>15</strong>
+            </div>
+            <div class="col-user">
+              <span class="detail-item">Total gastado:</span>
+              <strong>$450</strong>
+            </div>
+            <div class="col-user">
+              <span class="detail-item">Última compra:</span>
+              <strong>01/07/2025</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-apply-discount">Aplicar descuento</button>
+    </div>
+  </div>
+</div>
+
+{% include 'admin/usuarios/bottom_user_nav.html' %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/usuarios_logic.js' %}" defer></script>
+{% endblock %}

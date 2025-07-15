@@ -1,0 +1,98 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  background-image: url("../images/login-fondo.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-overlay {
+  background: linear-gradient(to right,
+      rgba(8, 40, 68, 0.85),
+      rgba(8, 40, 68, 0));
+  z-index: 1;
+  position: relative;
+  height: 100%;
+  padding: 3rem;
+}
+
+.login-form-card {
+  background-color: transparent;
+  box-shadow: none;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  max-width: 450px;
+  width: 100%;
+}
+
+.login-form-card form>.mb-3 {
+  margin-bottom: 2rem !important;
+}
+
+.login-form-card .btn,
+.login-form-card .d-flex.justify-content-center {
+  margin-top: 2rem;
+}
+
+.form-control::placeholder {
+  color: #ffffff;
+  opacity: 1;
+  font-weight: 400;
+}
+
+input.form-control {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.input-group-text {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: 2px solid rgba(255, 255, 255, 0.9) !important;
+  color: #ffffff !important;
+  font-size: 1.2rem;
+}
+
+a.text-primary {
+  text-decoration: none;
+  color: #ffc107 !important;
+}
+
+.btn-warning {
+  background: linear-gradient(to right, #ffc107, #ffffff);
+  border: none;
+  color: #343a40;
+  font-weight: bold;
+}
+
+.form-label,
+.form-check-label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.form-check-input:checked {
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.logo-ccl {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  height: 135px;
+  z-index: 10;
+}
+
+a.enlace-azul {
+  color: #0d6efd !important;
+  text-decoration: none;
+}

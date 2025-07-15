@@ -1,0 +1,138 @@
+{% extends 'admin/master/masteradmin.html' %}
+{% load static %}
+
+{% block title %}Socios - Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/socios.css' %}" />
+{% endblock %}
+
+{% block admin_content %}
+<hr>
+
+<div class="main-socio-container">
+
+  <div class="socio-list-section">
+    <div class="socio-card">
+      <div class="socio-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Carla Sofia" class="socio-avatar">
+        <span class="socio-name">Carla Sofia</span>
+      </div>
+      <div class="socio-status">
+        <span>Habilitado</span>
+        <label class="switch">
+          <input type="checkbox" checked>
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <button class="btn-view-info">Ver Info</button>
+    </div>
+
+    <div class="socio-card">
+      <div class="socio-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Roberto Carlos" class="socio-avatar">
+        <span class="socio-name">Roberto Carlos</span>
+      </div>
+      <div class="socio-status">
+        <span>Habilitado</span>
+        <label class="switch">
+          <input type="checkbox" checked>
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <button class="btn-view-info">Ver Info</button>
+    </div>
+
+    <div class="socio-card">
+      <div class="socio-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Carlos Lopez" class="socio-avatar">
+        <span class="socio-name">Carlos Lopez</span>
+      </div>
+      <div class="socio-status">
+        <span>Habilitado</span>
+        <label class="switch">
+          <input type="checkbox" checked>
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <button class="btn-view-info">Ver Info</button>
+    </div>
+
+    <div class="socio-card">
+      <div class="socio-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Cinthia Rojas" class="socio-avatar">
+        <span class="socio-name">Cinthia Rojas</span>
+      </div>
+      <div class="socio-status">
+        <span>Habilitado</span>
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <button class="btn-view-info">Ver Info</button>
+    </div>
+    <div class="socio-card">
+      <div class="socio-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Carla Sofia" class="socio-avatar">
+        <span class="socio-name">Carla Sofia</span>
+      </div>
+      <div class="socio-status">
+        <span>Habilitado</span>
+        <label class="switch">
+          <input type="checkbox" checked>
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <button class="btn-view-info">Ver Info</button>
+    </div>
+    <div class="socio-card">
+      <div class="socio-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Roberto Carlos" class="socio-avatar">
+        <span class="socio-name">Roberto Carlos</span>
+      </div>
+      <div class="socio-status">
+        <span>Habilitado</span>
+        <label class="switch">
+          <input type="checkbox" checked>
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <button class="btn-view-info">Ver Info</button>
+    </div>
+    <div class="socio-card">
+      <div class="socio-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Roberto Carlos" class="socio-avatar">
+        <span class="socio-name">Roberto Carlos</span>
+      </div>
+      <div class="socio-status">
+        <span>Habilitado</span>
+        <label class="switch">
+          <input type="checkbox" checked>
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <button class="btn-view-info">Ver Info</button>
+    </div>
+    <div class="socio-card">
+      <div class="socio-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Roberto Carlos" class="socio-avatar">
+        <span class="socio-name">Roberto Carlos</span>
+      </div>
+      <div class="socio-status">
+        <span>Habilitado</span>
+        <label class="switch">
+          <input type="checkbox" checked>
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <button class="btn-view-info">Ver Info</button>
+    </div>
+  </div>
+</div>
+{% include 'admin/socios/bottom_socio_nav.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/socios_logic.js' %}" defer></script>
+{% endblock %}

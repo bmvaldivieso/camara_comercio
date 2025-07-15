@@ -1,0 +1,165 @@
+.users-list {
+    max-height: 66vh;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.filters-section {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.filters-section span {
+    margin-right: 1.5rem;
+}
+
+.filter-button {
+    background-color: white;
+    border: 1px solid #dee2e6;
+    color: #6c757d;
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.filter-button.active {
+    background-color: #3D36BF;
+    color: white;
+    border-color: #3D36BF;
+}
+
+.filter-button:hover:not(.active) {
+    background-color: #f0f2f5;
+}
+
+.user-card.increment {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+.user-card.increment .user-info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.user-text-zone {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.user-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.col-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 120px;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    color: #343a40;
+}
+
+.user-card.increment .user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.user-card.increment .detail-item {
+    font-size: 0.95rem;
+    color: #3D36BF;
+}
+
+.user-card.increment .detail-item strong {
+    color: black;
+    font-weight: 600;
+}
+
+.user-card.increment .btn-apply-discount {
+    background: linear-gradient(90deg, #1D1959, #3D36BF);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 3rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    min-width: 150px;
+    text-align: center;
+}
+
+.user-card.increment .btn-apply-discount:hover {
+    background: linear-gradient(90deg, #3D36BF, #1D1959);
+}
+
+@media (max-width: 768px) {
+    .user-card.increment {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .user-card.increment .user-info {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .user-card.increment .user-details {
+        width: 100%;
+    }
+
+    .user-card.increment .btn-apply-discount {
+        width: 100%;
+    }
+
+    .filters-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+#filter-mas-compras {
+    background: linear-gradient(90deg, #3D36BF, #857FF1);
+    color: white;
+    border: none;
+    border-radius: 3rem;
+}
+
+#filter-mas-gasto,
+#filter-ultima-compra {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 3rem;
+}
+
+#filter-mas-gasto:hover,
+#filter-ultima-compra:hover {
+    background-color: #f8f9fa;
+}

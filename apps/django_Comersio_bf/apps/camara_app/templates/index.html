@@ -1,0 +1,322 @@
+{% load static %}
+
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cámara de Comercio de Loja</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <link rel="stylesheet" href="static/css/index.css" />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
+    <a class="navbar-brand fw-bold text-primary" href="#">
+      <img src="static/images/logo.png" alt="Logo Cámara de Comercio Loja" height="55" />
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link nav-link-custom" href="#">Servicios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-custom" href="#">Quiénes somos</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/login" class="btn btn-dorado rounded-pill px-4 py-2">Login</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section text-center text-md-start">
+    <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+      <div class="col-md-6 mb-4">
+        <h1 class="fw-bold text-gold mb-3">¿Quiénes somos?</h1>
+        <br />
+        <br />
+        <p class="mb-4">
+          La Cámara de Comercio de Loja es una organización comprometida con
+          el desarrollo económico y empresarial de nuestra provincia.
+          Brindamos apoyo, asesoría y servicios especializados a
+          emprendedores, comerciantes y empresas, fortaleciendo sus
+          capacidades y generando oportunidades de crecimiento.
+        </p>
+        <a href="/register" class="btn btn-dorado rounded-pill px-4 py-2">Registrarse</a>
+      </div>
+      <div class="col-md-5 text-center p-5 rounded shadow-sm" style="background-color: transparent;">
+        <img src="static/images/logo2.png" alt="Imagen representativa" class="img-fluid" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Beneficios -->
+  <section class="py-5 bg-white">
+    <div class="container">
+      <h2 class="fw-bold mb-4 text-azul">Beneficios de ser un socio</h2>
+      <br />
+      <div class="row">
+        <div class="col-md-5 mb-4 text-center">
+          <div class="bg-light rounded shadow p-4">
+            <img src="static/images/imagen1.png" alt="Imagen representativa" class="img-fluid" />
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="mb-3 tabs-beneficios">
+            <div class="btn-group w-100" role="group">
+              <button type="button" class="btn btn-outline-warning active">Capacitación</button>
+              <button type="button" class="btn btn-outline-warning">Red de contactos</button>
+              <button type="button" class="btn btn-outline-warning">Promoción</button>
+              <button type="button" class="btn btn-outline-warning">Soporte legal</button>
+            </div>
+          </div>
+          <div class="bg-light p-4 rounded shadow text-dark mb-4 text-center">
+            <p class="fs-5 mb-0">
+              Accede a capacitaciones exclusivas para fortalecer tu
+              emprendimiento.
+            </p>
+          </div>
+          <div class="text-center">
+            <a href="/register" class="btn btn-dark btn-lg">Registrarse →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios (Carrusel) -->
+  <section class="py-5" style="background-color: #111; position: relative;">
+    <div class="container">
+      <h1 class="fw-bold text-white mb-4 text-center">Servicios</h1>
+      <div id="carouselServicios" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="card-servicio bg-celeste text-white p-4 rounded text-center"
+              style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('static/images/3.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+              <h3>Firma Electrónica</h3>
+              <p>
+                Ofrecemos emisión y renovación de firma electrónica con
+                respaldo legal.
+              </p>
+              <a href="/register" class="btn btn-warning px-4 py-2 mx-auto text-white fw-bold">
+                Registrarse →
+              </a>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="card-servicio bg-celeste text-white p-4 rounded text-center"
+              style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('static/images/2.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+              <h3>Asesoría Legal</h3>
+              <p>
+                Apoyo jurídico especializado para tus decisiones
+                empresariales.
+              </p>
+              <a href="/register" class="btn btn-warning px-4 py-2 mx-auto text-white fw-bold">
+                Registrarse →
+              </a>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="card-servicio bg-celeste text-white p-4 rounded text-center"
+              style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('static/images/1.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+              <h3>Capacitaciones</h3>
+              <p>
+                Accede a cursos, talleres y formación empresarial continua.
+              </p>
+              <a href="/register" class="btn btn-warning px-4 py-2 mx-auto text-white fw-bold">
+                Registrarse →
+              </a>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselServicios" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselServicios" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+    </div>
+    <div style="
+          position: absolute;
+          bottom: 20px;
+          right: 20px;
+          background-color: rgba(255, 255, 255, 0.65); /* blanco semitransparente */
+          padding: 12px 20px;
+          border-radius: 8px;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+          z-index: 10;">
+      <h6 class="fw-bold mb-2 text-center">Servicios</h6>
+      <a href="#" class="btn fw-bold px-3 py-1" style="background-color: #000; color: #d4af37; border: none;">
+        Servicios →
+      </a>
+    </div>
+  </section>
+
+  <!-- Nuestros Socios -->
+  <section class="bg-white py-5">
+    <div class="container">
+      <h2 class="fw-bold mb-4 text-azul">Nuestros Socios</h2>
+      <br />
+      <div class="row g-4">
+        <!-- Socio 1 -->
+        <div class="col-md-4">
+          <div class="card card-socio border-0 shadow">
+            <img src="static/images/imagen2.png" class="card-img-top" alt="Socio 1" />
+            <div class="card-body text-center">
+              <h5 class="card-title">Dr. Joaquín Lopez</h5>
+              <p class="card-text">Director de Clínica Santa Inés</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Socio 2 -->
+        <div class="col-md-4">
+          <div class="card card-socio border-0 shadow">
+            <img src="static/images/imagen2.png" class="card-img-top" alt="Socio 2" />
+            <div class="card-body text-center">
+              <h5 class="card-title">Dra. Marlene Ojeda</h5>
+              <p class="card-text">Gerente de Salud Integral</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Socio 3 -->
+        <div class="col-md-4">
+          <div class="card card-socio border-0 shadow">
+            <img src="static/images/imagen2.png" class="card-img-top" alt="Socio 3" />
+            <div class="card-body text-center">
+              <h5 class="card-title">Ing. Marco Ruiz</h5>
+              <p class="card-text">Fundador de TechLoja</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Socio 4 -->
+        <div class="col-md-4">
+          <div class="card card-socio border-0 shadow">
+            <img src="static/images/imagen2.png" class="card-img-top" alt="Socio 4" />
+            <div class="card-body text-center">
+              <h5 class="card-title">Lic. Sofía Andrade</h5>
+              <p class="card-text">CEO de Consultora Loja</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Socio 5 -->
+        <div class="col-md-4">
+          <div class="card card-socio border-0 shadow">
+            <img src="static/images/imagen2.png" class="card-img-top" alt="Socio 5" />
+            <div class="card-body text-center">
+              <h5 class="card-title">Eco. Luis Rivadeneira</h5>
+              <p class="card-text">Asesor Económico Independiente</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-white mt-5 pt-5"
+    style="background: linear-gradient(to top, #0d6efd, #003f88); border-radius: 3rem 3rem 0 0;">
+    <div class="container pb-0">
+      <div class="border-top border-light mb-4"></div>
+      <div class="row">
+        <!-- Misión -->
+        <div class="col-md-4 mb-4 text-center">
+          <img src="static/images/logo2.png" alt="Ícono de misión" width="85" class="mb-3" />
+          <p style="text-align: justify; font-size: 0.85rem;">
+            Como gremio buscamos siempre el progreso y beneficio para todos
+            nuestros socios. Seguimos trabajando por el engrandecimiento de
+            nuestra ciudad, provincia y país.
+          </p>
+        </div>
+
+        <!-- Enlaces rápidos -->
+        <div class="col-md-4 mb-4">
+          <h5 class="fw-bold">Enlaces rápidos</h5>
+          <div class="border-top border-light mt-4"></div>
+          <br />
+          <ul class="list-unstyled">
+            <li>
+              <a href="#quienes-somos" class="text-white text-decoration-none">Nosotros</a>
+            </li>
+            <li>
+              <a href="#socios" class="text-white text-decoration-none">Nuestros socios</a>
+            </li>
+            <li>
+              <a href="#beneficios" class="text-white text-decoration-none">Beneficios</a>
+            </li>
+            <li>
+              <a href="#noticias" class="text-white text-decoration-none">Noticias</a>
+            </li>
+            <li>
+              <a href="#contactos" class="text-white text-decoration-none">Contactos</a>
+            </li>
+            <li>
+              <a href="#guia-comercial" class="text-white text-decoration-none">Guía comercial</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Páginas de interés -->
+        <div class="col-md-4 mb-4">
+          <h5 class="fw-bold">Páginas de interés</h5>
+          <div class="border-top border-light mt-4"></div>
+          <br />
+          <ul class="list-unstyled">
+            <li>
+              <a href="https://www.loja.gob.ec" target="_blank" class="text-white text-decoration-none">Municipio de
+                Loja</a>
+            </li>
+            <li>
+              <a href="https://www.aduana.gob.ec" target="_blank" class="text-white text-decoration-none">Aduana</a>
+            </li>
+            <li>
+              <a href="https://www.ecu911.gob.ec" target="_blank" class="text-white text-decoration-none">ECU 911</a>
+            </li>
+            <li>
+              <a href="https://www.sri.gob.ec" target="_blank" class="text-white text-decoration-none">SRI</a>
+            </li>
+            <li>
+              <a href="https://www.arcotel.gob.ec" target="_blank" class="text-white text-decoration-none">ARCAS</a>
+            </li>
+            <li>
+              <a href="https://www.iess.gob.ec" target="_blank" class="text-white text-decoration-none">IESS</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Horario y contacto -->
+      <div class="border-top border-light pt-3 mt-3 text-center">
+        <p class="mb-1">
+          <strong>Horario de atención:</strong> 08h30 a 12h30 | 14h00 a 18h00 -
+          Lunes a Viernes
+        </p>
+        <p class="mb-0">
+          Estamos gustosos de atender cada una de tus consultas. <a href="#contactos"
+            class="text-warning text-decoration-none fw-bold">Contáctanos</a>
+        </p>
+      </div>
+      <div class="border-top border-light mt-4"></div>
+    </div>
+
+    <div class="text-center py-3 bg-primary mt-4" style="border-radius: 0 0 3rem 3rem;">
+      <small>© 2025 Cámara de Comercio de Loja | Todos los derechos reservados</small>
+    </div>
+  </footer>
+</body>
+
+</html>

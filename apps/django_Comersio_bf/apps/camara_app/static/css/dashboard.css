@@ -1,0 +1,342 @@
+.dashboard-scroll-container {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 2rem;
+    padding-right: 8px;
+}
+
+.main-content-admin {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    /* Previene scroll global */
+}
+
+.top-bar-admin {
+    flex-shrink: 0;
+    height: 70px;
+}
+
+.dashboard-summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.summary-card {
+    background-color: #7B68EE;
+    color: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 150px;
+}
+
+.summary-card.registered-users {
+    background-color: #7B68EE;
+}
+
+.summary-card.registered-partners {
+    background-color: #8A2BE2;
+}
+
+
+.summary-card .card-value {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.summary-card .card-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.dashboard-sections {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.chart-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.chart-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.chart-card .card-header h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 0;
+}
+
+.chart-card .card-header .dropdown select {
+    border: 1px solid #dee2e6;
+    border-radius: 0.3rem;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.bar-chart-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    height: 150px;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1.5rem;
+}
+
+.bar {
+    width: 30px;
+    background-color: #3D36BF;
+    border-radius: 0.25rem 0.25rem 0 0;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: white;
+    font-weight: 500;
+}
+
+.bar-label {
+    position: absolute;
+    bottom: -1.5rem;
+    color: #6c757d;
+    font-size: 0.8rem;
+    text-align: center;
+    width: 100%;
+}
+
+.most-used-profiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-card .profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+    border: 2px solid #eee;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.profile-card .profile-name {
+    font-weight: 600;
+    color: #343a40;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+}
+
+.profile-card .btn-info {
+    background-color: #E0E7FF;
+    color: #3D36BF;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.3rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.profile-card .btn-info:hover {
+    background-color: #c9d8ff;
+}
+
+.most-used-categories {
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.most-used-categories .category-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+}
+
+.most-used-categories .category-item:last-child {
+    margin-bottom: 0;
+}
+
+.most-used-categories .category-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 5px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #343a40;
+}
+
+.most-used-categories .category-circle.salud {
+    border-color: #007bff;
+}
+
+.most-used-categories .category-circle.educacion {
+    border-color: #28a745;
+}
+
+.most-used-categories .category-name {
+    font-weight: 600;
+    color: #343a40;
+}
+
+.service-usage-chart-card {
+    display: flex;
+    flex-direction: column;
+    grid-column: span 2;
+}
+
+.chart-and-legend {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 1rem;
+}
+
+.donut-chart-container {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    border-radius: 50%;
+    background-image: conic-gradient(#3D36BF 0deg 50%,
+            #FFC107 50deg 75%,
+            #E0E7FF 75deg 100%);
+}
+
+.donut-chart-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #3D36BF;
+}
+
+.chart-legend {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.chart-legend li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.chart-legend li:last-child {
+    margin-bottom: 0;
+}
+
+.chart-legend .color-box {
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    margin-right: 0.5rem;
+}
+
+.chart-legend .color-box.blue {
+    background-color: #3D36BF;
+}
+
+.chart-legend .color-box.yellow {
+    background-color: #FFC107;
+}
+
+.chart-legend .color-box.lightblue {
+    background-color: #E0E7FF;
+}
+
+
+@media (max-width: 992px) {
+    .dashboard-sections {
+        grid-template-columns: 1fr;
+    }
+
+    .service-usage-chart-card {
+        grid-column: span 1;
+    }
+
+    .donut-chart-container {
+        width: 120px;
+        height: 120px;
+    }
+
+    .donut-chart-center {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-summary-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .bar-chart-container {
+        height: 100px;
+    }
+
+    .bar {
+        width: 25px;
+    }
+
+    .most-used-profiles {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+
+    .most-used-categories .category-circle {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+}

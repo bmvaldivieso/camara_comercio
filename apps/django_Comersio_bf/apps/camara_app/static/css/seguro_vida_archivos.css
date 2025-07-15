@@ -1,0 +1,136 @@
+.tab-pane-content h4 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 1.5rem;
+}
+
+.file-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+    padding: 0.8rem 1.2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+}
+
+.file-card .file-info {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1rem;
+    color: #495057;
+}
+
+.file-card .pdf-icon {
+    color: #dc3545;
+    font-size: 1.5rem;
+}
+
+.file-card .btn-download {
+    background: linear-gradient(90deg, #857FF1, #1D1959);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 3rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.file-card .btn-download:hover {
+    background-color: #0056b3;
+}
+
+.file-card .btn-download .fas {
+    margin-right: 0.5rem;
+}
+
+.upload-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border: 2px dashed #ced4da;
+    border-radius: 0.75rem;
+    background-color: #f0f2f5;
+}
+
+.upload-section .btn-upload {
+    background: linear-gradient(90deg, #FFE126, #F10006);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.upload-section .btn-upload:hover {
+    background-color: #2e28a3;
+}
+
+.upload-section .upload-hint {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.receipt-note {
+    font-size: 0.95rem;
+    color: #6c757d;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #7B68EE;
+    padding-left: 0.8rem;
+}
+
+.receipt-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.receipt-buttons .btn {
+    padding: 0.7rem 1.4rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.receipt-buttons .btn-add-cart {
+    background: linear-gradient(90deg, #857FF1, #1D1959);
+    color: white;
+    border: none;
+}
+
+.receipt-buttons .btn-add-cart:hover {
+    background-color: #e0a800;
+}
+
+.terminos-condiciones {
+    color: #3D36BF;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.icono-check {
+    color: #1C274C;
+    font-size: 1.1rem;
+}

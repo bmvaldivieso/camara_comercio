@@ -1,0 +1,81 @@
+* {
+    box-sizing: border-box;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: "Segoe UI", sans-serif;
+    background-image: url("../images/login-fondo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg-overlay {
+    background: linear-gradient(to right,
+            rgba(8, 40, 68, 0.85),
+            rgba(8, 40, 68, 0));
+    z-index: 1;
+    position: relative;
+    height: 100%;
+    padding: 3rem;
+}
+
+.form-card {
+    background-color: transparent;
+    box-shadow: none;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    max-width: 500px;
+    width: 100%;
+}
+
+.form-card .mb-3 {
+    margin-bottom: 1.8rem !important;
+}
+
+.form-card .btn,
+.form-card .d-flex.justify-content-between {
+    margin-top: 2rem;
+}
+
+.form-control::placeholder {
+    color: #ffffff;
+    opacity: 1;
+    font-weight: 400;
+}
+
+input.form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+.btn-warning {
+    background: linear-gradient(to right, #ffc107, #ffffff);
+    border: none;
+    color: #343a40;
+    font-weight: bold;
+}
+
+.logo-ccl {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    height: 135px;
+    z-index: 10;
+}
+
+a.enlace-azul {
+    color: #0d6efd !important;
+    text-decoration: none;
+}
+
+.form-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}

@@ -1,0 +1,75 @@
+{% extends 'admin/master/masteradmin.html' %}
+{% load static %}
+
+{% block title %}Usuarios - Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/usuarios.css' %}" />
+{% endblock %}
+
+{% block admin_content %}
+<div class="users-section">
+  <div class="users-list">
+    <div class="user-card">
+      <div class="user-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Carla Sofia" class="user-avatar">
+        <span class="user-name">Carla Sofia</span>
+      </div>
+      <button class="btn-view-info">Ver Info</button>
+    </div>
+
+    <div class="user-card">
+      <div class="user-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Roberto Carlos" class="user-avatar">
+        <span class="user-name">Roberto Carlos</span>
+      </div>
+      <button class="btn-view-info">Ver Info</button>
+    </div>
+
+    <div class="user-card">
+      <div class="user-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Carlos Lopez" class="user-avatar">
+        <span class="user-name">Carlos Lopez</span>
+      </div>
+      <button class="btn-view-info">Ver Info</button>
+    </div>
+
+    <div class="user-card">
+      <div class="user-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Cinthia Rojas" class="user-avatar">
+        <span class="user-name">Cinthia Rojas</span>
+      </div>
+      <button class="btn-view-info">Ver Info</button>
+    </div>
+
+    <div class="user-card">
+      <div class="user-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Roberto Carlos" class="user-avatar">
+        <span class="user-name">Roberto Carlos</span>
+      </div>
+      <button class="btn-view-info">Ver Info</button>
+    </div>
+
+    <div class="user-card">
+      <div class="user-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Carlos Lopez" class="user-avatar">
+        <span class="user-name">Carlos Lopez</span>
+      </div>
+      <button class="btn-view-info">Ver Info</button>
+    </div>
+
+    <div class="user-card">
+      <div class="user-info">
+        <img src="{% static 'images/imagen2.png' %}" alt="Cinthia Rojas" class="user-avatar">
+        <span class="user-name">Cinthia Rojas</span>
+      </div>
+      <button class="btn-view-info">Ver Info</button>
+    </div>
+  </div>
+</div>
+{% include 'admin/usuarios/bottom_user_nav.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/usuarios_logic.js' %}" defer></script>
+{% endblock %}
