@@ -11,4 +11,17 @@ admin.site.register(Categorias)
 admin.site.register(Entidades)
 admin.site.register(Convenios)
 admin.site.register(Factura)
+admin.site.register(BeneficiarioSeguro)
+admin.site.register(InformacionSeguroSocio)
+admin.site.register(Socio)
 
+# --- Fin de los modelos afiliados---
+
+# --- NUEVO MODELO: Solicitud de Seguro de Vida ---
+admin.site.register(SolicitudSeguroVida)
+admin.site.register(DeclaracionSalud)
+admin.site.register(DetalleDeclaracionSalud)
+admin.site.register(Beneficiario)
+admin.site.register(DeporteActividad)
+
+# --- Fin de los modelos de Solicitud de Seguro de Vida ---

@@ -1,0 +1,60 @@
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cregi_socios.css'%}">
+{% endblock %}
+
+<div class="registration-container">
+    <hr class="registration-divider">
+
+    <div class="progress-bar-container">
+        <div class="progress-step active" data-step="1">
+            <span class="step-number">1</span>
+            <span class="step-name">Datos Personales</span>
+        </div>
+        <div class="progress-step" data-step="2">
+            <span class="step-number">2</span>
+            <span class="step-name">Información de Negocio</span>
+        </div>
+        <div class="progress-step" data-step="3">
+            <span class="step-number">3</span>
+            <span class="step-name">Servicios e Intereses</span>
+        </div>
+        <div class="progress-step" data-step="4">
+            <span class="step-number">4</span>
+            <span class="step-name">Confirmación</span>
+        </div>
+    </div>
+
+    <form  class="registration-form" method="post" >
+        {% csrf_token %}
+        <div class="form-slides-wrapper">
+
+            <div>
+                {% include 'components/socio/registerSocio/step_personal_info.html' %}
+            </div>
+
+            <div>
+                {% include 'components/socio/registerSocio/step_business_info.html' %}
+            </div>
+
+            <div>
+                {% include 'components/socio/registerSocio/step_services_interests.html' %}
+            </div>
+
+            <div>
+                {% include 'components/socio/registerSocio/step_confirmation.html' %}
+            </div>
+        </div>
+
+        <div class="form-navigation-buttons">
+            <button type="button" id="prevBtn" class="btn btn-primary registration-btn prev-btn d-none">Anterior</button>
+            <button type="button" id="nextBtn" class="btn btn-primary registration-btn next-btn">Siguiente</button>
+            <button type="submit" id="submitBtn" class="btn btn-primary registration-btn submit-btn d-none">Registrarme</button>
+        </div>
+    </form>
+</div>
+
+{% block extra_js %}
+<script src="{% static 'js/form_socios.js' %}" defer></script>
+{% endblock %}

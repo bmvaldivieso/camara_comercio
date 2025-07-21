@@ -1,0 +1,46 @@
+<div class="form-slide active" data-slide="1">
+    <h4 class="slide-title">Datos Personales</h4>
+    <div class="mb-3">
+        {{ personal_form.razon_social.label_tag }}
+        {{ personal_form.razon_social }}
+    </div>
+    <div class="mb-3">
+        {{ personal_form.nombre_comercial.label_tag }}
+        {{ personal_form.nombre_comercial }}
+    </div>
+    <div class="mb-3">
+        {{ personal_form.ruc_cedula.label_tag }}
+        {{ personal_form.ruc_cedula }}
+    </div>
+    <div class="mb-3">
+        {{ personal_form.email_principal.label_tag }}
+        {{ personal_form.email_principal }}
+    </div>
+    <div class="mb-3">
+        {{ personal_form.redes_sociales_checkboxes.label_tag }}<br>
+        {% for checkbox in personal_form.redes_sociales_checkboxes %}
+            <div class="form-check form-check-inline">
+                {{ checkbox.tag }}
+                <label class="form-check-label" for="{{ checkbox.id_for_label }}">{{ checkbox.choice_label }}</label>
+            </div>
+        {% endfor %}
+    </div>
+    {# Campo para errores de formulario #}
+    {% if personal_form.errors %}
+        <div class="alert alert-danger">
+            {% for field in personal_form %}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <p>{{ field.label }}: {{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            {% if personal_form.non_field_errors %}
+                {% for error in personal_form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+

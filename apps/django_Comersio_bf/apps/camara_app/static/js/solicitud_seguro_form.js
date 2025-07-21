@@ -177,6 +177,10 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleEmbarazoFields();
     }
 
+
+
+
+
     if (btnAgregarFila && declaracionesTableBody) {
         btnAgregarFila.addEventListener('click', function () {
             const newRow = document.createElement('tr');
@@ -197,6 +201,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+
+
+
+    
     const currentPath = window.location.pathname;
     const navItems = document.querySelectorAll('.sidebar .nav-links .nav-item');
     const navFormulario = document.getElementById('nav-formulario');
@@ -217,3 +225,33 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+
+const addBeneficiarioBtn = document.querySelector('.btn-agregar-beneficiario');
+const beneficiariosTableBody = document.querySelector('#beneficiariosTable tbody');
+
+if (addBeneficiarioBtn && beneficiariosTableBody) {
+    addBeneficiarioBtn.addEventListener('click', function () {
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td><input type="text" class="form-control" name="beneficiario_nombre[]" required /></td>
+            <td><input type="text" class="form-control" name="beneficiario_direccion[]" required /></td>
+            <td><input type="date" class="form-control" name="beneficiario_fecha_nacimiento[]" required /></td>
+            <td><input type="text" class="form-control" name="beneficiario_parentesco[]" required /></td>
+            <td><input type="text" class="form-control" name="beneficiario_ci[]" required /></td>
+            <td><input type="number" class="form-control" name="beneficiario_porcentaje[]" min="0" max="100" required /></td>
+            <td><button type="button" class="btn btn-danger btn-sm btn-eliminar-beneficiario"><i class="fas fa-times"></i></button></td>
+        `;
+        beneficiariosTableBody.appendChild(newRow);
+    });
+}
+
+if (beneficiariosTableBody) {
+    beneficiariosTableBody.addEventListener('click', function (event) {
+        if (event.target.classList.contains('btn-eliminar-beneficiario') || event.target.closest('.btn-eliminar-beneficiario')) {
+            const rowToRemove = event.target.closest('tr');
+            if (rowToRemove) {
+                rowToRemove.remove();
+            }
+        }
+    });
+}

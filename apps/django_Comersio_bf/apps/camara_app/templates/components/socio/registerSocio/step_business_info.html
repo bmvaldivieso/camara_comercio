@@ -1,0 +1,94 @@
+<div class="form-slide" data-slide="2">
+    <h4 class="slide-title">Representante Legal y Datos de Empresa</h4>
+
+    <h5 class="mt-3">Representante Legal (solo personas jurídicas)</h5>
+    <div class="mb-3">
+        {{ business_form.cedula_representante.label_tag }}
+        {{ business_form.cedula_representante }}
+    </div>
+    <div class="mb-3">
+        {{ business_form.apellidos_nombres_representante.label_tag }}
+        {{ business_form.apellidos_nombres_representante }}
+    </div>
+
+    <h5 class="mt-4">Dirección del Negocio</h5>
+    <div class="mb-3">
+        {{ business_form.direccion_principal.label_tag }}
+        {{ business_form.direccion_principal }}
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            {{ business_form.calle.label_tag }}
+            {{ business_form.calle }}
+        </div>
+        <div class="col">
+            {{ business_form.numero.label_tag }}
+            {{ business_form.numero }}
+        </div>
+        <div class="col">
+            {{ business_form.interseccion.label_tag }}
+            {{ business_form.interseccion }}
+        </div>
+    </div>
+
+    <div class="mb-3">
+        {{ business_form.referencia.label_tag }}
+        {{ business_form.referencia }}
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            {{ business_form.parroquia.label_tag }}
+            {{ business_form.parroquia }}
+        </div>
+        <div class="col">
+            {{ business_form.ciudad.label_tag }}
+            {{ business_form.ciudad }}
+        </div>
+        <div class="col">
+            {{ business_form.pais.label_tag }}
+            {{ business_form.pais }}
+        </div>
+    </div>
+
+    <div class="mb-3">
+        {{ business_form.pagina_web.label_tag }}
+        {{ business_form.pagina_web }}
+    </div>
+    <div class="mb-3">
+        {{ business_form.email_empresa.label_tag }}
+        {{ business_form.email_empresa }}
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            {{ business_form.telefono1.label_tag }}
+            {{ business_form.telefono1 }}
+        </div>
+        <div class="col">
+            {{ business_form.telefono2.label_tag }}
+            {{ business_form.telefono2 }}
+        </div>
+        <div class="col">
+            {{ business_form.celular.label_tag }}
+            {{ business_form.celular }}
+        </div>
+    </div>
+    {# Campo para errores de formulario #}
+    {% if business_form.errors %}
+        <div class="alert alert-danger">
+            {% for field in business_form %}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <p>{{ field.label }}: {{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            {% if business_form.non_field_errors %}
+                {% for error in business_form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endif %}
+</div>

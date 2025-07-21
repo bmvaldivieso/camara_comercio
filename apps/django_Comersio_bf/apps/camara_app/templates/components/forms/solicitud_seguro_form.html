@@ -15,7 +15,7 @@
 </div>
 
 <div class="solicitud-form-container">
-  <h3 class="form-title">Formularios-Solicitud de seguro individual de vida</h3>
+  <h3 class="form-title">Solicitud de Seguro Individual de Vida</h3>
 
   <div class="form-steps-nav">
     <div class="step active" data-step="1">1</div>
@@ -25,542 +25,498 @@
     <div class="step" data-step="5">5</div>
   </div>
 
-  <form id="solicitud-form">
-    <div class="form-section active" id="section-1">
-      <h4 class="section-subtitle">SECCION I - DATOS DEL SOLICITANTE</h4>
+  <form method="post" novalidate id="solicitud-form">
+    {% csrf_token %}
 
+    <!-- SECCIÓN I: DATOS DEL SOLICITANTE -->
+    <div class="form-section active" id="section-1">
+      <h4 class="section-subtitle">SECCIÓN I – Datos del Solicitante</h4>
+      
+      <!-- Tipo de identificación -->
       <div class="row mb-3">
         <div class="col-md-6">
-          <label for="tipoIdentificacion" class="form-label">Tipo de identificacion</label>
+          <label for="{{ form_solicitud.tipo_identificacion.id_for_label }}" class="form-label">Tipo de identificación</label>
           <div class="input-group">
-            <select class="form-select" id="tipoIdentificacion">
-              <option selected>Cedula</option>
-              <option value="pasaporte">Pasaporte</option>
-              <option value="ruc">RUC</option>
-            </select>
-            <input type="text" class="form-control" id="numeroIdentificacion" placeholder="" />
+            {{ form_solicitud.tipo_identificacion }}
+            {{ form_solicitud.numero_identificacion }}
             <button class="btn btn-search-id"><i class="fas fa-search"></i></button>
           </div>
         </div>
       </div>
 
+      <!-- Nombres y apellidos -->
       <div class="row mb-3">
         <div class="col-md-6">
-          <label for="nombres" class="form-label">Nombres:</label>
-          <input type="text" class="form-control" id="nombres" />
+          <label for="{{ form_solicitud.nombres.id_for_label }}" class="form-label">Nombres:</label>
+          {{ form_solicitud.nombres }}
         </div>
         <div class="col-md-6">
-          <label for="apellidos" class="form-label">Apellidos:</label>
-          <input type="text" class="form-control" id="apellidos" />
+          <label for="{{ form_solicitud.apellidos.id_for_label }}" class="form-label">Apellidos:</label>
+          {{ form_solicitud.apellidos }}
         </div>
       </div>
 
+      <!-- Fecha nacimiento y estado civil -->
       <div class="row mb-3">
         <div class="col-md-6">
-          <label for="fechaNacimiento" class="form-label">Fecha de nacimiento:</label>
-          <input type="date" class="form-control" id="fechaNacimiento" />
+          <label for="{{ form_solicitud.fecha_nacimiento.id_for_label }}" class="form-label">Fecha de nacimiento:</label>
+          {{ form_solicitud.fecha_nacimiento }}
         </div>
         <div class="col-md-6">
-          <label for="estadoCivil" class="form-label">Estado Civil:</label>
-          <select class="form-select" id="estadoCivil">
-            <option selected>Seleccionar</option>
-            <option value="soltero">Soltero/a</option>
-            <option value="casado">Casado/a</option>
-            <option value="divorciado">Divorciado/a</option>
-            <option value="viudo">Viudo/a</option>
-          </select>
+          <label for="{{ form_solicitud.estado_civil.id_for_label }}" class="form-label">Estado Civil:</label>
+          {{ form_solicitud.estado_civil }}
         </div>
       </div>
 
+      <!-- Datos del domicilio -->
       <h5 class="form-subheading">Datos del domicilio:</h5>
       <div class="row mb-3">
         <div class="col-md-6">
-          <label for="direccion" class="form-label">Direccion:</label>
-          <input type="text" class="form-control" id="direccion" />
+          <label for="{{ form_solicitud.direccion_domicilio.id_for_label }}" class="form-label">Dirección:</label>
+          {{ form_solicitud.direccion_domicilio }}
         </div>
         <div class="col-md-6">
-          <label for="correo" class="form-label">Correo Electronico:</label>
-          <input type="email" class="form-control" id="correo" />
+          <label for="{{ form_solicitud.correo_domicilio.id_for_label }}" class="form-label">Correo Electrónico:</label>
+          {{ form_solicitud.correo_domicilio }}
         </div>
       </div>
 
       <div class="row mb-3">
         <div class="col-md-6">
-          <label for="telefono" class="form-label">Telefono:</label>
-          <input type="tel" class="form-control" id="telefono" />
+          <label for="{{ form_solicitud.telefono_domicilio.id_for_label }}" class="form-label">Teléfono:</label>
+          {{ form_solicitud.telefono_domicilio }}
         </div>
         <div class="col-md-6">
-          <label for="celular" class="form-label">Celular:</label>
-          <input type="tel" class="form-control" id="celular" />
+          <label for="{{ form_solicitud.celular_domicilio.id_for_label }}" class="form-label">Celular:</label>
+          {{ form_solicitud.celular_domicilio }}
         </div>
       </div>
 
+      <!-- Datos del trabajo -->
       <h5 class="form-subheading">Datos del trabajo:</h5>
       <div class="row mb-3">
         <div class="col-md-6">
-          <label for="nombreEmpresa" class="form-label">Nombre de la empresa:</label>
-          <input type="text" class="form-control" id="nombreEmpresa" />
+          <label for="{{ form_solicitud.nombre_empresa.id_for_label }}" class="form-label">Nombre de la empresa:</label>
+          {{ form_solicitud.nombre_empresa }}
         </div>
         <div class="col-md-6">
-          <label for="direccionTrabajo" class="form-label">Direccion:</label>
-          <input type="text" class="form-control" id="direccionTrabajo" />
+          <label for="{{ form_solicitud.direccion_trabajo.id_for_label }}" class="form-label">Dirección:</label>
+          {{ form_solicitud.direccion_trabajo }}
         </div>
       </div>
 
       <div class="row mb-3">
         <div class="col-md-6">
-          <label for="correoTrabajo" class="form-label">Correo Electronico:</label>
-          <input type="email" class="form-control" id="correoTrabajo" />
+          <label for="{{ form_solicitud.correo_trabajo.id_for_label }}" class="form-label">Correo Electrónico:</label>
+          {{ form_solicitud.correo_trabajo }}
         </div>
         <div class="col-md-6">
-          <label for="telefonoTrabajo" class="form-label">Telefono:</label>
-          <input type="tel" class="form-control" id="telefonoTrabajo" />
+          <label for="{{ form_solicitud.telefono_trabajo.id_for_label }}" class="form-label">Teléfono:</label>
+          {{ form_solicitud.telefono_trabajo }}
         </div>
       </div>
 
+      <!-- Envío correspondencia y ocupación -->
       <div class="row mb-3">
         <div class="col-md-6">
-          <label for="envioCorrespondencia" class="form-label">Envio de correspondencia:</label>
-          <select class="form-select" id="envioCorrespondencia">
-            <option selected>Seleccionar</option>
-            <option value="domicilio">Domicilio</option>
-            <option value="trabajo">Trabajo</option>
-          </select>
+          <label for="{{ form_solicitud.envio_correspondencia.id_for_label }}" class="form-label">Envío de correspondencia:</label>
+          {{ form_solicitud.envio_correspondencia }}
         </div>
         <div class="col-md-6">
-          <label for="ocupacion" class="form-label">Ocupacion (a que se dedica):</label>
-          <input type="text" class="form-control" id="ocupacion" />
+          <label for="{{ form_solicitud.ocupacion.id_for_label }}" class="form-label">Ocupación (a qué se dedica):</label>
+          {{ form_solicitud.ocupacion }}
         </div>
       </div>
 
+      <!-- Es usted -->
       <div class="row mb-3">
         <div class="col-md-6">
-          <label for="esUsted" class="form-label">Es usted:</label>
-          <select class="form-select" id="esUsted">
-            <option selected>Seleccionar</option>
-            <option value="titular">Titular</option>
-            <option value="beneficiario">Beneficiario</option>
-          </select>
+          <label for="{{ form_solicitud.es_usted.id_for_label }}" class="form-label">Es usted:</label>
+          {{ form_solicitud.es_usted }}
         </div>
       </div>
 
-      <div class="row mb-3 align-items-center">
-        <div class="col-md-6 d-flex align-items-center">
-          <label class="form-label mb-0 me-3">¿Tiene o está tramitando otros seguros de vida?</label>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="otrosSeguros" id="otrosSegurosSi" value="si" />
-            <label class="form-check-label" for="otrosSegurosSi">Si</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="otrosSeguros" id="otrosSegurosNo" value="no" checked />
-            <label class="form-check-label" for="otrosSegurosNo">No</label>
-          </div>
-          <input type="text" class="form-control flex-grow-1 ms-3" id="especifiqueCompanas"
-            placeholder=",especifique compañias:" disabled />
+      <!-- Otros seguros de vida -->
+    <div class="row mb-3 align-items-center">
+      <div class="col-md-8 d-flex align-items-center">
+        <label for="{{ form_solicitud.otros_seguros_vida.id_for_label }}" class="form-label mb-0 me-3">¿Tiene o está tramitando otros seguros de vida?</label>
+        <div class="form-check form-check-inline me-3">
+          <input type="checkbox" name="{{ form_solicitud.otros_seguros_vida.name }}" 
+                id="{{ form_solicitud.otros_seguros_vida.id_for_label }}" 
+                class="form-check-input" 
+                {% if form_solicitud.otros_seguros_vida.value %}checked{% endif %}>
         </div>
-      </div>
-
-      <div class="form-navigation-buttons d-flex justify-content-end gap-3 mt-4">
-        <button type="button" class="btn btn-cancelar">Cancelar</button>
-        <button type="button" class="btn btn-siguiente" data-next-step="2">Siguiente <i
-            class="fas fa-arrow-right ms-2"></i></button>
+        <div class="flex-grow-1">
+          {{ form_solicitud.especifique_companias_otros_seguros }}
+        </div>
       </div>
     </div>
 
-    <div class="form-section" id="section-2">
-      <h4 class="section-subtitle">SECCION II - DECLARACIÓN DEL ESTADO DE SALUD</h4>
+      <!-- Botones de navegación -->
+      <div class="form-navigation-buttons d-flex justify-content-end gap-3 mt-4">
+        <button type="button" class="btn btn-cancelar">Cancelar</button>
+        <button type="button" class="btn btn-siguiente" data-next-step="2">Siguiente <i class="fas fa-arrow-right ms-2"></i></button>
+      </div>
+    </div>
 
+   <!-- SECCIÓN II: DECLARACIÓN DEL ESTADO DE SALUD -->
+    <div class="form-section" id="section-2">
+      <h4 class="section-subtitle">SECCIÓN II – Declaración del Estado de Salud</h4>
+
+      <!-- Peso, Estatura y Tensión Arterial -->
       <div class="row mb-3">
         <div class="col-md-4">
-          <label for="peso" class="form-label">¿Cuál es tu peso?</label>
+          <label for="{{ declaracion_salud_form.peso_kg.id_for_label }}" class="form-label">¿Cuál es tu peso?<span class="text-danger">*</span></label>
           <div class="input-group">
-            <input type="number" class="form-control" id="peso" />
+            {{ declaracion_salud_form.peso_kg }}
             <span class="input-group-text">kg</span>
+            {% if declaracion_salud_form.peso_kg.errors %}
+              <div class="invalid-feedback d-block">
+                {{ declaracion_salud_form.peso_kg.errors }}
+              </div>
+            {% endif %}
           </div>
         </div>
         <div class="col-md-4">
-          <label for="estatura" class="form-label">Estatura:</label>
+          <label for="{{ declaracion_salud_form.estatura_cm.id_for_label }}" class="form-label">Estatura:<span class="text-danger">*</span></label>
           <div class="input-group">
-            <input type="number" class="form-control" id="estatura" />
+            {{ declaracion_salud_form.estatura_cm }}
             <span class="input-group-text">cm</span>
+            {% if declaracion_salud_form.estatura_cm.errors %}
+              <div class="invalid-feedback d-block">
+                {{ declaracion_salud_form.estatura_cm.errors }}
+              </div>
+            {% endif %}
           </div>
         </div>
         <div class="col-md-4">
-          <label for="tensionArterial" class="form-label">Tension Arterial</label>
+          <label class="form-label">Tensión Arterial:</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="tensionArterial_sistolica" placeholder="Sistólica" />
+            {{ declaracion_salud_form.tension_arterial_sistolica }}
             <span class="input-group-text">/</span>
-            <input type="text" class="form-control" id="tensionArterial_diastolica" placeholder="Diastólica" />
+            {{ declaracion_salud_form.tension_arterial_diastolica }}
           </div>
         </div>
       </div>
 
+      <!-- Cambio de peso -->
       <div class="row mb-4 align-items-center">
         <div class="col-md-6 d-flex align-items-center">
           <label class="form-label mb-0 me-3">¿Su peso ha aumentado o disminuido durante el último año?</label>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="pesoCambio" id="pesoCambioSi" value="si" />
-            <label class="form-check-label" for="pesoCambioSi">Si</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="pesoCambio" id="pesoCambioNo" value="no" checked />
-            <label class="form-check-label" for="pesoCambioNo">No</label>
-          </div>
+          {{ declaracion_salud_form.peso_ha_cambiado }}
         </div>
         <div class="col-md-6 d-flex align-items-center">
-          <label for="cuantoPesoCambio" class="form-label mb-0 me-3">¿Cuánto?</label>
-          <input type="text" class="form-control flex-grow-1" id="cuantoPesoCambio" disabled />
+          <label for="{{ declaracion_salud_form.cuanto_peso_cambio.id_for_label }}" class="form-label mb-0 me-3">¿Cuánto?</label>
+          {{ declaracion_salud_form.cuanto_peso_cambio }}
+          {% if declaracion_salud_form.cuanto_peso_cambio.errors %}
+            <div class="invalid-feedback d-block">
+              {{ declaracion_salud_form.cuanto_peso_cambio.errors }}
+            </div>
+          {% endif %}
         </div>
       </div>
 
+      <!-- Cambio intencional -->
       <div class="row mb-4 align-items-center">
         <div class="col-md-6 d-flex align-items-center">
           <label class="form-label mb-0 me-3">¿Intencionalmente?</label>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="pesoIntencional" id="pesoIntencionalSi" value="si" />
-            <label class="form-check-label" for="pesoIntencionalSi">Si</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="pesoIntencional" id="pesoIntencionalNo" value="no"
-              checked />
-            <label class="form-check-label" for="pesoIntencionalNo">No</label>
-          </div>
+          {{ declaracion_salud_form.peso_cambio_intencional }}
         </div>
         <div class="col-md-6 d-flex align-items-center">
-          <label for="causaPesoCambio" class="form-label mb-0 me-3">Causa:</label>
-          <input type="text" class="form-control flex-grow-1" id="causaPesoCambio" disabled />
+          <label for="{{ declaracion_salud_form.causa_peso_cambio.id_for_label }}" class="form-label mb-0 me-3">Causa:</label>
+          {{ declaracion_salud_form.causa_peso_cambio }}
+          {% if declaracion_salud_form.causa_peso_cambio.errors %}
+            <div class="invalid-feedback d-block">
+              {{ declaracion_salud_form.causa_peso_cambio.errors }}
+            </div>
+          {% endif %}
         </div>
       </div>
 
-      <div class="question-block mb-3">
-        <p class="mb-2">1. ¿Afecciones del corazón o aparato circulatorio por ejemplo infartos, palpitaciones, opresión,
-          síncope, angina de pecho, defecto cardíaco congénito, tensión arterial elevada, flebitis, varices?</p>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta1" id="p1Si" value="si" />
-          <label class="form-check-label" for="p1Si">Si</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta1" id="p1No" value="no" checked />
-          <label class="form-check-label" for="p1No">No</label>
-        </div>
+      <!-- Preguntas de salud (manualmente enumeradas) -->
+      <div style="max-height: 500px; overflow-y: auto; border: 1px solid #dee2e6; padding: 15px; margin-bottom: 20px;">
+        {% for field in declaracion_salud_form %}
+          {% if 'pregunta' in field.name and '_salud' in field.name %}
+            <div class="question-block mb-3">
+              <p class="mb-2">{{ field.label }}</p>
+              <div class="form-check form-check-inline">
+                {{ field }}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
       </div>
 
+      <!-- Fumar -->
       <div class="question-block mb-3">
-        <p class="mb-2">2. ¿Afecciones de los órganos respiratorios, por ejemplo, asma, bronquitis, tos acompañada de
-          expectoración sanguinolenta, pleuresía, neumonía, tuberculosis pulmonar, enfisema pulmonar?</p>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta2" id="p2Si" value="si" />
-          <label class="form-check-label" for="p2Si">Si</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta2" id="p2No" value="no" checked />
-          <label class="form-check-label" for="p2No">No</label>
-        </div>
-      </div>
-
-      <div class="question-block mb-3">
-        <p class="mb-2">3. ¿Enfermedad circulatoria o accidente vascular cerebral?</p>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta3" id="p3Si" value="si" />
-          <label class="form-check-label" for="p3Si">Si</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta3" id="p3No" value="no" checked />
-          <label class="form-check-label" for="p3No">No</label>
-        </div>
-      </div>
-
-      <div class="question-block mb-3">
-        <p class="mb-2">4. ¿Enfermedades del sistema endocrino (hiperlipidemias o diabetes mellitus)?</p>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta4" id="p4Si" value="si" />
-          <label class="form-check-label" for="p4Si">Si</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta4" id="p4No" value="no" checked />
-          <label class="form-check-label" for="p4No">No</label>
-        </div>
-      </div>
-
-      <div class="question-block mb-3">
-        <p class="mb-2">5. ¿Cirrosis hepática, hepatitis C o insuficiencia hepática?</p>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta5" id="p5Si" value="si" />
-          <label class="form-check-label" for="p5Si">Si</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta5" id="p5No" value="no" checked />
-          <label class="form-check-label" for="p5No">No</label>
-        </div>
-      </div>
-
-      <div class="question-block mb-3">
-        <p class="mb-2">6. ¿Edema o supuración o aumento de volumen de los ganglios linfáticos?</p>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta6" id="p6Si" value="si" />
-          <label class="form-check-label" for="p6Si">Si</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta6" id="p6No" value="no" checked />
-          <label class="form-check-label" for="p6No">No</label>
-        </div>
-      </div>
-
-      <div class="question-block mb-3">
-        <p class="mb-2">7. Afecciones del cerebro o del sistema nervioso: ¿dolor de cabeza, insomnio, vértigos,
-          desmayos, nerviosidad, epilepsia, apoplejía, parálisis, trastornos psíquicos, depresiones nerviosas, neurosis,
-          demencia?</p>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta7" id="p7Si" value="si" />
-          <label class="form-check-label" for="p7Si">Si</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta7" id="p7No" value="no" checked />
-          <label class="form-check-label" for="p7No">No</label>
-        </div>
-      </div>
-
-      <div class="question-block mb-3">
-        <p class="mb-2">8. Afecciones del aparato digestivo: ¿trastornos del estómago o de los intestinos, úlceras,
-          vómitos de sangre, enfermedades del hígado, ictericia, cólicos hepáticos, hemorroides, proctitis, fístula de
-          recto, diarrea crónica?</p>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta8" id="p8Si" value="si" />
-          <label class="form-check-label" for="p8Si">Si</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta8" id="p8No" value="no" checked />
-          <label class="form-check-label" for="p8No">No</label>
-        </div>
-      </div>
-
-      <div class="question-block mb-3">
-        <p class="mb-2">9. ¿Enfermedades de la piel?</p>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta9" id="p9Si" value="si" />
-          <label class="form-check-label" for="p9Si">Si</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta9" id="p9No" value="no" checked />
-          <label class="form-check-label" for="p9No">No</label>
-        </div>
-      </div>
-
-      <div class="question-block mb-3">
-        <p class="mb-2">10. ¿Enfermedades infecciosas (escarlatina, difteria, anginas de repetición, meningitis, fiebres
-          tifoideas, septicemia, hepatitis o tropicales (malaria, etc.)?</p>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta10" id="p10Si" value="si" />
-          <label class="form-check-label" for="p10Si">Si</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="pregunta10" id="p10No" value="no" checked />
-          <label class="form-check-label" for="p10No">No</label>
-        </div>
-      </div>
-
-      <div class="question-block mb-3">
-        <p class="mb-2">¿Consume usted bebidas alcohólicas?</p>
+        <p class="mb-2">{{ declaracion_salud_form.fuma.label }}</p>
         <div class="d-flex align-items-center">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="alcohol" id="alcoholSi" value="si" />
-            <label class="form-check-label" for="alcoholSi">Si</label>
+          <div>
+            {{ declaracion_salud_form.fuma }} <h3 style="opacity: 0;">--></h3>
           </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="alcohol" id="alcoholNo" value="no" checked />
-            <label class="form-check-label" for="alcoholNo">No</label>
+          <div>
+            {{ declaracion_salud_form.cantidad_fumada }}
           </div>
-          <input type="text" class="form-control ms-3 me-3" id="cualesAlcohol" placeholder="¿Cuáles?" disabled />
-          <input type="text" class="form-control" id="cuantoDiariamenteAlcohol" placeholder="¿Cuánto diariamente?"
-            disabled />
+          {% if declaracion_salud_form.cantidad_fumada.errors %}
+            <div class="invalid-feedback d-block">
+              {{ declaracion_salud_form.cantidad_fumada.errors }}
+            </div>
+          {% endif %}
         </div>
       </div>
 
+      <!-- Alcohol -->
       <div class="question-block mb-3">
-        <p class="mb-2">¿Hace o ha hecho uso de estupefacientes?</p>
+        <p class="mb-2">{{ declaracion_salud_form.consume_alcohol.label }}</p>
         <div class="d-flex align-items-center">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="estupefacientes" id="estupefacientesSi" value="si" />
-            <label class="form-check-label" for="estupefacientesSi">Si</label>
+          <div>
+            {{ declaracion_salud_form.consume_alcohol }} <h3 style="opacity: 0;">--></h3>
           </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="estupefacientes" id="estupefacientesNo" value="no"
-              checked />
-            <label class="form-check-label" for="estupefacientesNo">No</label>
-          </div>
-          <input type="text" class="form-control ms-3 me-3" id="cualesEstupefacientes" placeholder="¿Cuáles?"
-            disabled />
-          <input type="text" class="form-control" id="hastaCuandoEstupefacientes" placeholder="¿Hasta cuándo?"
-            disabled />
+          {{ declaracion_salud_form.cuales_alcohol }}
+          {{ declaracion_salud_form.cuanto_diariamente_alcohol }}
+          {% if declaracion_salud_form.cuales_alcohol.errors %}
+            <div class="invalid-feedback d-block">
+              {{ declaracion_salud_form.cuales_alcohol.errors }}
+            </div>
+          {% endif %}
+          {% if declaracion_salud_form.cuanto_diariamente_alcohol.errors %}
+            <div class="invalid-feedback d-block">
+              {{ declaracion_salud_form.cuanto_diariamente_alcohol.errors }}
+            </div>
+          {% endif %}
         </div>
       </div>
 
+      <!-- Estupefacientes -->
+      <div class="question-block mb-3">
+        <p class="mb-2">{{ declaracion_salud_form.uso_estupefacientes.label }}</p>
+        <div class="d-flex align-items-center">
+          <div>
+            {{ declaracion_salud_form.uso_estupefacientes }} <h3 style="opacity: 0;">--></h3>
+          </div>
+          {{ declaracion_salud_form.cuales_estupefacientes }}
+          {{ declaracion_salud_form.hasta_cuando_estupefacientes }}
+          {% if declaracion_salud_form.cuales_estupefacientes.errors %}
+            <div class="invalid-feedback d-block">
+              {{ declaracion_salud_form.cuales_estupefacientes.errors }}
+            </div>
+          {% endif %}
+          {% if declaracion_salud_form.hasta_cuando_estupefacientes.errors %}
+            <div class="invalid-feedback d-block">
+              {{ declaracion_salud_form.hasta_cuando_estupefacientes.errors }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Sección para mujeres -->
       <p class="form-subheading mt-4">Para mujeres únicamente:</p>
       <div class="question-block mb-3">
-        <p class="mb-2">a) ¿Toma Usted anticonceptivos?</p>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="anticonceptivos" id="anticonceptivosSi" value="si" />
-          <label class="form-check-label" for="anticonceptivosSi">Si</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="anticonceptivos" id="anticonceptivosNo" value="no"
-            checked />
-          <label class="form-check-label" for="anticonceptivosNo">No</label>
-        </div>
+        <p class="mb-2">{{ declaracion_salud_form.toma_anticonceptivos.label }}</p>
+        {{ declaracion_salud_form.toma_anticonceptivos }}
       </div>
 
       <div class="question-block mb-3">
-        <p class="mb-2">b) ¿Está usted embarazada?</p>
+        <p class="mb-2">{{ declaracion_salud_form.esta_embarazada.label }}</p>
         <div class="d-flex align-items-center">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="embarazada" id="embarazadaSi" value="si" />
-            <label class="form-check-label" for="embarazadaSi">Si</label>
+          <div>
+            {{ declaracion_salud_form.esta_embarazada }} <h3 style="opacity: 0;">--></h3>
           </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="embarazada" id="embarazadaNo" value="no" checked />
-            <label class="form-check-label" for="embarazadaNo">No</label>
-          </div>
-          <input type="text" class="form-control ms-3" id="cuantosMesesEmbarazo" placeholder="¿Cuántos meses?"
-            disabled />
+          {{ declaracion_salud_form.cuantos_meses_embarazo }}
+          {% if declaracion_salud_form.cuantos_meses_embarazo.errors %}
+            <div class="invalid-feedback d-block">
+              {{ declaracion_salud_form.cuantos_meses_embarazo.errors }}
+            </div>
+          {% endif %}
         </div>
       </div>
 
       <div class="question-block mb-3">
-        <p class="mb-2">c) ¿Ha sufrido alguna enfermedad ginecológica (ovarios, senos, etc.)?</p>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="enfermedadGinecologica" id="ginecologicaSi" value="si" />
-          <label class="form-check-label" for="ginecologicaSi">Si</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="enfermedadGinecologica" id="ginecologicaNo" value="no"
-            checked />
-          <label class="form-check-label" for="ginecologicaNo">No</label>
-        </div>
+        <p class="mb-2">{{ declaracion_salud_form.enfermedad_ginecologica.label }}</p>
+        {{ declaracion_salud_form.enfermedad_ginecologica }}
       </div>
 
-      <p class="mt-4 fw-bold">Si ha contestado afirmativamente a alguna de las preguntas de la sección II, especifique
-        detalles:</p>
+
+
+      <!-- Tabla de detalles de salud con formset correcto 
       <div class="table-responsive mb-4">
         <table class="table table-bordered table-striped" id="declaracionesTable">
-          <thead>
-            <tr>
-              <th>Nro de pregunta</th>
-              <th>¿Detalle?</th>
-              <th>¿Cuándo?</th>
-              <th>¿Duración?</th>
-              <th>¿Secuelas?</th>
-              <th>Nombre y dirección del médico tratante.</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {# Filas de ejemplo o dinámicas #}
-            <tr>
-              <td>5</td>
-              <td>El 08 de Marzo 5 horas 1 minutos</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>Leopoldo Palacios</td>
-              <td></td>
-            </tr>
-            {# Aquí se añadirán nuevas filas dinámicamente con JS #}
-          </tbody>
+            <thead>
+                <tr>
+                    <th>Nro de pregunta</th>
+                    <th>¿Detalle?</th>
+                    <th>¿Cuándo?</th>
+                    <th>¿Duración?</th>
+                    <th>¿Secuelas?</th>
+                    <th>Nombre y dirección del médico tratante.</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="detalles-tbody">
+                {{ detalle_formset.management_form }}
+                {% for form in detalle_formset %}
+                <tr class="formset-row">
+                    {% for field in form.visible_fields %}
+                    <td>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="text-danger small">{{ field.errors }}</div>
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                    {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm btn-eliminar-fila">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
       </div>
       <div class="d-flex justify-content-end mb-4">
-        <button type="button" class="btn btn-primary btn-agregar-fila"><i class="fas fa-plus me-2"></i>Agregar</button>
-      </div>
+        <button type="button" class="btn btn-primary btn-agregar-fila" id="btn-agregar-detalle">
+            <i class="fas fa-plus me-2"></i>Agregar
+        </button>
+      </div>-->
 
 
+
+      <!-- Información médica -->
       <div class="row mb-3">
         <div class="col-md-12">
-          <label for="medicoCabecera" class="form-label">¿Quién es su médico de cabecera?</label>
-          <input type="text" class="form-control" id="medicoCabecera" />
+          <label for="{{ declaracion_salud_form.medico_cabecera.id_for_label }}" class="form-label">{{ declaracion_salud_form.medico_cabecera.label }}</label>
+          {{ declaracion_salud_form.medico_cabecera }}
         </div>
       </div>
 
       <div class="row mb-3">
         <div class="col-md-6">
-          <label for="medicoUltimaVez" class="form-label">¿Quién es el médico que le ha tratado por última vez?</label>
-          <input type="text" class="form-control" id="medicoUltimaVez" />
+          <label for="{{ declaracion_salud_form.medico_ultima_vez.id_for_label }}" class="form-label">{{ declaracion_salud_form.medico_ultima_vez.label }}</label>
+          {{ declaracion_salud_form.medico_ultima_vez }}
         </div>
         <div class="col-md-3">
-          <label for="cuandoUltimaVez" class="form-label">Cuando:</label>
-          <input type="date" class="form-control" id="cuandoUltimaVez" />
+          <label for="{{ declaracion_salud_form.cuando_ultima_vez.id_for_label }}" class="form-label">{{ declaracion_salud_form.cuando_ultima_vez.label }}</label>
+          {{ declaracion_salud_form.cuando_ultima_vez }}
         </div>
         <div class="col-md-3">
-          <label for="motivoUltimaVez" class="form-label">Motivo:</label>
-          <input type="text" class="form-control" id="motivoUltimaVez" />
+          <label for="{{ declaracion_salud_form.motivo_ultima_vez.id_for_label }}" class="form-label">{{ declaracion_salud_form.motivo_ultima_vez.label }}</label>
+          {{ declaracion_salud_form.motivo_ultima_vez }}
         </div>
       </div>
 
+      <!-- Otra declaración -->
       <div class="row mb-3">
         <div class="col-md-12">
-          <label for="otraDeclaracionSalud" class="form-label">¿Tiene Usted alguna otra cosa que declarar sobre su
-            salud? Indique:</label>
-          <textarea class="form-control" id="otraDeclaracionSalud" rows="3"></textarea>
+          <label for="{{ declaracion_salud_form.otra_declaracion_salud.id_for_label }}" class="form-label">{{ declaracion_salud_form.otra_declaracion_salud.label }}</label>
+          {{ declaracion_salud_form.otra_declaracion_salud }}
         </div>
       </div>
 
-
       <div class="form-navigation-buttons d-flex justify-content-between gap-3 mt-4">
-        <button type="button" class="btn btn-volver" data-prev-step="1"><i class="fas fa-arrow-left me-2"></i>
-          Volver</button>
-        <button type="button" class="btn btn-siguiente" data-next-step="3">Siguiente <i
-            class="fas fa-arrow-right ms-2"></i></button>
+        <button type="button" class="btn btn-volver" data-prev-step="1"><i class="fas fa-arrow-left me-2"></i> Volver</button>
+        <button type="button" class="btn btn-siguiente" data-next-step="3">Siguiente <i class="fas fa-arrow-right ms-2"></i></button>
       </div>
     </div>
 
+    <!-- SECCIÓN III: DEPORTES Y ACTIVIDADES RECREACIONALES -->
     <div class="form-section" id="section-3">
-      <h4 class="section-subtitle">SECCION III - BENEFICIARIOS</h4>
-      <p>Contenido de la Sección III...</p>
+      <h4 class="section-subtitle">SECCIÓN III – Deportes y Actividades Recreacionales</h4>
+      
+      {% for field in deporte_actividad_form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">
+            {{ field.label }}
+            {% if field.field.required %}<span class="text-danger">*</span>{% endif %}
+          </label>
+          {{ field }}
+          {% if field.help_text %}
+            <small class="form-text text-muted">{{ field.help_text }}</small>
+          {% endif %}
+          {% for error in field.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+
       <div class="form-navigation-buttons d-flex justify-content-between gap-3 mt-4">
-        <button type="button" class="btn btn-volver" data-prev-step="2"><i class="fas fa-arrow-left me-2"></i>
-          Volver</button>
-        <button type="button" class="btn btn-siguiente" data-next-step="4">Siguiente <i
-            class="fas fa-arrow-right ms-2"></i></button>
+        <button type="button" class="btn btn-volver" data-prev-step="2"><i class="fas fa-arrow-left me-2"></i> Volver</button>
+        <button type="button" class="btn btn-siguiente" data-next-step="4">Siguiente <i class="fas fa-arrow-right ms-2"></i></button>
       </div>
     </div>
 
+   <!-- SECCIÓN IV: DESIGNACIÓN DE BENEFICIARIOS -->
     <div class="form-section" id="section-4">
-      <h4 class="section-subtitle">SECCION IV - DECLARACIÓN DE SALUD</h4>
-      <p>Contenido de la Sección IV...</p>
+      <h4 class="section-subtitle">SECCIÓN IV – Designación de Beneficiarios</h4>
+      
+      {% for field in beneficiario_form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">
+            {{ field.label }}
+            {% if field.field.required %}<span class="text-danger">*</span>{% endif %}
+          </label>
+          {{ field }}
+          <br>
+        </div>
+      {% endfor %}
+
       <div class="form-navigation-buttons d-flex justify-content-between gap-3 mt-4">
-        <button type="button" class="btn btn-volver" data-prev-step="3"><i class="fas fa-arrow-left me-2"></i>
-          Volver</button>
-        <button type="button" class="btn btn-siguiente" data-next-step="5">Siguiente <i
-            class="fas fa-arrow-right ms-2"></i></button>
+        <button type="button" class="btn btn-volver" data-prev-step="3"><i class="fas fa-arrow-left me-2"></i> Volver</button>
+        <button type="button" class="btn btn-siguiente" data-next-step="5">Siguiente <i class="fas fa-arrow-right ms-2"></i></button>
       </div>
     </div>
 
+    <!-- SECCIÓN V: DECLARACIONES -->
     <div class="form-section" id="section-5">
-      <h4 class="section-subtitle">SECCION V - DECLARACIONES</h4>
-
+      <h4 class="section-subtitle">SECCIÓN V – Declaraciones</h4>
+      
       <p class="mb-4">
-        AUTORIZACIÓN A INFORMACIÓN <br />
-        Autorizo por la presente a cualquier médico, hospital, clínica compañía de seguros, u otra
-        organización, institución o persona que tenga cualquiera información de mi estado de salud, a dar
-        dicha información a Mapfre Atlas Compañía de Seguros S.A. Una fotocopia de esta autorización será
-        tan válida como la original.
+        Certifico que he leído todas las preguntas reflejadas en esta solicitud y las contestaciones son ciertas y
+        completas; en caso de tener conocimiento de alguna enfermedad mencionada o no en esta declaración, esto me
+        obligará inmediatamente a notificar a Mapfre Atlas; acepto que esta solicitud sirva de base para emitir la Póliza y
+        forme parte integrante de la misma. Ningún seguro (cobertura y beneficios) será efectivo hasta que la Póliza sea
+        expedida y las primas de la misma hayan sido pagadas de acuerdo a lo convenido. La falsificación u omisión de
+        cualquier información podría conllevar a la anulación o rescisión del contrato, produciendo la nulidad relativa del
+        contrato. Tal nulidad se entiende saneada por el conocimiento de parte de la compañía de dichas
+        circunstancias, antes de perfeccionarse el contrato, o después, si las acepta expresamente si el contrato se
+        rescinde, la compañía tiene derecho a retener la prima por el tiempo transcurrido de acuerdo a la tarifa de corto
+        plazo.
+        Ningún agente está autorizado a efectuar cambios, modificaciones o prometer alteraciones a la Póliza de la
+        Compañía.
+      </p>
+      
+      <legend><strong>PROCEDENCIA LÍCITA DE FONDOS</strong></legend>
+      <p class="mb-4">
+        En mi carácter de solicitante de la Póliza declaro que los fondos a ser utilizados para el pago de prima,
+        provendrán de una fuente lícita y no tiene relación alguna con dinero, capitales, bienes, haberes, valores o títulos.
+      </p>
+      
+      <legend><strong>AUTORIZACIÓN A INFORMACIÓN</strong></legend>
+      <p class="mb-4">
+        Autorizo por la presente a cualquier médico, hospital, clínica compañía de seguros, u otra organización,
+        institución o persona que tenga cualquiera información de mi estado de salud, a dar dicha información a Mapfre
+        Atlas Compañía de Seguros S.A. Una fotocopia de esta autorización será tan válida como la original.
       </p>
 
       <div class="row mb-3">
         <div class="col-md-6">
-          <label for="lugarFirma" class="form-label">Lugar:</label>
-          <input type="text" class="form-control" id="lugarFirma" />
-        </div>
-        <div class="col-md-6">
-          <label for="fechaFirma" class="form-label">Fecha:</label>
-          <input type="date" class="form-control" id="fechaFirma" />
+          <label for="{{ form_solicitud.lugar_firma.id_for_label }}" class="form-label">Lugar:</label>
+          {{ form_solicitud.lugar_firma }}
+          </h3 id="fecha-actual-hoy" class="text-primary">
+            Fecha: {{ form_solicitud.instance.obtener_fecha_actual }}
+          </h3>
         </div>
       </div>
 
       <p class="form-label mt-4">Firma solicitante:</p>
-      <p class="text-primary fw-bold mb-2">Generar firma Electronica:</p>
-      <button type="button" class="btn btn-generate-signature mb-4">
-        Generate <i class="fas fa-magic ms-2"></i>
-      </button>
+      <p class="text-primary fw-bold mb-2">Generar firma Electrónica:</p>
+      <div class="form-check">
+        {{ form_solicitud.firma_electronica_generada }}
+        <label class="form-check-label" for="{{ form_solicitud.firma_electronica_generada.id_for_label }}">Firma electrónica generada</label>
+      </div>
 
       <p class="mb-4">
         Si no desea generar firma electronica debe descargar el documento, firmar manualmente y subir el archivo.
@@ -577,15 +533,23 @@
       </p>
 
       <div class="form-navigation-buttons d-flex justify-content-between gap-3 mt-4">
-        <button type="button" class="btn btn-volver" data-prev-step="4"><i class="fas fa-arrow-left me-2"></i>
-          Volver</button>
+        <button type="button" class="btn btn-volver" data-prev-step="4"><i class="fas fa-arrow-left me-2"></i> Volver</button>
         <button type="submit" class="btn btn-finalizar">Crear</button>
       </div>
     </div>
   </form>
 </div>
 {% endblock %}
+  
 
 {% block extra_js %}
 <script src="{% static 'js/solicitud_seguro_form.js' %}" defer></script>
 {% endblock %}
+
+
+
+
+
+
+
+

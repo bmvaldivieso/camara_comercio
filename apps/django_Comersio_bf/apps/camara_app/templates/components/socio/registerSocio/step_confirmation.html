@@ -1,0 +1,55 @@
+<div class="form-slide" data-slide="4">
+    <h4 class="slide-title">Confirmación</h4>
+
+    <div class="mb-3">
+        {{ seguro_form.nombre_titular.label_tag }}
+        {{ seguro_form.nombre_titular }}
+    </div>
+    <div class="mb-3">
+        {{ seguro_form.telefono_titular.label_tag }}
+        {{ seguro_form.telefono_titular }}
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            {{ seguro_form.fecha_nacimiento_titular.label_tag }}
+            {{ seguro_form.fecha_nacimiento_titular }}
+        </div>
+        <div class="col">
+            {{ seguro_form.cedula_titular.label_tag }}
+            {{ seguro_form.cedula_titular }}
+        </div>
+    </div>
+
+    <h5 class="mt-4">Beneficiario (en caso de fallecimiento)</h5> {# Cambiado a singular #}
+    <div class="mb-3">
+        {{ seguro_form.nombre_beneficiario.label_tag }}
+        {{ seguro_form.nombre_beneficiario }}
+    </div>
+    <div class="mb-3">
+        {{ seguro_form.porcentaje_beneficiario.label_tag }}
+        {{ seguro_form.porcentaje_beneficiario }}
+    </div>
+
+    <div class="mb-3">
+        {{ seguro_form.firma_titular.label_tag }}
+        {{ seguro_form.firma_titular }}
+    </div>
+
+    {# Errores del formulario de seguro #}
+    {% if seguro_form.errors %}
+        <div class="alert alert-danger">
+            {% for field in seguro_form %}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <p>{{ field.label }}: {{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            {% if seguro_form.non_field_errors %}
+                {% for error in seguro_form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endif %}
+</div>

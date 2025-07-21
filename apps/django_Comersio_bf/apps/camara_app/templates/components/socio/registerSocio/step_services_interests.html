@@ -1,0 +1,45 @@
+<div class="form-slide" data-slide="3">
+    <h4 class="slide-title">Actividad Económica y Contactos</h4>
+
+    <div class="mb-3">
+        {{ activity_contact_form.tipo_negocio_checkboxes.label_tag }}<br>
+        {% for checkbox in activity_contact_form.tipo_negocio_checkboxes %}
+            <div class="form-check form-check-inline">
+                {{ checkbox.tag }}
+                <label class="form-check-label" for="{{ checkbox.id_for_label }}">{{ checkbox.choice_label }}</label>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        {{ activity_contact_form.actividad_especifica.label_tag }}
+        {{ activity_contact_form.actividad_especifica }}
+    </div>
+
+    <h5 class="mt-4">Contactos Principales</h5>
+    <div class="mb-3">
+        {{ activity_contact_form.representante_contacto.label_tag }}
+        {{ activity_contact_form.representante_contacto }}
+    </div>
+    <div class="mb-3">
+        {{ activity_contact_form.propietario_contacto.label_tag }}
+        {{ activity_contact_form.propietario_contacto }}
+    </div>
+    {# Campo para errores de formulario #}
+    {% if activity_contact_form.errors %}
+        <div class="alert alert-danger">
+            {% for field in activity_contact_form %}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <p>{{ field.label }}: {{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            {% if activity_contact_form.non_field_errors %}
+                {% for error in activity_contact_form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endif %}
+</div>

@@ -14,10 +14,12 @@ from pathlib import Path
 from apps.camara_app import apps
 import os
 import pymysql
+from django.urls import reverse_lazy
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -41,10 +43,32 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # agregar apps para Auth - paso 1
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+    #
     'apps.camara_app',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    # 'corsheaders',
 ]
 
+# agregar apps para Auth - paso 2
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+
+# agregar apps para Auth - paso 3
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+
 MIDDLEWARE = [
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -52,6 +76,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware', 
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -145,6 +170,19 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_collected') # Puedes cambiar e
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# agregar apps para Auth - paso 4
+LOGIN_REDIRECT_URL = reverse_lazy('index')
+
+# agregar información para
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
+# Media files (uploads de usuarios como imágenes)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 

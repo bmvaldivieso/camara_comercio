@@ -12,7 +12,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('login', views.login, name='login'),
     path('register', views.register, name='register'),
-    path('master', views.master, name='master'),
+    path('logout', views.logout_view, name='logout'),
     path('categorias', views.categorias, name='categorias'),
     path('servicios', views.servicios, name='servicios'),
     path('subservicios', views.subservicios, name='subservicios'),
@@ -30,5 +30,7 @@ urlpatterns = [
     path('formularios_form_a', views.formularios_form_a, name='formularios_form_a'),
     path('formularios_form_b', views.formularios_form_b, name='formularios_form_b'),
     path('solicitud_seguro_form', views.solicitud_seguro_form, name='solicitud_seguro_form'),
+    path('ser_socio', views.ser_socio, name='ser_socio'),
+    path('present_Socio', views.present_Socio, name='present_Socio'),
 ]
 

@@ -1,0 +1,176 @@
+/* === Contenedor Principal === */
+.registration-container {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: -20px 20px 40px rgba(0, 0, 0, 0.15);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* === Título y Separador === */
+.registration-heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.registration-divider {
+  height: 3px;
+  background: #3498db;
+  border: none;
+  margin-bottom: 30px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* === Barra de Progreso === */
+.progress-bar-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.progress-step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  color: #bdc3c7;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.progress-step::before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background-color: #bdc3c7;
+  border-radius: 50%;
+}
+
+.progress-step.active {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.progress-step.active::before {
+  background-color: #3498db;
+}
+
+.step-number {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+/* === Slides del Formulario === */
+.form-slides-wrapper {
+  position: relative;
+  overflow-y: auto;
+  height: 350px;
+}
+
+.form-slide {
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+
+.form-slide.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === Botones === */
+.form-navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.registration-btn {
+  min-width: 130px;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 10px 20px;
+  transition: background 0.3s ease;
+}
+
+.prev-btn {
+  background-color: #95a5a6;
+  border: none;
+}
+
+.prev-btn:hover {
+  background-color: #7f8c8d;
+}
+
+.next-btn {
+  background-color: #3498db;
+  border: none;
+}
+
+.next-btn:hover {
+  background-color: #2980b9;
+}
+
+.submit-btn {
+  background-color: #27ae60;
+  border: none;
+}
+
+.submit-btn:hover {
+  background-color: #219150;
+}
+
+/* === Slide Content específico === */
+.slide-content {
+  background: #f9f9f9;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: -10px 10px 25px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+}
+
+.slide-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.slide-description {
+  font-size: 14px;
+  color: #7f8c8d;
+  margin-bottom: 20px;
+}
+
+/* === Campos del Formulario === */
+.form-label {
+  font-weight: 500;
+  color: #34495e;
+}
+
+.form-control {
+  border-radius: 8px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  transition: border 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
