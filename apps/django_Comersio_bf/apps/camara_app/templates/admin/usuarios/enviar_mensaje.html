@@ -1,0 +1,20 @@
+{% extends 'admin/master/masteradmin.html' %}
+{% load static %}
+
+{% block admin_content %}
+<div class="container mt-5">
+  <div class="card shadow rounded">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Enviar mensaje a {{ usuario.get_full_name }}</h4>
+    </div>
+    <div class="card-body">
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Enviar</button>
+        <a href="{% url 'admin_usuarios_incremento' %}" class="btn btn-secondary">Cancelar</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

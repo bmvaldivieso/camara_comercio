@@ -1,62 +1,49 @@
-<div id="estado-content" class="tab-pane-content">
-    <h4>Estado</h4>
-    <div class="table-responsive-estado">
-        <table>
-            <thead>
-                <tr>
-                    <th>Nro Solicitud</th>
-                    <th>Servicio</th>
-                    <th>Subservicio</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>Seguro de vida</td>
-                    <td>Vida (Muerte por cualquier causa)</td>
-                    <td>01/07/2025</td>
-                    <td>08:00 AM</td>
-                    <td class="status-rejected">RECHAZADO</td>
-                </tr>
-                <tr>
-                    <td>002</td>
-                    <td>Seguro de vida</td>
-                    <td>Vida (Muerte por cualquier causa)</td>
-                    <td>05/07/2025</td>
-                    <td>08:15 AM</td>
-                    <td class="status-approved">APROBADO</td>
-                </tr>
-                <tr>
-                    <td>003</td>
-                    <td>Seguro de vida</td>
-                    <td>Vida (Muerte por cualquier causa)</td>
-                    <td>06/07/2025</td>
-                    <td>10:00 AM</td>
-                    <td class="status-pending">PENDIENTE</td>
-                </tr>
-                <tr>
-                    <td>004</td>
-                    <td>Seguro de vida</td>
-                    <td>Vida (Muerte por cualquier causa)</td>
-                    <td>06/07/2025</td>
-                    <td>10:00 AM</td>
-                    <td class="status-approved">APROBADO</td>
-                </tr>
-                <tr>
-                    <td>005</td>
-                    <td>Seguro de vida</td>
-                    <td>Vida (Muerte por cualquier causa)</td>
-                    <td>06/07/2025</td>
-                    <td>10:00 AM</td>
-                    <td class="status-rejected">RECHAZADO</td>
-                </tr>
-            </tbody>
-        </table>
+<form method="POST" novalidate id="formulario-seguro-vida">
+    {% csrf_token %}
+  
+    <!-- Declaración de Salud -->
+    <h2 class="seccion-titulo"><i class="fa-solid fa-stethoscope"></i> Declaración de Salud</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="tiene_enfermedad_grave">¿Padece una enfermedad grave?</label>
+        <input type="checkbox" name="tiene_enfermedad_grave" id="tiene_enfermedad_grave">
+      </div>
+      <div class="form-group">
+        <label for="ha_sido_hospitalizado">¿Ha sido hospitalizado en los últimos meses?</label>
+        <input type="checkbox" name="ha_sido_hospitalizado" id="ha_sido_hospitalizado">
+      </div>
+      <div class="form-group">
+        <label for="practica_deportes_extremos">¿Practica deportes extremos?</label>
+        <input type="checkbox" name="practica_deportes_extremos" id="practica_deportes_extremos">
+      </div>
     </div>
-    <div class="new-request-btn-container">
-        <button class="btn btn-new-request"><i class="fas fa-plus-circle"></i> Nueva Solicitud</button>
+  
+    <!-- Beneficiario -->
+    <h2 class="seccion-titulo"><i class="fa-solid fa-user-shield"></i> Beneficiario</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="nombre_beneficiario">Nombre completo</label>
+        <input type="text" name="nombre_beneficiario" id="nombre_beneficiario">
+      </div>
+      <div class="form-group">
+        <label for="relacion_beneficiario">Relación</label>
+        <input type="text" name="relacion_beneficiario" id="relacion_beneficiario">
+      </div>
+      <div class="form-group">
+        <label for="porcentaje_beneficiario">Porcentaje</label>
+        <input type="number" name="porcentaje_beneficiario" id="porcentaje_beneficiario" min="0" max="100">
+      </div>
     </div>
-</div>
+  
+    <!-- Términos -->
+    <h2 class="seccion-titulo"><i class="fa-solid fa-file-signature"></i> Términos y Condiciones</h2>
+    <div class="form-group-horizontal">
+      <input type="checkbox" name="acepta_terminos" id="acepta_terminos">
+      <label for="acepta_terminos">Acepto los términos y condiciones del seguro.</label>
+    </div>
+  
+    <div class="form-boton">
+      <button type="submit">Enviar Declaración</button>
+    </div>
+  </form>
+  

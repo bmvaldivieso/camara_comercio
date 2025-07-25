@@ -8,14 +8,15 @@
 {% endblock %}
 
 {% block admin_content %}
+<hr>
 <div class="dashboard-scroll-container">
   <div class="dashboard-summary-cards">
     <div class="summary-card registered-users">
-      <div class="card-value">100</div>
+      <div class="card-value">{{ total_usuarios }}</div>
       <div class="card-title">Usuarios Registrados</div>
     </div>
     <div class="summary-card registered-partners">
-      <div class="card-value">15</div>
+      <div class="card-value">{{ total_socios }}</div>
       <div class="card-title">Socios Registrados</div>
     </div>
   </div>
@@ -63,26 +64,17 @@
         <h4>Usuarios</h4>
       </div>
       <div class="most-used-profiles">
+        {% for usuario in usuarios %}
         <div class="profile-card">
-          <img src="{% static 'images/imagen2.png' %}" alt="William Riofrio" class="profile-img">
-          <div class="profile-name">William Riofrio</div>
-          <button class="btn-info">Ver Info</button>
+          {% if usuario.perfil.imagen %}
+          <img src="{{ usuario.perfil.imagen.url }}" alt="{{ usuario.username }}" class="profile-img">
+          {% else %}
+          <img src="{% static 'images/imagen2.png' %}" alt="{{ usuario.username }}" class="profile-img">
+          {% endif %}
+          <div class="profile-name">{{ usuario.username }}</div>
+          <a href="{% url 'admin_usuarios_info' usuario.id %}" class="btn-info">Ver Info</a>
         </div>
-        <div class="profile-card">
-          <img src="{% static 'images/imagen2.png' %}" alt="Carla Sofia" class="profile-img">
-          <div class="profile-name">Carla Sofia</div>
-          <button class="btn-info">Ver Info</button>
-        </div>
-        <div class="profile-card">
-          <img src="{% static 'images/imagen2.png' %}" alt="Cinthia Rojas" class="profile-img">
-          <div class="profile-name">Cinthia Rojas</div>
-          <button class="btn-info">Ver Info</button>
-        </div>
-        <div class="profile-card">
-          <img src="{% static 'images/imagen2.png' %}" alt="Gabriela Riofrio" class="profile-img">
-          <div class="profile-name">Gabriela Riofrio</div>
-          <button class="btn-info">Ver Info</button>
-        </div>
+        {% endfor %}
       </div>
     </div>
 

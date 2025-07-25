@@ -5,71 +5,61 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/usuarios.css' %}" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 {% endblock %}
 
 {% block admin_content %}
-<div class="users-section">
-  <div class="users-list">
-    <div class="user-card">
-      <div class="user-info">
-        <img src="{% static 'images/imagen2.png' %}" alt="Carla Sofia" class="user-avatar">
-        <span class="user-name">Carla Sofia</span>
-      </div>
-      <button class="btn-view-info">Ver Info</button>
-    </div>
+<hr>
+<div class="main-socio-container">
 
-    <div class="user-card">
-      <div class="user-info">
-        <img src="{% static 'images/imagen2.png' %}" alt="Roberto Carlos" class="user-avatar">
-        <span class="user-name">Roberto Carlos</span>
-      </div>
-      <button class="btn-view-info">Ver Info</button>
-    </div>
-
-    <div class="user-card">
-      <div class="user-info">
-        <img src="{% static 'images/imagen2.png' %}" alt="Carlos Lopez" class="user-avatar">
-        <span class="user-name">Carlos Lopez</span>
-      </div>
-      <button class="btn-view-info">Ver Info</button>
-    </div>
-
-    <div class="user-card">
-      <div class="user-info">
-        <img src="{% static 'images/imagen2.png' %}" alt="Cinthia Rojas" class="user-avatar">
-        <span class="user-name">Cinthia Rojas</span>
-      </div>
-      <button class="btn-view-info">Ver Info</button>
-    </div>
-
-    <div class="user-card">
-      <div class="user-info">
-        <img src="{% static 'images/imagen2.png' %}" alt="Roberto Carlos" class="user-avatar">
-        <span class="user-name">Roberto Carlos</span>
-      </div>
-      <button class="btn-view-info">Ver Info</button>
-    </div>
-
-    <div class="user-card">
-      <div class="user-info">
-        <img src="{% static 'images/imagen2.png' %}" alt="Carlos Lopez" class="user-avatar">
-        <span class="user-name">Carlos Lopez</span>
-      </div>
-      <button class="btn-view-info">Ver Info</button>
-    </div>
-
-    <div class="user-card">
-      <div class="user-info">
-        <img src="{% static 'images/imagen2.png' %}" alt="Cinthia Rojas" class="user-avatar">
-        <span class="user-name">Cinthia Rojas</span>
-      </div>
-      <button class="btn-view-info">Ver Info</button>
-    </div>
-  </div>
+  <table id="tabla-usuarios" class="display tabla-estilizada">
+    <thead>
+      <tr>
+        <th>Imagen</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in usuarios %}
+      <tr>
+        <td>
+          {% if user.perfil.imagen %}
+          <img src="{{ user.perfil.imagen.url }}" alt="Foto de perfil" class="img-fluid rounded-circle"
+            style="max-width: 50px;">
+          {% else %}
+          <img src="{% static 'images/imagen2.png' %}" alt="Sin foto" class="img-fluid rounded-circle"
+            style="max-width: 50px;">
+          {% endif %}
+        </td>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.last_name }}</td>
+        
+        
+        <td>
+          <a href="{% url 'admin_usuarios_info' user.id %}" class="btn-view-info">Ver Info</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% include 'admin/usuarios/bottom_user_nav.html' %}
 {% endblock %}
 
 {% block extra_js %}
 <script src="{% static 'js/usuarios_logic.js' %}" defer></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#tabla-usuarios').DataTable({
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+      }
+    });
+  });
+</script>
 {% endblock %}

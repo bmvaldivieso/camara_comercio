@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
+from datetime import date
 
 # Create your models here.
 
@@ -332,6 +333,52 @@ class Mas_informacion(models.Model):
     def __str__(self):
         return f"Más info #{self.id}"
 
+
+
+class FormularioProductoVida(models.Model):
+    perfil = models.ForeignKey('PerfilUsuario', on_delete=models.SET_NULL, null=True, blank=True, related_name='formularios_vida')
+    producto = models.ForeignKey('Producto', on_delete=models.SET_NULL, null=True, blank=True, related_name='formularios_vida')
+    
+    # Declaración de salud
+    tiene_enfermedad_grave = models.BooleanField(default=False)
+    ha_sido_hospitalizado = models.BooleanField(default=False)
+    practica_deportes_extremos = models.BooleanField(default=False)
+
+    # Beneficiario
+    nombre_beneficiario = models.CharField(max_length=100)
+    relacion_beneficiario = models.CharField(max_length=50)
+    porcentaje_beneficiario = models.PositiveIntegerField()
+
+    # Confirmación de términos
+    acepta_terminos = models.BooleanField(default=False)
+    estado = models.BooleanField(default=False)
+    fecha_registro = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Formulario de {self.perfil.user.get_full_name()}"
+
+
+
+
+
+
+
+
+class Producto(models.Model):
+
+    subservicio = models.OneToOneField('Subservicios', on_delete=models.SET_NULL, null=True, blank=True, related_name='producto')
+    precio = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True) 
+    descripcion = models.CharField(max_length=255, blank=True, null=True)
+    titulo = models.CharField(max_length=255, blank=True, null=True)
+    url_html = models.CharField(max_length=255, blank=True, null=True) 
+    usuarios = models.ManyToManyField('PerfilUsuario', related_name='productos', blank=True)
+
+
+    def __str__(self):
+        return f'Producto de {self.subservicio.nombre if self.subservicio else "Sin asignar"}'
+
+
+
 class Subservicios(models.Model):
     """
     Modelo para almacenar los sub-servicios ofrecidos.
@@ -363,7 +410,7 @@ class Beneficio(models.Model):
         verbose_name_plural = "Beneficios"
 
     def __str__(self):
-        return self.nombre
+        return self.beneficio
 
 class Servicios(models.Model):
     """
@@ -373,16 +420,15 @@ class Servicios(models.Model):
     nombre = models.CharField(max_length=100)
     contacto = models.CharField(max_length=100)
     descripcion = models.TextField()
+    fecha_creacion = models.DateField()
     requisitos = models.TextField()
     img = models.ImageField(upload_to='servicios/', null=True, blank=True)
     ubicacion = models.CharField(max_length=255)
-    precio = models.DecimalField(max_digits=10, decimal_places=2) 
 
     id_mas_informacion = models.ForeignKey(Mas_informacion, on_delete=models.SET_NULL, null=True, blank=True, related_name='servicios')
-    id_subservicios = models.ForeignKey(Subservicios, on_delete=models.SET_NULL, null=True, blank=True, related_name='servicios')
+    id_subservicios = models.ManyToManyField(Subservicios, blank=True, related_name='servicios',null=True)
     id_beneficio = models.ForeignKey(Beneficio, on_delete=models.SET_NULL, null=True, blank=True, related_name='servicios_asociados')
     id_socio = models.ForeignKey(Socio, on_delete=models.SET_NULL, null=True, blank=True, related_name='servicios')
-    id_solicitud = models.ForeignKey(SolicitudSeguroVida, on_delete=models.SET_NULL, null=True, blank=True, related_name='servicios')
 
     class Meta:
         verbose_name = "Servicio"
@@ -447,8 +493,7 @@ class Categorias(models.Model):
     nombre = models.CharField(max_length=100)
     fecha_creacion = models.DateField()
     img = models.ImageField(upload_to='categorias/', null=True, blank=True)
-    monto_total = models.DecimalField(max_digits=10, decimal_places=2)
-    id_servicio = models.ForeignKey(Servicios, on_delete=models.CASCADE, related_name='categorias')
+    servicios = models.ManyToManyField('Servicios', related_name='categorias')
 
     class Meta:
         verbose_name = "Categoría"
@@ -456,6 +501,8 @@ class Categorias(models.Model):
 
     def __str__(self):
         return self.nombre
+
+
 
 class Entidades(models.Model):
     """
@@ -522,3 +569,36 @@ class Factura(models.Model):
         return f"Factura #{self.id} - {self.first_name} {self.last_name}"
 
 
+
+
+
+
+
+#modelos byron
+class Mensaje(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='mensajes')
+    titulo = models.CharField(max_length=255)
+    asunto = models.CharField(max_length=255)
+    contenido = models.TextField()
+    fecha_envio = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Mensaje a {self.usuario.username} - {self.titulo}"
+
+
+class Publicacion(models.Model):
+    autor = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'is_superuser': True})
+    titulo = models.CharField(max_length=200)
+    contenido = models.TextField()
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    servicio = models.ForeignKey(Servicios, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.titulo
+
+class ImagenPublicacion(models.Model):
+    publicacion = models.ForeignKey(Publicacion, related_name='imagenes', on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='publicaciones/')
+
+    def __str__(self):
+        return f"Imagen de {self.publicacion.titulo}"            

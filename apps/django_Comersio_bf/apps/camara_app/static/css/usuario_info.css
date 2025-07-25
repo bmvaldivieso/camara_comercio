@@ -1,0 +1,14 @@
+/* static/css/usuarios.css */
+.card {
+    border-radius: 1rem;
+  }
+  
+  .table th {
+    background-color: #f8f9fa;
+  }
+  
+  .img-fluid {
+    border: 3px solid #ccc;
+    padding: 5px;
+  }
+  

@@ -23,5 +23,11 @@ admin.site.register(DeclaracionSalud)
 admin.site.register(DetalleDeclaracionSalud)
 admin.site.register(Beneficiario)
 admin.site.register(DeporteActividad)
+admin.site.register(Producto)
+admin.site.register(FormularioProductoVida)
+
 
 # --- Fin de los modelos de Solicitud de Seguro de Vida ---
+admin.site.register(Mensaje)
+admin.site.register(Publicacion)
+admin.site.register(ImagenPublicacion)

@@ -2,6 +2,10 @@ from django import forms
 from .models import *
 from django.forms import inlineformset_factory
 from django.core.exceptions import ValidationError
+from django.forms.widgets import ClearableFileInput
+from django.forms import TextInput, Textarea, DateInput, FileInput, Select, SelectMultiple
+
+
 import re 
 
 class SocioPersonalForm(forms.ModelForm):
@@ -417,3 +421,186 @@ class BeneficiarioForm(forms.ModelForm):
         widgets = {'nombres_completos': forms.TextInput(attrs={'class': 'form-control'}), 'direccion': forms.TextInput(attrs={'class': 'form-control'}), 'fecha_nacimiento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}), 'parentesco': forms.TextInput(attrs={'class': 'form-control'}), 'cedula_identidad': forms.TextInput(attrs={'class': 'form-control'}), 'porcentaje': forms.NumberInput(attrs={'class': 'form-control', 'min': 0, 'max': 100}),}
         labels = {'nombres_completos': "Nombres completos", 'direccion': "Dirección", 'fecha_nacimiento': "Fecha de nacimiento", 'parentesco': "Parentesco", 'cedula_identidad': "C.I.", 'porcentaje': "Porcentaje (%)",}
         required = {'nombres_completos': True, 'direccion': True, 'fecha_nacimiento': True, 'parentesco': True, 'porcentaje': True,}
+
+
+
+
+
+
+
+class FormProductoVidaForm(forms.ModelForm):
+    class Meta:
+        model = FormularioProductoVida
+        fields = [
+            'tiene_enfermedad_grave',
+            'ha_sido_hospitalizado',
+            'practica_deportes_extremos',
+            'nombre_beneficiario',
+            'relacion_beneficiario',
+            'porcentaje_beneficiario',
+            'acepta_terminos'
+        ]
+        widgets = {
+            'tiene_enfermedad_grave': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'ha_sido_hospitalizado': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'practica_deportes_extremos': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'nombre_beneficiario': forms.TextInput(attrs={'class': 'form-control'}),
+            'relacion_beneficiario': forms.TextInput(attrs={'class': 'form-control'}),
+            'porcentaje_beneficiario': forms.NumberInput(attrs={'class': 'form-control'}),
+            'acepta_terminos': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+    def clean_porcentaje_beneficiario(self):
+        val = self.cleaned_data['porcentaje_beneficiario']
+        if val > 100 or val < 1:
+            raise forms.ValidationError("El porcentaje debe estar entre 1% y 100%.")
+        return val
+
+    def clean_acepta_terminos(self):
+        val = self.cleaned_data['acepta_terminos']
+        if not val:
+            raise forms.ValidationError("Debe aceptar los términos para continuar.")
+        return val
+
+
+
+#formularios byron
+from .models import Mensaje
+
+class MensajeForm(forms.ModelForm):
+    class Meta:
+        model = Mensaje
+        fields = ['titulo', 'asunto', 'contenido']
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control'}),
+            'asunto': forms.TextInput(attrs={'class': 'form-control'}),
+            'contenido': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+        }
+
+class PublicacionForm(forms.ModelForm):
+    class Meta:
+        model = Publicacion
+        fields = ['titulo', 'contenido', 'servicio']
+
+class ImagenPublicacionForm(forms.ModelForm):
+    class Meta:
+        model = ImagenPublicacion
+        fields = ['imagen']
+
+
+
+class CustomClearableFileInput(ClearableFileInput):
+    template_name = 'widgets/custom_clearable_file_input.html'
+
+
+class CategoriaForm(forms.ModelForm):
+    class Meta:
+        model = Categorias
+        fields = ['tipo', 'nombre', 'fecha_creacion', 'img', 'servicios']
+
+        widgets = {
+            'tipo': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ingrese el tipo de categoría',
+                'required': 'required'
+            }),
+            'nombre': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ingrese el nombre de la categoría',
+                'required': 'required'
+            }),
+            'fecha_creacion': forms.DateInput(attrs={
+                'type': 'date',
+                'class': 'form-control',
+                'required': 'required'
+            }),
+            'img': CustomClearableFileInput(attrs={'class': 'form-control'}),
+            'servicios': forms.SelectMultiple(attrs={
+                'class': 'form-select',
+                'multiple': 'multiple',
+                'required': 'required'
+            })
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(CategoriaForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            if field.required is not False: 
+                field.required = True
+
+
+
+
+class ServicioForm(forms.ModelForm):
+    class Meta:
+        model = Servicios
+        fields = [
+            'nombre',
+            'contacto',
+            'descripcion',
+            'fecha_creacion',
+            'requisitos',
+            'img',
+            'ubicacion',
+            'id_mas_informacion',
+            'id_subservicios',
+            'id_beneficio',
+            'id_socio',
+        ]
+
+        widgets = {
+            'nombre': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Nombre del servicio',
+                'required': 'required'
+            }),
+            'contacto': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Información de contacto',
+                'required': 'required'
+            }),
+            'descripcion': Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Descripción del servicio',
+                'rows': 4,
+                'required': 'required'
+            }),
+            'fecha_creacion': DateInput(attrs={
+                'type': 'date',
+                'class': 'form-control',
+                'required': 'required'
+            }),
+            'requisitos': Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Requisitos para acceder al servicio',
+                'rows': 3,
+                'required': 'required'
+            }),
+            'img': CustomClearableFileInput(attrs={
+                'class': 'form-control'
+            }),
+            'ubicacion': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ubicación del servicio',
+                'required': 'required'
+            }),
+            'id_mas_informacion': Select(attrs={
+                'class': 'form-select'
+            }),
+            'id_subservicios': SelectMultiple(attrs={
+                'class': 'form-select',
+                'multiple': 'multiple'
+            }),
+            'id_beneficio': Select(attrs={
+                'class': 'form-select'
+            }),
+            'id_socio': Select(attrs={
+                'class': 'form-select'
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ServicioForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            if field.required is not False:
+                field.required = True

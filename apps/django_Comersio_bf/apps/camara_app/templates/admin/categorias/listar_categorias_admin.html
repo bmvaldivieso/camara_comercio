@@ -1,0 +1,75 @@
+{% extends 'admin/master/masteradmin.html' %}
+{% load static %}
+
+{% block title %}Publicaciones - Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/usuarios.css' %}" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block admin_content %}
+<hr>
+<div class="main-socio-container">
+
+    <table id="tabla-usuarios" class="display tabla-estilizada">
+        <thead>
+            <tr>
+                <th style="width: 20%;">Imagen</th>
+                <th>tipo</th>
+                <th>nombre</th>
+                <th>fecha_creacion</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cate in categorias %}
+            <tr>
+                <td style="width: 20%;height: 100px;
+                {% if cate.img %}
+                background-image: url('{{ cate.img.url }}'); 
+                background-repeat: no-repeat; 
+                background-position: center; 
+                background-size: cover;
+                {% else %}
+                background-image: url('{% static 'images/imagen2.png' %}'); 
+                background-repeat: no-repeat; 
+                background-position: center; 
+                background-size: cover;
+                {% endif %}
+                ">
+                </td>
+                <td>{{ cate.tipo }}</td>
+                <td>{{ cate.nombre }}</td>
+                <td>{{ cate.fecha_creacion }}</td>
+                <td>
+                    <a href="{% url 'editar_categoria' cate.id %}" class="btn-view-info">Ver/Editar</a>
+                    <a href="{% url 'eliminar_categoria' cate.id %}" class="btn-view-info">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+    <div class="text-end mt-4">
+        <a href="{% url 'crear_categoria' %}" class="btn btn-success">
+            <i class="fas fa-plus me-1"></i> Crear nueva categoría
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/publicaciones_logic.js' %}" defer></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#tabla-usuarios').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+            }
+        });
+    });
+</script>
+{% endblock %}

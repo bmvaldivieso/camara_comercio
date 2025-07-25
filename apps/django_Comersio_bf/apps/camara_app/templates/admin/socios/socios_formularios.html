@@ -10,7 +10,7 @@
 
 {% block admin_content %}
 <hr>
-<h4><i class="far fa-file-alt"></i> Formularios</h4>
+<h4><i class="far fa-file-alt"></i> Formularios seguro de vida</h4>
 
 <div class="main-socio-container">
 
@@ -24,183 +24,52 @@
             <th>Hora</th>
             <th>Estado</th>
             <th>Solicitud</th>
-            <th>Descargas</th>
-            <th>Eliminar</th>
-            <th>Comentario</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
+          {% for solicitud in solicitudes %}
           <tr>
-            <td><img src="{% static 'images/imagen2.png' %}" alt="Gabriela Riofrio" class="table-user-avatar"> Gabriela
-              Riofrio</td>
-            <td>03/07/2025</td>
-            <td>20:00</td>
             <td>
-              <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider round"></span>
-              </label>
-              Aprobado
+              <img src="{% static 'images/imagen2.png' %}" alt="{{ solicitud.nombres }} {{ solicitud.apellidos }}"
+                class="table-user-avatar">
+              {{ solicitud.nombres }} {{ solicitud.apellidos }}
             </td>
-            <td>Descargar <i class="far fa-file-pdf pdf-icon"></i></td>
-            <td><i class="fas fa-cloud-download-alt"></i></td>
-            <td><i class="far fa-trash-alt"></i></td>
-            <td><input type="text" value="Comentario 1" class="comment-input"></td>
-          </tr>
-          <tr>
-            <td><img src="{% static 'images/imagen2.png' %}" alt="Gabriela Riofrio" class="table-user-avatar"> Gabriela
-              Riofrio</td>
-            <td>03/07/2025</td>
-            <td>20:00</td>
+            <td>{{ solicitud.fecha_creacion|date:"d/m/Y" }}</td>
+            <td>{{ solicitud.fecha_creacion|date:"H:i" }}</td>
             <td>
               <label class="switch">
-                <input type="checkbox" checked>
+                <input type="checkbox" {% if solicitud.firma_electronica_generada %}checked{% endif %}>
                 <span class="slider round"></span>
               </label>
+              {% if solicitud.firma_electronica_generada %}
               Aprobado
-            </td>
-            <td>Descargar <i class="far fa-file-pdf pdf-icon"></i></td>
-            <td><i class="fas fa-cloud-download-alt"></i></td>
-            <td><i class="far fa-trash-alt"></i></td>
-            <td><input type="text" value="Comentario 2" class="comment-input"></td>
-          </tr>
-          <tr>
-            <td><img src="{% static 'images/imagen2.png' %}" alt="Gabriela Riofrio" class="table-user-avatar"> Gabriela
-              Riofrio</td>
-            <td>03/07/2025</td>
-            <td>20:00</td>
-            <td>
-              <label class="switch">
-                <input type="checkbox">
-                <span class="slider round"></span>
-              </label>
+              {% else %}
               Pendiente
+              {% endif %}
             </td>
-            <td>Descargar <i class="far fa-file-pdf pdf-icon"></i></td>
-            <td><i class="fas fa-cloud-download-alt"></i></td>
-            <td><i class="far fa-trash-alt"></i></td>
-            <td><input type="text" value="Comentario 3" class="comment-input"></td>
-          </tr>
-          <tr>
-            <td><img src="{% static 'images/imagen2.png' %}" alt="Gabriela Riofrio" class="table-user-avatar"> Gabriela
-              Riofrio</td>
-            <td>03/07/2025</td>
-            <td>20:00</td>
             <td>
-              <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider round"></span>
-              </label>
-              Aprobado
+              <a href="{% url 'ver_info_solicitud' solicitud.id %}">
+                Ver
+              </a>
             </td>
-            <td>Descargar <i class="far fa-file-pdf pdf-icon"></i></td>
-            <td><i class="fas fa-cloud-download-alt"></i></td>
-            <td><i class="far fa-trash-alt"></i></td>
-            <td><input type="text" value="Comentario 4" class="comment-input"></td>
-          </tr>
-          <tr>
-            <td><img src="{% static 'images/imagen2.png' %}" alt="Gabriela Riofrio" class="table-user-avatar"> Gabriela
-              Riofrio</td>
-            <td>03/07/2025</td>
-            <td>20:00</td>
             <td>
-              <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider round"></span>
-              </label>
-              Aprobado
+              <form action="{#}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link p-0"
+                  onclick="return confirm('¿Estás seguro de eliminar esta solicitud?');">
+                  <i class="far fa-trash-alt text-danger"></i>
+                </button>
+              </form>
             </td>
-            <td>Descargar <i class="far fa-file-pdf pdf-icon"></i></td>
-            <td><i class="fas fa-cloud-download-alt"></i></td>
-            <td><i class="far fa-trash-alt"></i></td>
-            <td><input type="text" value="Comentario 5" class="comment-input"></td>
           </tr>
+          {% empty %}
           <tr>
-            <td><img src="{% static 'images/imagen2.png' %}" alt="Gabriela Riofrio" class="table-user-avatar"> Gabriela
-              Riofrio</td>
-            <td>03/07/2025</td>
-            <td>20:00</td>
-            <td>
-              <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider round"></span>
-              </label>
-              Aprobado
-            </td>
-            <td>Descargar <i class="far fa-file-pdf pdf-icon"></i></td>
-            <td><i class="fas fa-cloud-download-alt"></i></td>
-            <td><i class="far fa-trash-alt"></i></td>
-            <td><input type="text" value="Comentario 6" class="comment-input"></td>
+            <td colspan="6">No hay formularios registrados.</td>
           </tr>
-          <tr>
-            <td><img src="{% static 'images/imagen2.png' %}" alt="Gabriela Riofrio" class="table-user-avatar"> Gabriela
-              Riofrio</td>
-            <td>03/07/2025</td>
-            <td>20:00</td>
-            <td>
-              <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider round"></span>
-              </label>
-              Aprobado
-            </td>
-            <td>Descargar <i class="far fa-file-pdf pdf-icon"></i></td>
-            <td><i class="fas fa-cloud-download-alt"></i></td>
-            <td><i class="far fa-trash-alt"></i></td>
-            <td><input type="text" value="Comentario 6" class="comment-input"></td>
-          </tr>
-          <tr>
-            <td><img src="{% static 'images/imagen2.png' %}" alt="Gabriela Riofrio" class="table-user-avatar"> Gabriela
-              Riofrio</td>
-            <td>03/07/2025</td>
-            <td>20:00</td>
-            <td>
-              <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider round"></span>
-              </label>
-              Aprobado
-            </td>
-            <td>Descargar <i class="far fa-file-pdf pdf-icon"></i></td>
-            <td><i class="fas fa-cloud-download-alt"></i></td>
-            <td><i class="far fa-trash-alt"></i></td>
-            <td><input type="text" value="Comentario 6" class="comment-input"></td>
-          </tr>
-          <tr>
-            <td><img src="{% static 'images/imagen2.png' %}" alt="Gabriela Riofrio" class="table-user-avatar"> Gabriela
-              Riofrio</td>
-            <td>03/07/2025</td>
-            <td>20:00</td>
-            <td>
-              <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider round"></span>
-              </label>
-              Aprobado
-            </td>
-            <td>Descargar <i class="far fa-file-pdf pdf-icon"></i></td>
-            <td><i class="fas fa-cloud-download-alt"></i></td>
-            <td><i class="far fa-trash-alt"></i></td>
-            <td><input type="text" value="Comentario 6" class="comment-input"></td>
-          </tr>
-          <tr>
-            <td><img src="{% static 'images/imagen2.png' %}" alt="Gabriela Riofrio" class="table-user-avatar"> Gabriela
-              Riofrio</td>
-            <td>03/07/2025</td>
-            <td>20:00</td>
-            <td>
-              <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider round"></span>
-              </label>
-              Aprobado
-            </td>
-            <td>Descargar <i class="far fa-file-pdf pdf-icon"></i></td>
-            <td><i class="fas fa-cloud-download-alt"></i></td>
-            <td><i class="far fa-trash-alt"></i></td>
-            <td><input type="text" value="Comentario 6" class="comment-input"></td>
-          </tr>
+          {% endfor %}
         </tbody>
+
       </table>
     </div>
   </div>

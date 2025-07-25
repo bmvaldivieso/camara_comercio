@@ -12,122 +12,20 @@
 
 <div id="cards-container" class="categories-scroll">
 
+    {% for categoria in categorias %}
     <div class="category-card with-image">
-        <img src="{% static 'images/salud.png' %}" alt="Imagen de categoría" class="card-image" />
+        <img src="{{ categoria.img.url }}" alt="Imagen de categoría" class="card-image" />
         <div class="card-content text-center">
-            <h3 class="card-title">Salud</h3>
-            <p class="card-description">
-                La Cámara de Comercio de Loja pone a disposición de sus usuarios y
-                socios una variedad de servicios en el área de salud, a través de
-                convenios con clínicas, farmacias y profesionales certificados.
+            <h3 class="card-title">{{ categoria.tipo }}</h3>
+            <p class="card-description" style="color: black;">
+                {{ categoria.descripcion }}
             </p>
-            <a href="/servicios" class="btn btn-ingresar">
+            <a href="/servicios/{{ categoria.id }}" class="btn btn-ingresar">
                 <span class="btn-text">Ingresar</span>
             </a>
         </div>
     </div>
-
-    <div class="category-card with-image">
-        <img src="{% static 'images/administracion1.png' %}" alt="Imagen de categoría" class="card-image" />
-        <div class="card-content text-center">
-            <h3 class="card-title">Tecnología</h3>
-            <p class="card-description">
-                Explora las últimas tendencias en tecnología y encuentra servicios
-                innovadores para tu negocio.
-            </p>
-            <a href="/servicios" class="btn btn-ingresar">
-                <span class="btn-text">Ingresar</span>
-            </a>
-        </div>
-    </div>
-
-    <div class="category-card with-image">
-        <img src="{% static 'images/3.png' %}" alt="Imagen de categoría" class="card-image" />
-        <div class="card-content text-center">
-            <h3 class="card-title">Educación</h3>
-            <p class="card-description">
-                Accede a cursos, talleres y programas de capacitación para el
-                desarrollo profesional.
-            </p>
-            <a href="/servicios" class="btn btn-ingresar">
-                <span class="btn-text">Ingresar</span>
-            </a>
-        </div>
-    </div>
-
-    <div class="category-card with-image">
-        <img src="{% static 'images/fondo4.png' %}" alt="Imagen de categoría" class="card-image" />
-        <div class="card-content text-center">
-            <h3 class="card-title">Firmas</h3>
-            <p class="card-description">
-                Accede a cursos, talleres y programas de capacitación para el
-                desarrollo profesional.
-            </p>
-            <a href="/servicios" class="btn btn-ingresar">
-                <span class="btn-text">Ingresar</span>
-            </a>
-        </div>
-    </div>
-
-    <div class="category-card with-image">
-        <img src="{% static 'images/fondo.jpg' %}" alt="Imagen de categoría" class="card-image" />
-        <div class="card-content text-center">
-            <h3 class="card-title">Tecnología</h3>
-            <p class="card-description">
-                Explora las últimas tendencias en tecnología y encuentra servicios
-                innovadores para tu negocio.
-            </p>
-            <a href="/servicios" class="btn btn-ingresar">
-                <span class="btn-text">Ingresar</span>
-            </a>
-
-        </div>
-    </div>
-
-    <div class="category-card with-image">
-        <img src="{% static 'images/fondo3.jpg' %}" alt="Imagen de categoría" class="card-image" />
-        <div class="card-content text-center">
-            <h3 class="card-title">Educación</h3>
-            <p class="card-description">
-                Accede a cursos, talleres y programas de capacitación para el
-                desarrollo profesional.
-            </p>
-            <a href="/servicios" class="btn btn-ingresar">
-                <span class="btn-text">Ingresar</span>
-            </a>
-
-        </div>
-    </div>
-
-    <div class="category-card with-image">
-        <img src="{% static 'images/fondo4.png' %}" alt="Imagen de categoría" class="card-image" />
-        <div class="card-content text-center">
-            <h3 class="card-title">Firmas</h3>
-            <p class="card-description">
-                Accede a cursos, talleres y programas de capacitación para el
-                desarrollo profesional.
-            </p>
-            <a href="/servicios" class="btn btn-ingresar">
-                <span class="btn-text">Ingresar</span>
-            </a>
-
-        </div>
-    </div>
-
-    <div class="category-card with-image">
-        <img src="{% static 'images/fondo.jpg' %}" alt="Imagen de categoría" class="card-image" />
-        <div class="card-content text-center">
-            <h3 class="card-title">Tecnología</h3>
-            <p class="card-description">
-                Explora las últimas tendencias en tecnología y encuentra servicios
-                innovadores para tu negocio.
-            </p>
-            <a href="/servicios" class="btn btn-ingresar">
-                <span class="btn-text">Ingresar</span>
-            </a>
-
-        </div>
-    </div>
-
+    {% endfor %}
+    
 </div>
 {% endblock %}

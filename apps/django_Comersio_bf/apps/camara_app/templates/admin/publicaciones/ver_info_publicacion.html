@@ -1,0 +1,35 @@
+{% extends 'admin/master/masteradmin.html' %}
+{% load static %}
+
+{% block title %}Detalles de la Publicación{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ver_info_publicacion.css' %}">
+{% endblock %}
+
+{% block admin_content %}
+<div class="info-publicacion-container">
+    <h1>{{ publicacion.titulo }}</h1>
+    
+    <p><strong>Autor:</strong> {{ publicacion.autor.get_full_name|default:publicacion.autor.username }}</p>
+    <p><strong>Servicio:</strong> {{ publicacion.servicio }}</p>
+    <p><strong>Fecha de creación:</strong> {{ publicacion.fecha_creacion|date:"d/m/Y H:i" }}</p>
+    <p><strong>Contenido:</strong></p>
+    <div class="contenido-publicacion">
+        {{ publicacion.contenido|linebreaks }}
+    </div>
+
+    <h3>Imágenes asociadas</h3>
+    <div class="galeria-imagenes">
+        {% for imagen in imagenesPublicacion %}
+            <div class="imagen-wrapper">
+                <img src="{{ imagen.imagen.url }}" alt="Imagen de la publicación" class="imagen-publicacion">
+            </div>
+        {% empty %}
+            <p>No hay imágenes para esta publicación.</p>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'listar_publicaciones' %}" class="btn btn-secondary mt-3">Volver</a>
+</div>
+{% endblock %}

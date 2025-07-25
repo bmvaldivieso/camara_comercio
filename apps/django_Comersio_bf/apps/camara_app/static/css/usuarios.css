@@ -1,3 +1,11 @@
+.main-socio-container {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 5rem;
+    padding-right: 8px;
+}
+
+
 .users-section {
     padding: 1.5rem 0;
 }
@@ -58,7 +66,7 @@
     color: #343a40;
 }
 
-.user-card .btn-view-info {
+.btn-view-info {
     background: linear-gradient(90deg, #1D1959, #3D36BF);
     color: white;
     border: none;
@@ -72,7 +80,7 @@
     text-align: center;
 }
 
-.user-card .btn-view-info:hover {
+.btn-view-info:hover {
     background: linear-gradient(90deg, #3D36BF, #1D1959);
 }
 
@@ -124,7 +132,7 @@
         margin-bottom: 0.5rem;
     }
 
-    .user-card .btn-view-info {
+    .btn-view-info {
         width: 100%;
     }
 
@@ -133,4 +141,97 @@
         padding: 0.75rem 1rem;
         gap: 1rem;
     }
+}
+
+
+
+
+/* Tabla con estilo tipo tarjetas */
+#tabla-usuarios_wrapper {
+    margin-top: 2rem;
+}
+
+#tabla-usuarios {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+#tabla-usuarios thead {
+    background-color: #1D1959;
+    color: white;
+}
+
+#tabla-usuarios thead th {
+    padding: 12px;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+#tabla-usuarios tbody tr {
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border-radius: 12px;
+    transition: background-color 0.2s ease;
+}
+
+#tabla-usuarios tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+#tabla-usuarios td {
+    padding: 14px 12px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.95rem;
+    border-top: 1px solid #f0f0f0;
+}
+
+/* Paginación y buscador con estilo */
+.dataTables_filter label {
+    font-weight: 500;
+    color: #343a40;
+}
+
+.dataTables_filter input {
+    border: 1px solid #ccc;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-left: 8px;
+}
+
+.dataTables_paginate {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.dataTables_paginate .paginate_button {
+    padding: 6px 12px;
+    margin: 0 2px;
+    border-radius: 6px;
+    border: none;
+    background-color: #f0f0f0;
+    color: #333;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+
+.dataTables_paginate .paginate_button:hover {
+    background-color: #d0d0ff;
+    color: #1D1959;
+}
+
+.dataTables_paginate .paginate_button.current {
+    background-color: #3D36BF;
+    color: white !important;
+    font-weight: bold;
+}
+
+.dataTables_length select {
+    border-radius: 6px;
+    padding: 4px 6px;
+    margin-left: 6px;
 }

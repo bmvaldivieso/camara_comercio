@@ -123,7 +123,7 @@
 
     <div class="row1">
       <div class="imagen-redonda">
-        <img src="{{ user.perfil.imagen.url}}" alt="Usuario" class="foto-perfil">
+        <img src="{% if user.perfil.imagen %}{{ user.perfil.imagen.url}}{% else %}{% static 'images/imagen2.png' %}{% endif %}" alt="Usuario" class="foto-perfil">
       </div>
       <p class="nombre-usuario">{{ user.first_name }} {{ user.last_name }}</p>
     </div>

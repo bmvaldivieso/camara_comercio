@@ -1,0 +1,71 @@
+{% extends "admin/master/masteradmin.html" %}
+{% load static %}
+
+{% block admin_content %}
+<div class="container mt-5">
+    <div class="card shadow rounded">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Información del Usuario</h4>
+        </div>
+        <div class="card-body row">
+            <!-- Imagen -->
+            <div class="col-md-4 text-center">
+                {% if usuario.perfil.imagen %}
+                <img src="{{ usuario.perfil.imagen.url }}" alt="Foto de perfil" class="img-fluid rounded-circle mb-3"
+                    style="max-width: 200px;">
+                {% else %}
+                <img src="{% static 'images/imagen2.png' %}" alt="Sin foto" class="img-fluid rounded-circle mb-3"
+                    style="max-width: 200px;">
+                {% endif %}
+                <link rel="stylesheet" href="{% static 'css/usuario_info.css' %}">
+            </div>
+
+            <!-- Información -->
+            <div class="col-md-8">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Nombre completo:</th>
+                            <td>{{ usuario.first_name }} {{ usuario.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Correo electrónico:</th>
+                            <td>{{ usuario.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nombre de usuario:</th>
+                            <td>{{ usuario.username }}</td>
+                        </tr>
+                        <tr>
+                            <th>Cédula:</th>
+                            <td>{{ usuario.perfil.cedula }}</td>
+                        </tr>
+                        <tr>
+                            <th>Socio:</th>
+                            <td>
+                                {% if usuario.perfil.socio %}
+                                {{ usuario.perfil.socio }}
+                                {% else %}
+                                No es socio
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>ID Solicitud de Seguro de Vida:</th>
+                            <td>
+                                {% if usuario.perfil.id_solicitud %}
+                                {{ usuario.perfil.id_solicitud }}
+                                {% else %}
+                                No tiene seguro de vida
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <a href="{% url 'admin_usuarios' %}" class="btn btn-secondary mt-3">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

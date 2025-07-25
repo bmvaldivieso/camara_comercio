@@ -20,8 +20,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate, login as auth_login
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from .forms import SocioPersonalForm, SocioBusinessForm, SocioActivityContactForm, InformacionSeguroSocioForm
-from .forms import SolicitudSeguroVidaForm, DeclaracionSaludForm, DeporteActividadForm, BeneficiarioForm
+from .forms import SocioPersonalForm, SocioBusinessForm, SocioActivityContactForm, InformacionSeguroSocioForm,CategoriaForm,ServicioForm
+from .forms import SolicitudSeguroVidaForm, DeclaracionSaludForm, DeporteActividadForm, BeneficiarioForm, FormProductoVidaForm
 
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import redirect
@@ -31,7 +31,27 @@ from django.http import HttpResponse
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
+from reportlab.lib.pagesizes import LETTER
+from reportlab.pdfgen import canvas
+from io import BytesIO
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
+from io import BytesIO
+from django.core.mail import send_mail
+from django.conf import settings
+from django.template.loader import render_to_string
 
+
+from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import get_object_or_404
+from .models import PerfilUsuario
+from .forms import MensajeForm
+from .forms import PublicacionForm
+from .forms import ImagenPublicacionForm
+from .models import ImagenPublicacion
+from django.forms.models import modelformset_factory
+from django.views.decorators.http import require_POST
 
 
 
@@ -65,20 +85,6 @@ class IsSuperUser(BasePermission):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @csrf_protect
 def logout_view(request):
     if request.method == "POST":
@@ -102,15 +108,14 @@ def login(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            # Login de sesión clásica
             auth_login(request, user)
 
-            # Crear token JWT usando RefreshToken
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
             refresh_token = str(refresh)
 
             is_superuser = user.is_superuser
+            print(f"Superuser: {user.is_superuser}")
 
             context = {
                 "access_token": access_token,
@@ -118,13 +123,19 @@ def login(request):
                 "is_superuser": is_superuser
             }
             print(context)
-            return redirect('/categorias')
+
+            if is_superuser:
+                return redirect('/dashboard')
+            else:
+                return redirect('/categorias')
 
         else:
             logging.warning("Usuario o contraseña incorrectos.")
             messages.error(request, "Usuario o contraseña incorrectos.")
 
     return render(request, 'auth/login/login.html')
+
+
 
 
 
@@ -184,9 +195,6 @@ def index(request):
 
 
 
-
-
-
 @login_required(login_url='/login')
 def ser_socio(request):
     logging.warning("Ser Socio requestttttt")
@@ -230,6 +238,7 @@ def ser_socio(request):
                 actividad_especifica=activity_contact_form.cleaned_data['actividad_especifica'],
                 representante_contacto=activity_contact_form.cleaned_data['representante_contacto'],
                 propietario_contacto=activity_contact_form.cleaned_data['propietario_contacto'],
+                activo=False,
                 id_seguro=info_seguro
             )
             socio.save()
@@ -258,8 +267,6 @@ def ser_socio(request):
 
         context = {'personal_form': personal_form,'business_form': business_form,'activity_contact_form': activity_contact_form,'seguro_form': seguro_form,}
     return render(request, 'components/socio/registerSocio/mainSocio.html', context) 
-
-
 
 
 
@@ -415,43 +422,157 @@ def present_Socio(request):
 
 
 
-
-
-
 @login_required(login_url='/login')
 def categorias(request):
-    return render(request, 'components/categories/categorias.html')
-    
+
+    categorias = Categorias.objects.all()
+    context = {'categorias': categorias}
+    return render(request, 'components/categories/categorias.html', context)
+
+
+
 @login_required(login_url='/login')
-def servicios(request):
+def servicios(request, categoria_id):
     logging.warning("Servicios requestttttt")
-    return render(request, 'components/services/servicios.html')
+    servicios = Servicios.objects.filter(categorias__id=categoria_id).all()
+    context = {'servicios': servicios,'categoria_id':categoria_id}
+    return render(request, 'components/services/servicios.html', context)
+
+
+
 @login_required(login_url='/login')
-def subservicios(request):
+def subservicios(request,servicio_id,categoria_id):
     logging.warning("Subservicios requestttttt")
-    return render(request, 'components/subservicios/subservicios.html')
+    subservicios = Subservicios.objects.filter(servicios__id=servicio_id).all()
+    context ={'subservicios':subservicios,'servicio_id':servicio_id,'categoria_id':categoria_id}
+    return render(request, 'components/subservicios/subservicios.html', context)
+
+
+from django.http import FileResponse
+from datetime import datetime
+
 @login_required(login_url='/login')
-def masteradmin(request):
-    return render(request, 'admin/master/masteradmin.html')
+def seguro_vida(request, servicio_id, producto_id,categoria_id):
+    producto = Producto.objects.get(id=producto_id)
+    perfil = request.user.perfil
+
+    if request.method == 'POST':
+        data = request.POST
+
+        formulario = FormularioProductoVida.objects.create(
+            perfil=perfil,
+            producto=producto,
+            tiene_enfermedad_grave=bool(data.get('tiene_enfermedad_grave')),
+            ha_sido_hospitalizado=bool(data.get('ha_sido_hospitalizado')),
+            practica_deportes_extremos=bool(data.get('practica_deportes_extremos')),
+            nombre_beneficiario=data.get('nombre_beneficiario'),
+            relacion_beneficiario=data.get('relacion_beneficiario'),
+            porcentaje_beneficiario=data.get('porcentaje_beneficiario'),
+            acepta_terminos=bool(data.get('acepta_terminos')),
+            estado=bool(False),
+            fecha_registro=datetime.now(),
+        )
+        formulario.save()   
+        logging.warning("Formulario guardado exitosamente")
+        pdf_buffer = generar_poliza_pdf(perfil, formulario)
+        return FileResponse(pdf_buffer, as_attachment=True, filename='poliza_seguro_vida.pdf')
+    context = {'servicio_id': servicio_id,'producto': producto,'categoria_id':categoria_id}
+    return render(request, 'components/subservicios/seguroVida/seguro_vida.html', context)
+
+
+def generar_poliza_pdf(perfil, formulario):
+    html_string = render_to_string("components/subservicios/seguroVida/pdf/poliza_vida.html", {'perfil': perfil,'formulario': formulario})
+    pdf_file = BytesIO()
+    HTML(string=html_string).write_pdf(pdf_file)
+    pdf_file.seek(0)
+    return pdf_file
+
+
+
+
+
+
 @login_required(login_url='/login')
-def dashboard(request):
-    return render(request, 'admin/dashboard/dashboard.html')
+def firma(request,servicio_id,producto_id,categoria_id):
+    logging.warning("Firma requestttttt")
+    producto = Producto.objects.get(id=producto_id)
+    context ={'servicio_id':servicio_id,'producto':producto,'categoria_id':categoria_id}
+    return render(request, 'components/subservicios/firmaElectronica/firma.html',context)
+
+
 @login_required(login_url='/login')
-def admin_usuarios(request):
-    return render(request, 'admin/usuarios/usuarios.html')
+def productos_carrito(request):
+    perfil = request.user.perfil
+    productos = perfil.productos.all() 
+    data = []
+
+    for producto in productos:
+        data.append({'titulo': producto.titulo,'precio': str(producto.precio)})
+
+    return JsonResponse({'productos': data})
+
+
 @login_required(login_url='/login')
-def admin_usuarios_incremento(request):
-    return render(request, 'admin/usuarios/usuarios_incremento.html')    
+def productos_carrito_add(request,producto_id,servicio_id,categoria_id):
+    logging.warning("Productos carrito add requestttttt")
+    perfil = request.user.perfil
+    producto = Producto.objects.get(id=producto_id)
+    perfil.productos.add(producto)
+    perfil.save()
+    return redirect('subservicios',servicio_id=servicio_id,categoria_id=categoria_id)
+
+
+
+
 @login_required(login_url='/login')
-def admin_socios(request):
+def productos_carrito_count(request):
+    logging.warning("Productos carrito count requestttttt")
+    perfil = request.user.perfil
+    productos = perfil.productos.all() 
+    total = 0
+    if len(productos) != 0:
+        for producto in productos:
+            total += producto.precio
+        enviar_factura(request,total,productos,perfil)    
+        perfil.productos.remove(*productos)
+        perfil.save()
+    else:
+        messages.error(request, "No hay productos en el carrito.")
+    return JsonResponse({'total': total})
+
+
+
+
+def enviar_factura(request,total,productos,perfil):
+        subject = 'Factura de Compra'
+        from_email = settings.EMAIL_HOST_USER
+        to_email = [request.user.email]
+
+        html_message = render_to_string('factura_compra.html', {'usuario': request.user,'perfil': perfil,'productos': productos,'total': total})
+
+        try:
+            send_mail(subject, '', from_email, to_email, html_message=html_message)
+            logging.warning(f"Factura enviada a {request.user.email}")
+        except Exception as e:
+            logging.warning(f"Error al enviar la factura: {e}")
+
+
+
+
+
+
+
+
+
+
+
+  
+@login_required(login_url='/login')
+def admin_socios_c(request):
     return render(request, 'admin/socios/socios.html')
 @login_required(login_url='/login')
-def admin_socios_formularios(request):
+def admin_socios_formularios_c(request):
     return render(request, 'admin/socios/socios_formularios.html')
-@login_required(login_url='/login')
-def seguro_vida(request):
-    logging.warning("Seguro Vida requestttttt")
-    return render(request, 'components/subservicios/seguroVida/seguro_vida.html')
 @login_required(login_url='/login')
 def seguro_vida_archivos_subidos(request):
     return render(request, 'components/subservicios/seguroVida/seguro_vida_archivos_subidos.html')
@@ -470,5 +591,356 @@ def formularios_form_a(request):
 @login_required(login_url='/login')
 def formularios_form_b(request):
     return render(request, 'components/forms/formularios_form_b.html')     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# USUARIOS ADMIN
+
+@login_required(login_url='/login')
+def masteradmin(request):
+    return render(request, 'admin/master/masteradmin.html')
+
+
+
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def admin_usuarios(request):
+    usuarios = User.objects.all().order_by('-date_joined')  
+    return render(request, 'admin/usuarios/usuarios.html', {'usuarios': usuarios})
+
+
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def admin_usuarios_info(request, user_id):
+    usuario = get_object_or_404(User, id=user_id)
+    return render(request, 'admin/usuarios/usuario_info.html', {'usuario': usuario})
+
+
+
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def admin_usuarios_incremento(request):
+    usuarios = User.objects.all()
+    return render(request, 'admin/usuarios/usuarios_incremento.html', {'usuarios': usuarios})
+
+
+
+
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def enviar_mensaje_usuario(request, user_id):
+    usuario = get_object_or_404(User, id=user_id)
+    if request.method == 'POST':
+        form = MensajeForm(request.POST)
+        if form.is_valid():
+            mensaje = form.save(commit=False)
+            mensaje.usuario = usuario
+            mensaje.save()
+            #messages.success(request, "Mensaje enviado correctamente.")
+            return redirect('admin_usuarios_incremento')
+    else:
+        form = MensajeForm()
+    return render(request, 'admin/usuarios/enviar_mensaje.html', {'form': form, 'usuario': usuario})    
+
+
+
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def dashboard(request):
+    total_usuarios = User.objects.count()
+    total_socios = Socio.objects.count()
+    usuarios = User.objects.all()
+
+    context = {
+        'total_usuarios': total_usuarios,
+        'total_socios': total_socios,
+        'usuarios': usuarios,
+    }
+    return render(request, 'admin/dashboard/dashboard.html', context) 
+
+
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def listar_publicaciones(request):
+    publicaciones = Publicacion.objects.all().order_by('-fecha_creacion')
+    return render(request, 'admin/publicaciones/lista_publicaciones.html', {
+        'publicaciones': publicaciones
+    })
+
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def crear_publicacion(request):
+    ImagenFormSet = modelformset_factory(ImagenPublicacion, form=ImagenPublicacionForm, extra=3, max_num=5)
+
+    if request.method == 'POST':
+        pub_form = PublicacionForm(request.POST)
+        formset = ImagenFormSet(request.POST, request.FILES, queryset=ImagenPublicacion.objects.none())
+
+        if pub_form.is_valid() and formset.is_valid():
+            publicacion = pub_form.save(commit=False)
+            publicacion.autor = request.user
+            publicacion.save()
+
+            for form in formset:
+                if form.cleaned_data.get('imagen'):
+                    imagen = form.save(commit=False)
+                    imagen.publicacion = publicacion
+                    imagen.save()
+
+            return redirect('listar_publicaciones')
+    else:
+        pub_form = PublicacionForm()
+        formset = ImagenFormSet(queryset=ImagenPublicacion.objects.none())
+
+    return render(request, 'admin/publicaciones/crear_publicacion.html', {
+        'form': pub_form,
+        'formset': formset,
+    }) 
+
+
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def ver_info_publicacion(request, publicacion_id):
+    publicacion = get_object_or_404(Publicacion, id=publicacion_id)
+    imagenesPublicacion = ImagenPublicacion.objects.filter(publicacion=publicacion)
+    return render(request, 'admin/publicaciones/ver_info_publicacion.html', {
+        'publicacion': publicacion,
+        'imagenesPublicacion': imagenesPublicacion
+    })    
+
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def admin_socios(request):
+    socios = Socio.objects.prefetch_related('perfiles').order_by('-id')  
+    context = {
+        'socios': socios,
+    }
+    return render(request, 'admin/socios/socios.html', context)
+
+
+
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+@require_POST
+def toggle_estado_socio(request):
+    socio_id = request.POST.get('id')
+    activo = request.POST.get('activo') == 'true'  
+
+    socio = get_object_or_404(Socio, id=socio_id)
+    socio.activo = activo
+    socio.save()
+
+    return JsonResponse({'success': True, 'activo': socio.activo})
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def ver_info_socio(request, socio_id):
+    socio = get_object_or_404(Socio, id=socio_id)
+    return render(request, 'admin/socios/ver_info_socio.html', {'socio': socio})
+
+
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def admin_socios_formularios(request):
+    solicitudes = SolicitudSeguroVida.objects.all().order_by('-fecha_creacion')
+    return render(request, 'admin/socios/socios_formularios.html', {'solicitudes': solicitudes}) 
+
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def ver_info_solicitud(request, solicitud_id):
+    solicitud = get_object_or_404(SolicitudSeguroVida, id=solicitud_id)
+    return render(request, 'admin/socios/ver_info_solicitud.html', {'solicitud': solicitud})    
+
+
+
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def listar_categorias_admin(request):
+    categorias = Categorias.objects.all().order_by('-fecha_creacion')
+    context = {'categorias': categorias}
+    return render(request, 'admin/categorias/listar_categorias_admin.html', context)
+
+
+
+
+
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def crear_categoria(request):
+
+    if request.method == "POST":
+        form = CategoriaForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Categoría creada exitosamente.")
+            return redirect('listar_categorias_admin')
+        else:
+            messages.error(request, "Error al crear la categoría.")
+            return redirect('crear_categoria')
+
+    else:
+        pub_form = CategoriaForm()
+
+    return render(request, 'admin/categorias/crear_categoria.html', {'form': pub_form})
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def editar_categoria(request, id):
+    categoria = get_object_or_404(Categorias, id=id)
+    if request.method == "POST":
+        form = CategoriaForm(request.POST, request.FILES, instance=categoria)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Categoría editada exitosamente.")
+            return redirect('listar_categorias_admin')
+        else:
+            messages.error(request, "Error al editar la categoría.")
+            return redirect('editar_categoria', id=id)
+    else:
+        form = CategoriaForm(instance=categoria)
+    return render(request, 'admin/categorias/editar_categoria.html', {'form': form, 'categoria': categoria})
+
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def eliminar_categoria(request, id):
+    categoria = get_object_or_404(Categorias, id=id)
+    categoria.delete()
+    messages.success(request, "Categoría eliminada exitosamente.")
+    return redirect('listar_categorias_admin')
+
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def listar_servicios_admin(request):
+    servicios = Servicios.objects.all().order_by('-fecha_creacion')
+    context = {'servicios': servicios}
+    return render(request, 'admin/servicios/listar_servicios_admin.html', context)
+
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def crear_servicio(request):
+
+    if request.method == "POST":
+        form = ServicioForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Servicio creado exitosamente.")
+            return redirect('listar_servicios_admin')
+        else:
+            messages.error(request, "Error al crear el servicio.")
+            return redirect('crear_servicio')
+
+    else:
+        pub_form = ServicioForm()
+
+    return render(request, 'admin/servicios/crear_servicio.html', {'form': pub_form})
+
+
+
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def editar_servicio(request, id):
+    servicio = get_object_or_404(Servicios, id=id)
+    if request.method == "POST":
+        form = ServicioForm(request.POST, request.FILES, instance=servicio)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Servicio editado exitosamente.")
+            return redirect('listar_servicios_admin')
+        else:
+            messages.error(request, "Error al editar el servicio.")
+            return redirect('editar_servicio', id=id)
+    else:
+        form = ServicioForm(instance=servicio)
+    return render(request, 'admin/servicios/editar_servicio.html', {'form': form, 'servicio': servicio})
+
+
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def eliminar_servicio(request, id):
+    servicio = get_object_or_404(Servicios, id=id)
+    servicio.delete()
+    messages.success(request, "Servicio eliminado exitosamente.")
+    return redirect('listar_servicios_admin')
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def listar_subservicios_admin(request):
+    subservicios = Subservicios.objects.all().order_by('-fecha_creacion')
+    context = {'subservicios': subservicios}
+    return render(request, 'admin/subservicios/listar_subservicios_admin.html', context)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

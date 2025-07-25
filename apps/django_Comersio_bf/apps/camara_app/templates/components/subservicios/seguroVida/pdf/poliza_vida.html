@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: 'Helvetica', sans-serif;
+      padding: 2rem;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    .contenedor {
+      max-width: 800px;
+      margin: auto;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      padding: 2rem;
+      border-radius: 8px;
+    }
+
+    .titulo {
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: #005073;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #005073;
+      padding-bottom: 0.5rem;
+    }
+
+    .seccion {
+      margin-bottom: 2rem;
+    }
+
+    .seccion h3 {
+      background-color: #e6f2f5;
+      color: #003d5c;
+      padding: 0.7rem 1rem;
+      font-size: 18px;
+      border-left: 5px solid #009bbf;
+      margin-bottom: 1rem;
+    }
+
+    .dato {
+      margin: 0.4rem 0;
+      padding-left: 1rem;
+    }
+
+    .dato strong {
+      color: #005073;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      margin-top: 3rem;
+      color: #777;
+      border-top: 1px dashed #ccc;
+      padding-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <div class="titulo">📄 Póliza de Seguro de Vida</div>
+
+    <div class="seccion">
+      <h3>🧍 Datos del asegurado</h3>
+      <div class="dato"><strong>Nombre:</strong> {{ perfil.user.get_full_name }}</div>
+      <div class="dato"><strong>Email:</strong> {{ perfil.user.email }}</div>
+    </div>
+
+    <div class="seccion">
+      <h3>❤️ Declaración de salud</h3>
+      <div class="dato"><strong>¿Tiene enfermedad grave?:</strong> 
+        {% if formulario.tiene_enfermedad_grave %}Sí{% else %}No{% endif %}
+      </div>
+      <div class="dato"><strong>¿Ha sido hospitalizado?:</strong> 
+        {% if formulario.ha_sido_hospitalizado %}Sí{% else %}No{% endif %}
+      </div>
+      <div class="dato"><strong>¿Practica deportes extremos?:</strong> 
+        {% if formulario.practica_deportes_extremos %}Sí{% else %}No{% endif %}
+      </div>
+    </div>
+
+    <div class="seccion">
+      <h3>👨‍👩‍👧 Beneficiario</h3>
+      <div class="dato"><strong>Nombre:</strong> {{ formulario.nombre_beneficiario }}</div>
+      <div class="dato"><strong>Relación:</strong> {{ formulario.relacion_beneficiario }}</div>
+      <div class="dato"><strong>Porcentaje:</strong> {{ formulario.porcentaje_beneficiario }}%</div>
+    </div>
+
+    <div class="seccion">
+      <h3>📜 Términos y condiciones</h3>
+      <div class="dato"><strong>Aceptó términos:</strong> 
+        {% if formulario.acepta_terminos %}Sí{% else %}No{% endif %}
+      </div>
+    </div>
+
+    <div class="footer">
+      Este documento ha sido generado automáticamente. <br>
+      Fecha de registro: {{ formulario.fecha_registro|date:"d/m/Y H:i" }}
+    </div>
+  </div>
+</body>
+</html>

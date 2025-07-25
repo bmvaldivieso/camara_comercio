@@ -13,85 +13,26 @@
 <hr class="divider-line" />
 
 <div class="banner-servicios">
-  <img src="{% static 'images/servicios-banner.png' %}" alt="Banner de Subservicios" />
 </div>
 
 <hr class="divider-line" />
 
-<a href="{% url 'servicios' %}" id="btn-volver" class="btn btn-volver mb-3">
+<a href="/servicios/{{categoria_id}}" id="btn-volver" class="btn btn-volver mb-3">
   <i class="fas fa-arrow-left me-2"></i> Volver a Servicios
 </a>
 
 <div id="cards-container" class="categories-scroll">
-
-  <div class="category-card card-salud">
+  {% for subservicio in subservicios %}
+  <div class="category-card card-salud" style="background-image: url('{{ subservicio.img.url }}'); background-repeat: no-repeat; background-position: center; background-size: cover;">
+    
     <div class="card-content d-flex flex-column justify-content-center align-items-center text-center h-100">
       <h2 class="card-title"><i class="fas fa-stethoscope fa-2x"></i></h2>
+      <h2 style="color: white;">{{ subservicio.nombre }}</h2>
       <p class="card-description">
-        Consultas médicas y chequeos preventivos para toda la familia.
+        {{ subservicio.descripcion }}
       </p>
-      <a href="{% url 'seguro_vida' %}" class="btn btn-ingresar">Ingresar</a>
+      <a href="/{{subservicio.producto.url_html}}/{{servicio_id}}/{{subservicio.producto.id}}/{{categoria_id}}" class="btn btn-ingresar">Ingresar</a>
     </div>
   </div>
-
-  <div class="category-card card-salud">
-    <div class="card-content d-flex flex-column justify-content-center align-items-center text-center h-100">
-      <h2 class="card-title"><i class="fas fa-pills fa-2x"></i></h2>
-      <p class="card-description">
-        Medicamentos con descuento y asesoramiento profesional.
-      </p>
-      <a href="{% url 'seguro_vida' %}" class="btn btn-ingresar">Ingresar</a>
-    </div>
-  </div>
-
-  <div class="category-card card-salud">
-    <div class="card-content d-flex flex-column justify-content-center align-items-center text-center h-100">
-      <h2 class="card-title"><i class="fas fa-tooth fa-2x"></i></h2>
-      <p class="card-description">
-        Ortodoncia, limpiezas dentales y emergencias odontológicas.
-      </p>
-      <a href="{% url 'seguro_vida' %}" class="btn btn-ingresar">Ingresar</a>
-    </div>
-  </div>
-
-  <div class="category-card card-salud">
-    <div class="card-content d-flex flex-column justify-content-center align-items-center text-center h-100">
-      <h2 class="card-title"><i class="fas fa-vials fa-2x"></i></h2>
-      <p class="card-description">
-        Análisis clínicos y resultados en línea con calidad garantizada.
-      </p>
-      <a href="{% url 'seguro_vida' %}" class="btn btn-ingresar">Ingresar</a>
-    </div>
-  </div>
-
-  <div class="category-card card-salud">
-    <div class="card-content d-flex flex-column justify-content-center align-items-center text-center h-100">
-      <h2 class="card-title"><i class="fas fa-vials fa-2x"></i></h2>
-      <p class="card-description">
-        Análisis clínicos y resultados en línea con calidad garantizada.
-      </p>
-      <a href="{% url 'seguro_vida' %}" class="btn btn-ingresar">Ingresar</a>
-    </div>
-  </div>
-
-  <div class="category-card card-salud">
-    <div class="card-content d-flex flex-column justify-content-center align-items-center text-center h-100">
-      <h2 class="card-title"><i class="fas fa-vials fa-2x"></i></h2>
-      <p class="card-description">
-        Análisis clínicos y resultados en línea con calidad garantizada.
-      </p>
-      <a href="{% url 'seguro_vida' %}" class="btn btn-ingresar">Ingresar</a>
-    </div>
-  </div>
-
-  <div class="category-card card-salud">
-    <div class="card-content d-flex flex-column justify-content-center align-items-center text-center h-100">
-      <h2 class="card-title"><i class="fas fa-vials fa-2x"></i></h2>
-      <p class="card-description">
-        Análisis clínicos y resultados en línea con calidad garantizada.
-      </p>
-      <a href="{% url 'seguro_vida' %}" class="btn btn-ingresar">Ingresar</a>
-    </div>
-  </div>
-</div>
+{% endfor %}
 {% endblock %}

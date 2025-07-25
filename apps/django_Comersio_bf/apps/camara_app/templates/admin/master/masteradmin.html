@@ -31,49 +31,90 @@
 
     <div class="row1">
       <div class="imagen-redonda">
-        <img src="{% static 'images/perfil.png' %}" alt="Usuario" class="foto-perfil">
+        <img src="{{ user.perfil.imagen.url}}" alt="Usuario" class="foto-perfil">
       </div>
-      <p class="nombre-usuario">Carlos Lopez</p>
+      <p class="nombre-usuario">{{ user.get_full_name }}</p>
     </div>
 
     <nav class="navbar-menu">
       <ul>
-        <li class="{% if request.resolver_match.url_name == 'dashboard' %}activo{% endif %}">
+        <li class="{% if request.resolver_match.url_name == 'dashboard' %}activo{% endif %}" style="width: 110%">
           <a href="{% url 'dashboard' %}">
             <img src="{% static 'images/icono1.svg' %}" alt="Icono" class="icono-svg">
             Dashboard
           </a>
         </li>
-        <li class="{% if request.resolver_match.url_name == 'admin_usuarios' %}activo{% endif %}">
+        <li class="{% if request.resolver_match.url_name == 'admin_usuarios' %}activo{% endif %}" style="width: 110%">
           <a href="{% url 'admin_usuarios' %}">
             <img src="{% static 'images/icono2.svg' %}" alt="Icono" class="icono-svg">
             Usuarios
           </a>
         </li>
-        <li class="{% if request.resolver_match.url_name == 'admin_socios' %}activo{% endif %}">
+        <li class="{% if request.resolver_match.url_name == 'admin_socios' %}activo{% endif %}" style="width: 110%">
           <a href="{% url 'admin_socios' %}">
             <img src="{% static 'images/icono3.svg' %}" alt="Icono" class="icono-svg">
             Socios
           </a>
         </li>
-        <li class="{% if request.resolver_match.url_name == 'admin_socios_formularios' %}activo{% endif %}">
-          <a href="{% url 'admin_socios_formularios' %}">
+        <li class="{% if request.resolver_match.url_name == 'listar_publicaciones' %}activo{% endif %}" style="width: 110%">
+          <a href="{% url 'listar_publicaciones' %}">
             <img src="{% static 'images/icono4.svg' %}" alt="Icono" class="icono-svg">
             Publicaciones
           </a>
         </li>
+        <li class="{% if request.resolver_match.url_name == 'listar_categorias_admin' %}activo{% endif %}" style="width: 110%">
+          <a href="{% url 'listar_categorias_admin' %}">
+            <img src="{% static 'images/icono5.svg' %}" alt="Icono" class="icono-svg">
+            Categorias
+          </a>
+        </li>
+        <li class="{% if request.resolver_match.url_name == 'listar_servicios_admin' %}activo{% endif %}" style="width: 110%">
+          <a href="{% url 'listar_servicios_admin' %}">
+            <img src="{% static 'images/icono5.svg' %}" alt="Icono" class="icono-svg">
+            Servicios
+          </a>
+        </li>
+        <li class="{% if request.resolver_match.url_name == 'listar_publicaciones' %}activo{% endif %}" style="width: 110%">
+          <a href="{% url 'listar_publicaciones' %}">
+            <img src="{% static 'images/icono5.svg' %}" alt="Icono" class="icono-svg">
+            Subservicios
+          </a>
+        </li>
       </ul>
     </nav>
-    <div class="row1">
-      <button class="boton">Cerrar Sesión</button>
-    </div>
+    <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button type="submit" class="boton" style="margin-right: 80px; margin-bottom: 20px; margin-left: 32px;">Cerrar Sesión</button>
+    </form>
   </aside>
 
 
 
   <main class="main-content-admin">
     <div class="top-bar-admin">
-      <h2 id="section-title-admin">Dashboard</h2>
+      <h2 id="section-title-admin">
+        {% if request.resolver_match.url_name == 'admin_usuarios' %}
+        Usuarios Registrados
+        {% elif request.resolver_match.url_name == 'admin_socios' %}
+        Socios
+        {% elif request.resolver_match.url_name == 'admin_socios_formularios' %}
+        Formularios
+        {% elif request.resolver_match.url_name == 'dashboard' %}
+        Dashboard
+        {% elif request.resolver_match.url_name == 'admin_usuarios_info' %}
+        Información de usuario
+        {% elif request.resolver_match.url_name == 'admin_usuarios_incremento' %}
+        Mensajes
+        {% elif request.resolver_match.url_name == 'enviar_mensaje_usuario' %}
+        Detalle Mensaje
+        {% elif request.resolver_match.url_name == 'listar_publicaciones' %}
+        Publicaciones
+        {% elif request.resolver_match.url_name == 'crear_publicacion' %}
+        Crear Publicación
+        {% else %}
+        Contenido
+        {% endif %}
+      </h2>
       <div class="topbar-right-group d-flex align-items-center gap-3">
         <div class="notification-icon">
           <i class="far fa-bell"></i>

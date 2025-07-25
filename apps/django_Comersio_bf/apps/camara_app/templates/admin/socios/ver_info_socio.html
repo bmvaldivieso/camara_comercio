@@ -1,0 +1,92 @@
+{% extends 'admin/master/masteradmin.html' %}
+{% load static %}
+
+{% block title %}Detalle del Socio - Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ver_info_socio.css' %}" />
+{% endblock %}
+
+{% block admin_content %}
+<div class="container py-4 admin-scroll-container">
+    <h2 class="mb-4">Información del Socio</h2>
+
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">Datos Generales</div>
+        <div class="card-body">
+            <p><strong>Razón Social:</strong> {{ socio.razon_social|default:"No aplica" }}</p>
+            <p><strong>Nombre Comercial:</strong> {{ socio.nombre_comercial }}</p>
+            <p><strong>RUC/Cédula:</strong> {{ socio.ruc_cedula }}</p>
+            <p><strong>Email Principal:</strong> {{ socio.email_principal }}</p>
+            <p><strong>Redes Sociales:</strong> {{ socio.redes_sociales|default:"No registradas" }}</p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">Representante Legal</div>
+        <div class="card-body">
+            <p><strong>Cédula:</strong> {{ socio.cedula_representante|default:"No registrada" }}</p>
+            <p><strong>Apellidos y Nombres:</strong> {{ socio.apellidos_nombres_representante|default:"No registrado" }}
+            </p>
+            <p><strong>Representante de Contacto:</strong> {{ socio.representante_contacto|default:"No registrado" }}
+            </p>
+            <p><strong>Propietario Contacto:</strong> {{ socio.propietario_contacto|default:"No registrado" }}</p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">Dirección</div>
+        <div class="card-body">
+            <p><strong>Dirección Principal:</strong> {{ socio.direccion_principal }}</p>
+            <p><strong>Calle:</strong> {{ socio.calle|default:"" }}</p>
+            <p><strong>Número:</strong> {{ socio.numero|default:"" }}</p>
+            <p><strong>Intersección:</strong> {{ socio.interseccion|default:"" }}</p>
+            <p><strong>Referencia:</strong> {{ socio.referencia|default:"" }}</p>
+            <p><strong>Parroquia:</strong> {{ socio.parroquia|default:"" }}</p>
+            <p><strong>Ciudad:</strong> {{ socio.ciudad }}</p>
+            <p><strong>País:</strong> {{ socio.pais }}</p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">Contacto</div>
+        <div class="card-body">
+            <p><strong>Email Empresa:</strong> {{ socio.email_empresa|default:"No registrado" }}</p>
+            <p><strong>Teléfono 1:</strong> {{ socio.telefono1|default:"-" }}</p>
+            <p><strong>Teléfono 2:</strong> {{ socio.telefono2|default:"-" }}</p>
+            <p><strong>Celular:</strong> {{ socio.celular|default:"-" }}</p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">Actividad Económica</div>
+        <div class="card-body">
+            <p><strong>Tipo de Negocio:</strong> {{ socio.tipo_negocio|default:"No especificado" }}</p>
+            <p><strong>Actividad Específica:</strong> {{ socio.actividad_especifica|default:"No registrada" }}</p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">Otros Datos</div>
+        <div class="card-body">
+            <p><strong>Página Web:</strong>
+                {% if socio.pagina_web %}
+                <a href="{{ socio.pagina_web }}" target="_blank">{{ socio.pagina_web }}</a>
+                {% else %}
+                No registrada
+                {% endif %}
+            </p>
+            <p><strong>Fecha de Registro:</strong> {{ socio.fecha_registro|date:"d/m/Y H:i" }}</p>
+            <p><strong>Estado:</strong>
+                {% if socio.activo %}
+                <span class="badge bg-success">Activo</span>
+                {% else %}
+                <span class="badge bg-secondary">Inactivo</span>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <a href="{% url 'admin_socios' %}" class="btn btn-outline-primary mt-3">← Volver al listado</a>
+</div>
+{% endblock %}

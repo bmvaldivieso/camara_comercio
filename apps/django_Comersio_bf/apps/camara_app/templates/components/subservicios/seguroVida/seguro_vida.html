@@ -8,12 +8,15 @@
 <link rel="stylesheet" href="{% static 'css/seguro_vida.css' %}">
 <link rel="stylesheet" href="{% static 'css/seguro_vida_archivos.css' %}">
 <link rel="stylesheet" href="{% static 'css/seguro_vida_estado.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-F2q8hmpW0BfZdGpVNlWUgQ0l8vHVoS2uVXAi+dXUFl3BkVdcASvEPUZf0ZLr1z1eH5tdkN9NK4zC5d6qx+nG1A==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<script src="https://kit.fontawesome.com/YOUR_KIT_ID.js" crossorigin="anonymous"></script>
+
 {% endblock %}
 
 {% block page_content %}
 <hr class="divider-line" />
 
-<a href="{% url 'subservicios' %}" id="btn-volver" class="btn btn-volver mb-3">
+<a href="/subservicios/{{servicio_id}}/{{categoria_id}}" id="btn-volver" class="btn btn-volver mb-3">
   <i class="fas fa-arrow-left me-2"></i> Volver a Subservicios
 </a>
 
@@ -21,12 +24,21 @@
 
   <div class="service-detail-container">
     <h3 class="service-title">SEGURO DE VIDA</h3>
-    <p class="service-subtitle">Vida (Muerte por cualquier causa)</p>
+    <p class="service-subtitle">{{producto.titulo}}</p>
+    <p class="service-subtitle">{{producto.descripcion}}</p>
+    <button class="btn-carrito" onclick="window.location.href='/carrito_add/{{producto.id}}/{{servicio_id}}/{{categoria_id}}'">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20" fill="white">
+        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10-2H7V6h13v10zm-7.6-3.5L10 14h9v2H8c-.55 0-1-.45-1-1 0-.26.1-.52.27-.71l2.73-3.29c.18-.21.49-.21.68 0zM17 6h-5v6l2.25-2.25L17 12V6zm2-2H5v2h14V4z"/>
+      </svg>
+      Agregar al carrito
+    </button>
+    <br>
+    
 
     <div class="tab-bar">
-      <button class="tab-button active" data-tab-target="archivos-subidos">Archivos subidos</button>
-      <button class="tab-button" data-tab-target="estado">Estado</button>
-      <button class="tab-button" data-tab-target="archivos-recibidos">Archivos recibidos</button>
+      <button class="tab-button active" data-tab-target="archivos-subidos">Informacion</button>
+      <button class="tab-button" data-tab-target="estado">Registro</button>
+      <button class="tab-button" data-tab-target="archivos-recibidos">Proceso Final</button>
     </div>
 
     <div id="tab-content-container" class="tab-content-wrapper">
@@ -38,7 +50,10 @@
     <img src="{% static 'images/seguro.png' %}" alt="Banner Seguro de Vida" />
   </div>
 </div>
+
+
 {% endblock %}
+
 
 {% block extra_js %}
 <script src="{% static 'js/seguro_vida_tabs.js' %}" defer></script>

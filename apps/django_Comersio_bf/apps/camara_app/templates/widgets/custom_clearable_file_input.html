@@ -1,0 +1,6 @@
+<div class="custom-file-input">
+    <input type="file" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+    {% if widget.value %}
+        <p class="mt-2">Archivo actual: <strong>{{ widget.value.name}}</strong></p>
+    {% endif %}
+</div>

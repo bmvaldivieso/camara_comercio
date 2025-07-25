@@ -5,134 +5,119 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/socios.css' %}" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 {% endblock %}
 
 {% block admin_content %}
 <hr>
 
 <div class="main-socio-container">
-
-  <div class="socio-list-section">
-    <div class="socio-card">
-      <div class="socio-info">
-        <img src="{% static 'images/imagen2.png' %}" alt="Carla Sofia" class="socio-avatar">
-        <span class="socio-name">Carla Sofia</span>
-      </div>
-      <div class="socio-status">
-        <span>Habilitado</span>
-        <label class="switch">
-          <input type="checkbox" checked>
-          <span class="slider round"></span>
-        </label>
-      </div>
-      <button class="btn-view-info">Ver Info</button>
-    </div>
-
-    <div class="socio-card">
-      <div class="socio-info">
-        <img src="{% static 'images/imagen2.png' %}" alt="Roberto Carlos" class="socio-avatar">
-        <span class="socio-name">Roberto Carlos</span>
-      </div>
-      <div class="socio-status">
-        <span>Habilitado</span>
-        <label class="switch">
-          <input type="checkbox" checked>
-          <span class="slider round"></span>
-        </label>
-      </div>
-      <button class="btn-view-info">Ver Info</button>
-    </div>
-
-    <div class="socio-card">
-      <div class="socio-info">
-        <img src="{% static 'images/imagen2.png' %}" alt="Carlos Lopez" class="socio-avatar">
-        <span class="socio-name">Carlos Lopez</span>
-      </div>
-      <div class="socio-status">
-        <span>Habilitado</span>
-        <label class="switch">
-          <input type="checkbox" checked>
-          <span class="slider round"></span>
-        </label>
-      </div>
-      <button class="btn-view-info">Ver Info</button>
-    </div>
-
-    <div class="socio-card">
-      <div class="socio-info">
-        <img src="{% static 'images/imagen2.png' %}" alt="Cinthia Rojas" class="socio-avatar">
-        <span class="socio-name">Cinthia Rojas</span>
-      </div>
-      <div class="socio-status">
-        <span>Habilitado</span>
-        <label class="switch">
-          <input type="checkbox">
-          <span class="slider round"></span>
-        </label>
-      </div>
-      <button class="btn-view-info">Ver Info</button>
-    </div>
-    <div class="socio-card">
-      <div class="socio-info">
-        <img src="{% static 'images/imagen2.png' %}" alt="Carla Sofia" class="socio-avatar">
-        <span class="socio-name">Carla Sofia</span>
-      </div>
-      <div class="socio-status">
-        <span>Habilitado</span>
-        <label class="switch">
-          <input type="checkbox" checked>
-          <span class="slider round"></span>
-        </label>
-      </div>
-      <button class="btn-view-info">Ver Info</button>
-    </div>
-    <div class="socio-card">
-      <div class="socio-info">
-        <img src="{% static 'images/imagen2.png' %}" alt="Roberto Carlos" class="socio-avatar">
-        <span class="socio-name">Roberto Carlos</span>
-      </div>
-      <div class="socio-status">
-        <span>Habilitado</span>
-        <label class="switch">
-          <input type="checkbox" checked>
-          <span class="slider round"></span>
-        </label>
-      </div>
-      <button class="btn-view-info">Ver Info</button>
-    </div>
-    <div class="socio-card">
-      <div class="socio-info">
-        <img src="{% static 'images/imagen2.png' %}" alt="Roberto Carlos" class="socio-avatar">
-        <span class="socio-name">Roberto Carlos</span>
-      </div>
-      <div class="socio-status">
-        <span>Habilitado</span>
-        <label class="switch">
-          <input type="checkbox" checked>
-          <span class="slider round"></span>
-        </label>
-      </div>
-      <button class="btn-view-info">Ver Info</button>
-    </div>
-    <div class="socio-card">
-      <div class="socio-info">
-        <img src="{% static 'images/imagen2.png' %}" alt="Roberto Carlos" class="socio-avatar">
-        <span class="socio-name">Roberto Carlos</span>
-      </div>
-      <div class="socio-status">
-        <span>Habilitado</span>
-        <label class="switch">
-          <input type="checkbox" checked>
-          <span class="slider round"></span>
-        </label>
-      </div>
-      <button class="btn-view-info">Ver Info</button>
-    </div>
+  <div class="table-responsive">
+    <table id="sociosTable" class="display tabla-estilizada">
+      <thead>
+        <tr>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Estado</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for socio in socios %}
+          {% with perfil=socio.perfiles.first %}
+          <tr>
+            <td>
+              {% if perfil and perfil.imagen %}
+                <img src="{{ perfil.imagen.url }}" alt="{{ perfil.user.get_full_name }}" class="socio-avatar">
+              {% else %}
+                <img src="{% static 'images/imagen2.png' %}" alt="Avatar por defecto" class="socio-avatar">
+              {% endif %}
+            </td>
+            <td>
+              {% if perfil %}{{ perfil.user.get_full_name }}{% else %}{{ socio.nombre_comercial }}{% endif %}
+            </td>
+            <td>
+              <span>{% if socio.activo %}Habilitado{% else %}Deshabilitado{% endif %}</span>
+              <label class="switch">
+                <input type="checkbox" class="checkbox-estado" data-id="{{ socio.id }}" {% if socio.activo %}checked{% endif %}>
+                <span class="slider round"></span>
+              </label>
+            </td>
+            <td>
+              <a href="{% url 'ver_info_socio' socio.id %}" class="btn-view-info">Ver Info</a>
+            </td>
+          </tr>
+          {% endwith %}
+        {% empty %}
+          <tr>
+            <td colspan="4" style="text-align:center;">No hay socios registrados.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
+
 {% include 'admin/socios/bottom_socio_nav.html' %}
 {% endblock %}
 
 {% block extra_js %}
 <script src="{% static 'js/socios_logic.js' %}" defer></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+  $('#sociosTable').DataTable({
+    language: {
+      url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+    }
+  });
+
+  document.querySelectorAll('.checkbox-estado').forEach(function (checkbox) {
+    checkbox.addEventListener('change', function () {
+      const socioId = this.dataset.id;
+      const activo = this.checked;
+
+      fetch("{% url 'toggle_estado_socio' %}", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: new URLSearchParams({
+          'id': socioId,
+          'activo': activo,
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (!data.success) {
+          alert('Error al actualizar el estado');
+        }
+      })
+      .catch(error => {
+        alert('Error de conexión');
+        console.error(error);
+      });
+    });
+  });
+});
+
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+</script>
 {% endblock %}

@@ -15,75 +15,20 @@
 
 <div id="cards-container" class="categories-scroll">
 
-  <div class="category-card">
+  {% for servicio in servicios %}
+  <div class="category-card" style="background-image: url('{{ servicio.img.url }}'); background-repeat: no-repeat; background-position: center; background-size: cover;">
     <div class="card-content text-center">
       <h2 class="card-title"><i class="fas fa-heartbeat fa-2x"></i></h2>
-      <p class="card-description">
-        Servicios de salud orientados a convenios con farmacias, clínicas y centros médicos.
+      <h2 style="color: white;">{{ servicio.nombre }}</h2>
+      <p class="card-description" sty>
+        {{ servicio.descripcion }}
       </p>
-      <a href="/subservicios" class="btn btn-ingresar">Ingresar</a>
+      <a href="/subservicios/{{servicio.id}}/{{categoria_id}}" class="btn btn-ingresar">Ingresarrrrrrrrrrrr</a>
     </div>
   </div>
 
-  <div class="category-card">
-    <div class="card-content text-center">
-      <h2 class="card-title"><i class="fas fa-laptop-code fa-2x"></i></h2>
-      <p class="card-description">
-        Accede a soluciones tecnológicas y capacitaciones para empresas.
-      </p>
-      <a href="/subservicios" class="btn btn-ingresar">Ingresar</a>
-    </div>
-  </div>
+  {% endfor %}
 
-  <div class="category-card">
-    <div class="card-content text-center">
-      <h2 class="card-title"><i class="fas fa-chalkboard-teacher fa-2x"></i></h2>
-      <p class="card-description">
-        Formación profesional mediante talleres y alianzas institucionales.
-      </p>
-      <a href="/subservicios" class="btn btn-ingresar">Ingresar</a>
-    </div>
-  </div>
-
-  <div class="category-card">
-    <div class="card-content text-center">
-      <h2 class="card-title"><i class="fas fa-laptop-code fa-2x"></i></h2>
-      <p class="card-description">
-        Accede a soluciones tecnológicas y capacitaciones para empresas.
-      </p>
-      <a href="/subservicios" class="btn btn-ingresar">Ingresar</a>
-    </div>
-  </div>
-
-  <div class="category-card">
-    <div class="card-content text-center">
-      <h2 class="card-title"><i class="fas fa-chalkboard-teacher fa-2x"></i></h2>
-      <p class="card-description">
-        Formación profesional mediante talleres y alianzas institucionales.
-      </p>
-      <a href="/subservicios" class="btn btn-ingresar">Ingresar</a>
-    </div>
-  </div>
-
-  <div class="category-card">
-    <div class="card-content text-center">
-      <h2 class="card-title"><i class="fas fa-laptop-code fa-2x"></i></h2>
-      <p class="card-description">
-        Accede a soluciones tecnológicas y capacitaciones para empresas.
-      </p>
-      <a href="/subservicios" class="btn btn-ingresar">Ingresar</a>
-    </div>
-  </div>
-
-  <div class="category-card">
-    <div class="card-content text-center">
-      <h2 class="card-title"><i class="fas fa-chalkboard-teacher fa-2x"></i></h2>
-      <p class="card-description">
-        Formación profesional mediante talleres y alianzas institucionales.
-      </p>
-      <a href="/subservicios" class="btn btn-ingresar">Ingresar</a>
-    </div>
-  </div>
 
 </div>
 {% endblock %}

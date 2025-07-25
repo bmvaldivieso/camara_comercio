@@ -1,0 +1,153 @@
+{% extends 'admin/master/masteradmin.html' %}
+{% load static %}
+
+{% block title %}Ver Solicitud - Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ver_info_solicitud.css' %}">
+{% endblock %}
+
+{% block admin_content %}
+<h2> Detalle de Solicitud Seguro de Vida</h2>
+<div class="container-scroll">
+    <div class="card-header bg-dark text-white">Datos de Identificación</div>
+    <hr>
+    <dl>
+        <dt>Tipo Identificación:</dt>
+        <dd>{{ solicitud.get_tipo_identificacion_display }}</dd>
+        <dt>Número Identificación:</dt>
+        <dd>{{ solicitud.numero_identificacion }}</dd>
+        <dt>Nombres:</dt>
+        <dd>{{ solicitud.nombres }}</dd>
+        <dt>Apellidos:</dt>
+        <dd>{{ solicitud.apellidos }}</dd>
+        <dt>Fecha Nacimiento:</dt>
+        <dd>{{ solicitud.fecha_nacimiento }}</dd>
+        <dt>Estado Civil:</dt>
+        <dd>{{ solicitud.get_estado_civil_display }}</dd>
+    </dl>
+    <hr>
+    <div class="card-header bg-dark text-white">Domicilio</div>
+    <hr>
+    <dl>
+        <dt>Dirección:</dt>
+        <dd>{{ solicitud.direccion_domicilio }}</dd>
+        <dt>Correo:</dt>
+        <dd>{{ solicitud.correo_domicilio }}</dd>
+        <dt>Teléfono:</dt>
+        <dd>{{ solicitud.telefono_domicilio }}</dd>
+        <dt>Celular:</dt>
+        <dd>{{ solicitud.celular_domicilio }}</dd>
+    </dl>
+    <hr>
+    <div class="card-header bg-dark text-white">Trabajo</div>
+    <hr>
+    <dl>
+        <dt>Empresa:</dt>
+        <dd>{{ solicitud.nombre_empresa }}</dd>
+        <dt>Dirección Trabajo:</dt>
+        <dd>{{ solicitud.direccion_trabajo }}</dd>
+        <dt>Correo Trabajo:</dt>
+        <dd>{{ solicitud.correo_trabajo }}</dd>
+        <dt>Teléfono Trabajo:</dt>
+        <dd>{{ solicitud.telefono_trabajo }}</dd>
+        <dt>Ocupación:</dt>
+        <dd>{{ solicitud.ocupacion }}</dd>
+        <dt>Envío Correspondencia:</dt>
+        <dd>{{ solicitud.get_envio_correspondencia_display }}</dd>
+    </dl>
+    <hr>
+    <div class="card-header bg-dark text-white">Otros Seguros</div>
+    <hr>
+    <dl>
+        <dt>¿Tiene otros seguros?</dt>
+        <dd>{{ solicitud.otros_seguros_vida|yesno:"Sí,No" }}</dd>
+        <dt>Compañías:</dt>
+        <dd>{{ solicitud.especifique_companias_otros_seguros }}</dd>
+    </dl>
+
+    <div class="card-header bg-dark text-white">Es Usted</div>
+    <hr>
+    <dl>
+        <dt>Es Usted:</dt>
+        <dd>{{ solicitud.get_es_usted_display }}</dd>
+    </dl>
+    <hr>
+    <div class="card-header bg-dark text-white">Declaración de Salud</div>
+    <hr>
+    {% if solicitud.declaracion_salud %}
+    <dl>
+        <dt>Peso (kg):</dt>
+        <dd>{{ solicitud.declaracion_salud.peso_kg }}</dd>
+        <dt>Estatura (cm):</dt>
+        <dd>{{ solicitud.declaracion_salud.estatura_cm }}</dd>
+        <!-- Puedes seguir agregando todas las preguntas y respuestas de salud como se hace arriba -->
+    </dl>
+    <hr>
+    <div class="card-header bg-dark text-white">Detalles de Afecciones Declaradas</div>
+    <hr>
+    {% for detalle in solicitud.declaracion_salud.detalles_preguntas_salud.all %}
+    <dl>
+        <dt>Pregunta {{ detalle.numero_pregunta }}</dt>
+        <dd>{{ detalle.detalle }}</dd>
+        <dd><strong>Cuándo:</strong> {{ detalle.cuando }}</dd>
+        <dd><strong>Duración:</strong> {{ detalle.duracion }}</dd>
+        <dd><strong>Secuelas:</strong> {{ detalle.secuelas }}</dd>
+        <dd><strong>Médico Tratante:</strong> {{ detalle.medico_tratante }}</dd>
+    </dl>
+    {% empty %}<p>No hay detalles de salud adicionales.</p>
+    {% endfor %}
+    {% else %}
+    <p>No hay declaración de salud registrada.</p>
+    {% endif %}
+    <hr>
+    <div class="card-header bg-dark text-white">Actividades Deportivas</div>
+    <hr>
+    {% for deporte in solicitud.deportes_actividades.all %}
+    <dl>
+        <dt>Actividad:</dt>
+        <dd>{{ deporte.nombre_actividad }}</dd>
+            <dt>Con competición:</dt>
+            <dd>{{ deporte.con_competicion|yesno:"Sí,No" }}</dd>
+            <dt>Piloto:</dt>
+            <dd>{{ deporte.es_piloto|yesno:"Sí,No" }}</dd>
+            <dt>Paracaidismo:</dt>
+            <dd>{{ deporte.paracaidismo|yesno:"Sí,No" }}</dd>
+        </dl>
+    {% empty %}<p>No se registraron actividades.</p>
+    {% endfor %}
+    <hr>
+    <div class="card-header bg-dark text-white">Beneficiarios</div>
+    <hr>
+    {% for beneficiario in solicitud.beneficiarios.all %}
+        <dl>
+            <dt>Nombre:</dt>
+            <dd>{{ beneficiario.nombres_completos }}</dd>
+            <dt>Dirección:</dt>
+            <dd>{{ beneficiario.direccion }}</dd>
+            <dt>Fecha Nacimiento:</dt>
+            <dd>{{ beneficiario.fecha_nacimiento }}</dd>
+            <dt>Parentesco:</dt>
+            <dd>{{ beneficiario.parentesco }}</dd>
+            <dt>C.I.:</dt>
+            <dd>{{ beneficiario.cedula_identidad }}</dd>
+            <dt>Porcentaje:</dt>
+            <dd>{{ beneficiario.porcentaje }}%</dd>
+        </dl>
+    {% empty %}<p>No hay beneficiarios registrados.</p>
+    {% endfor %}
+    <hr>
+    <div class="card-header bg-dark text-white">Firma y Declaración Final</div>
+    <hr>
+    <dl>
+            <dt>Lugar de Firma:</dt>
+            <dd>{{ solicitud.lugar_firma }}</dd>
+            <dt>Fecha de Firma:</dt>
+            <dd>{{ solicitud.fecha_firma }}</dd>
+            <dt>Firma Electrónica Generada:</dt>
+            <dd>{{ solicitud.firma_electronica_generada|yesno:"Sí,No" }}</dd>
+        </dl>
+        <a href="{% url 'admin_socios_formularios' %}" class="btn btn-outline-primary mt-3">← Volver</a>
+    </div>
+    
+    {% endblock %}

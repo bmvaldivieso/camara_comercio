@@ -1,0 +1,36 @@
+{% extends 'admin/master/masteradmin.html' %}
+{% load static %}
+
+{% block title %}Crear Publicación - Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/crear_publicacion.css' %}" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block admin_content %}
+<form method="post" enctype="multipart/form-data" class="publicacion-form">
+    {% csrf_token %}
+
+    <fieldset>
+        <legend>Datos de la publicación</legend>
+        {{ form.as_p }}
+    </fieldset>
+
+    <fieldset>
+        {{ formset.management_form }}
+        <legend>Imágenes (máximo 5)</legend>
+
+        <div class="imagenes-formset">
+            {% for form_imagen in formset %}
+            <div class="imagen-item">
+                {{ form_imagen.as_p }}
+            </div>
+            {% endfor %}
+        </div>
+    </fieldset>
+
+    <button type="submit" class="btn-publicar">Publicar</button>
+    <a href="{% url 'listar_publicaciones' %}" type="button" class="btn btn-secondary ms-2">Cancelar</a>
+</form>
+{% endblock %}
