@@ -1,0 +1,235 @@
+{% extends 'master/side_bar/master.html' %}
+{% load static %}
+    
+
+{% block page_content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/ver_info_publicacion.css' %}">
+{% endblock %}
+
+
+<!-- Hero Section -->
+<section id="inicio" class="hero">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">Cámara de Comercio de Loja</h1>
+            <p class="hero-subtitle">Sistema de Servicios y Consumibles</p>
+            <p class="hero-description">
+                Nuestro gremio a lo largo de los años ha estado siempre preocupado por brindar mejores servicios 
+                y beneficios a sus afiliados, por ello de manera permanente se realizan acciones que permitan 
+                su desarrollo e innovación.
+            </p>
+            <div class="hero-buttons">
+                <a href="#publicaciones" class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    Ultimas Publicaciones
+                </a>
+                <a href="#servicios" class="btn btn-secondary">
+                    <i class="fas fa-eye"></i>
+                    Ver Servicios
+                </a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="floating-card card-1">
+                <i class="fas fa-handshake"></i>
+                <h3>Servicios de Calidad</h3>
+            </div>
+            <div class="floating-card card-2">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Negocio Seguro</h3>
+            </div>
+            <div class="floating-card card-3">
+                <i class="fas fa-chart-line"></i>
+                <h3>Desarrollo Económico</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section id="nosotros" class="why-choose-us">
+    <div class="container">
+        <div class="section-header">
+            <h2>¿Por qué elegirnos?</h2>
+            <p>Forma parte de la Cámara de Comercio de Loja</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Seguridad Garantizada</h3>
+                <p>Mantenemos su negocio seguro y garantizamos una alta disponibilidad</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3>Herramientas de Calidad</h3>
+                <p>Brindamos herramientas que permiten mejorar tu actividad económica y garantizamos servicios de calidad</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Componente Humano</h3>
+                <p>Para nosotros el componente humano es fundamental, estamos comprometidos con el desarrollo de nuestros socios</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>Múltiples Beneficios</h3>
+                <p>Siendo parte de nuestro gremio obtienes múltiples beneficios para ti, tu familia y miembros de tu negocio</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Publications Section -->
+<section id="publicaciones" class="publications">
+    <div class="container">
+        <div class="section-header">
+            <h2>Publicaciones de Servicios</h2>
+            <p>Comparte tus servicios y productos con nuestra comunidad</p>
+        </div>
+        
+        <!-- Publication Form -->
+        {% if publicaciones %}
+        <div class="publicaciones-grid">
+            {% for publicacion in publicaciones %}
+            <div class="info-publicacion-card">
+                <h2>{{ publicacion.titulo }}</h2>
+                <p><strong>Autor:</strong> {{ publicacion.autor.get_full_name|default:publicacion.autor.username }}</p>
+                <p><strong>Servicio:</strong> {{ publicacion.servicio }}</p>
+                <p><strong>Fecha de creación:</strong> {{ publicacion.fecha_creacion|date:"d/m/Y H:i" }}</p>
+                <p><strong>Contenido:</strong></p>
+                <div class="contenido-publicacion">
+                    {{ publicacion.contenido|linebreaks }}
+                </div>
+                <h4>Imágenes asociadas</h4>
+                <div class="galeria-imagenes">
+                    {% for imagen in publicacion.imagenes.all %}
+                        <div class="imagen-wrapper">
+                            <img src="{{ imagen.imagen.url }}" alt="Imagen de la publicación" class="imagen-publicacion">
+                        </div>
+                    {% empty %}
+                        <p>No hay imágenes para esta publicación.</p>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+            <p>No hay publicaciones disponibles.</p>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="servicios" class="services">
+    <div class="container">
+        <div class="section-header">
+            <h2>Nuestros Servicios</h2>
+            <p>Descubre todos los servicios que ofrecemos a nuestros afiliados</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h3>Certificaciones</h3>
+                <p>Certificaciones comerciales y empresariales</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Capacitación</h3>
+                <p>Programas de formación empresarial</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Networking</h3>
+                <p>Conexiones empresariales y comerciales</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3>Consultoría</h3>
+                <p>Asesoría especializada para tu negocio</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contacto" class="contact">
+    <div class="container">
+        <div class="section-header">
+            <h2>Contáctanos</h2>
+            <p>Estamos aquí para apoyarte en el crecimiento de tu negocio</p>
+        </div>
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Dirección</h3>
+                <p>Loja, Ecuador</p>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <h3>Teléfono</h3>
+                <p>+593 7 XXX-XXXX</p>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <h3>Email</h3>
+                <p>info@camaracomercioloja.ec</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Cámara de Comercio de Loja</h3>
+                <p>Comprometidos con el desarrollo empresarial y económico de nuestra región.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#publicaciones">Publicaciones</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Síguenos</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Cámara de Comercio de Loja. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/home.js' %}" defer></script>
+{% endblock %}

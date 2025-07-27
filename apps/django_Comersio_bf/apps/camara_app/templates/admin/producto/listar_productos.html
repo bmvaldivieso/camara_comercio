@@ -16,35 +16,29 @@
         <thead>
             <tr>
                 <th style="width: 20%;">Imagen</th>
-                <th>nombre</th>
+                <th>titulo</th>
+                <th>precio</th>
                 <th>descripcion</th>
-                <th>fecha_creacion</th>
+                <th>fecha creacion</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            {% for sub in subservicios %}
+            {% for prod in productos %}
             <tr>
                 <td style="width: 20%;height: 100px;
-                {% if sub.img %}
-                background-image: url('{{ sub.img.url }}'); 
+                background-image: url('{% static 'images/cajita.jpg' %}'); 
                 background-repeat: no-repeat; 
                 background-position: center; 
-                background-size: cover;
-                {% else %}
-                background-image: url('{% static 'images/imagen2.png' %}'); 
-                background-repeat: no-repeat; 
-                background-position: center; 
-                background-size: cover;
-                {% endif %}
-                ">
+                background-size: cover;">
                 </td>
-                <td>{{ sub.nombre }}</td>
-                <td>{{ sub.descripcion|truncatechars:50 }}</td>
-                <td>{{ sub.fecha_creacion }}</td>
+                <td>{{ prod.titulo }}</td>
+                <td>{{ prod.precio }}</td>
+                <td>{{ prod.descripcion|truncatechars:50 }}</td>
+                <td>{{ prod.fecha_creacion }}</td>
                 <td>
-                    <a href="{% url 'editar_subservicio' sub.id %}" class="btn-view-info">Ver/Editar</a>
-                    <a href="{% url 'eliminar_subservicio' sub.id %}" class="btn-view-info">Eliminar</a>
+                    <a href="{% url 'editar_producto' prod.id %}" class="btn-view-info">Ver/Editar</a>
+                    <a href="{% url 'eliminar_producto' prod.id %}" class="btn-view-info">Eliminar</a>
                 </td>
             </tr>
             {% endfor %}
@@ -52,8 +46,8 @@
     </table>
     <hr>
     <div class="text-end mt-4">
-        <a href="{% url 'crear_subservicio' %}" class="btn btn-success">
-            <i class="fas fa-plus me-1"></i> Crear nuevo Subservicio
+        <a href="{% url 'crear_producto' %}" class="btn btn-success">
+            <i class="fas fa-plus me-1"></i> Crear nuevo Producto
         </a>
     </div>
 </div>

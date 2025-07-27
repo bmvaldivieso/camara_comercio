@@ -604,3 +604,88 @@ class ServicioForm(forms.ModelForm):
         for field in self.fields.values():
             if field.required is not False:
                 field.required = True
+
+
+
+class SubservicioForm(forms.ModelForm):
+    class Meta:
+        model = Subservicios
+        fields = [
+            'nombre',
+            'descripcion',
+            'fecha_creacion',
+            'img',
+        ]
+        widgets = {
+            'nombre': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Nombre del subservicio',
+                'required': 'required'
+            }),
+            'descripcion': Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Descripción del subservicio',
+                'rows': 4,
+                'required': 'required'
+            }),
+            'fecha_creacion': DateInput(attrs={
+                'type': 'date',
+                'class': 'form-control',
+                'required': 'required'
+            }),
+            'img': CustomClearableFileInput(attrs={
+                'class': 'form-control'
+            }),            
+        }
+
+
+
+
+class FormProductoForm(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = [
+            'subservicio',
+            'precio',
+            'descripcion',
+            'titulo',
+            'url_html',
+            'fecha_creacion',
+            'usuarios',
+        ]
+        widgets = {
+            'subservicio': Select(attrs={
+                'class': 'form-select'
+            }),
+            'precio': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Precio del producto',
+                'required': 'required'
+            }),
+            'descripcion': Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Descripción del producto',
+                'rows': 4,
+                'required': 'required'
+            }),
+            'titulo': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Titulo del producto',
+                'required': 'required'
+            }),
+            'url_html': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'URL HTML',
+                'required': 'required'
+            }),
+            'fecha_creacion': DateInput(attrs={
+                'type': 'date',
+                'class': 'form-control',
+                'required': 'required'
+            }),
+            'usuarios': SelectMultiple(attrs={
+                'class': 'form-select',
+                'multiple': 'multiple',
+            }),
+        }
+

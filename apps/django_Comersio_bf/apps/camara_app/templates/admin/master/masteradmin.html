@@ -74,10 +74,16 @@
             Servicios
           </a>
         </li>
-        <li class="{% if request.resolver_match.url_name == 'listar_publicaciones' %}activo{% endif %}" style="width: 110%">
-          <a href="{% url 'listar_publicaciones' %}">
+        <li class="{% if request.resolver_match.url_name == 'listar_subservicios_admin' %}activo{% endif %}" style="width: 110%">
+          <a href="{% url 'listar_subservicios_admin' %}">
             <img src="{% static 'images/icono5.svg' %}" alt="Icono" class="icono-svg">
             Subservicios
+          </a>
+        </li>
+        <li class="{% if request.resolver_match.url_name == 'listar_productos' %}activo{% endif %}" style="width: 110%">
+          <a href="{% url 'listar_productos' %}">
+            <img src="{% static 'images/icono5.svg' %}" alt="Icono" class="icono-svg">
+            Productos
           </a>
         </li>
       </ul>

@@ -20,7 +20,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate, login as auth_login
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from .forms import SocioPersonalForm, SocioBusinessForm, SocioActivityContactForm, InformacionSeguroSocioForm,CategoriaForm,ServicioForm
+from .forms import SocioPersonalForm, SocioBusinessForm, SocioActivityContactForm, InformacionSeguroSocioForm,CategoriaForm,ServicioForm,SubservicioForm,FormProductoForm
 from .forms import SolicitudSeguroVidaForm, DeclaracionSaludForm, DeporteActividadForm, BeneficiarioForm, FormProductoVidaForm
 
 from django.contrib.auth import logout as auth_logout
@@ -52,6 +52,10 @@ from .forms import ImagenPublicacionForm
 from .models import ImagenPublicacion
 from django.forms.models import modelformset_factory
 from django.views.decorators.http import require_POST
+
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseForbidden
+import pusher
 
 
 
@@ -557,8 +561,10 @@ def enviar_factura(request,total,productos,perfil):
             logging.warning(f"Error al enviar la factura: {e}")
 
 
-
-
+@login_required(login_url='/login')
+def home(request):
+    publicaciones = Publicacion.objects.all()
+    return render(request, 'components/home/home.html', {'publicaciones': publicaciones})
 
 
 
@@ -683,7 +689,7 @@ def dashboard(request):
 
 
 
-@login_required
+@login_required(login_url='/login')
 @user_passes_test(lambda u: u.is_superuser)
 def listar_publicaciones(request):
     publicaciones = Publicacion.objects.all().order_by('-fecha_creacion')
@@ -692,7 +698,7 @@ def listar_publicaciones(request):
     })
 
 
-@login_required
+@login_required(login_url='/login')
 @user_passes_test(lambda u: u.is_superuser)
 def crear_publicacion(request):
     ImagenFormSet = modelformset_factory(ImagenPublicacion, form=ImagenPublicacionForm, extra=3, max_num=5)
@@ -724,7 +730,7 @@ def crear_publicacion(request):
 
 
 
-@login_required
+@login_required(login_url='/login')
 @user_passes_test(lambda u: u.is_superuser)
 def ver_info_publicacion(request, publicacion_id):
     publicacion = get_object_or_404(Publicacion, id=publicacion_id)
@@ -796,7 +802,7 @@ def listar_categorias_admin(request):
 
 
 
-@login_required
+@login_required(login_url='/login')
 @user_passes_test(lambda u: u.is_superuser)
 def crear_categoria(request):
 
@@ -815,7 +821,7 @@ def crear_categoria(request):
 
     return render(request, 'admin/categorias/crear_categoria.html', {'form': pub_form})
 
-@login_required
+@login_required(login_url='/login')
 @user_passes_test(lambda u: u.is_superuser)
 def editar_categoria(request, id):
     categoria = get_object_or_404(Categorias, id=id)
@@ -833,7 +839,7 @@ def editar_categoria(request, id):
     return render(request, 'admin/categorias/editar_categoria.html', {'form': form, 'categoria': categoria})
 
 
-@login_required
+@login_required(login_url='/login')
 @user_passes_test(lambda u: u.is_superuser)
 def eliminar_categoria(request, id):
     categoria = get_object_or_404(Categorias, id=id)
@@ -842,7 +848,7 @@ def eliminar_categoria(request, id):
     return redirect('listar_categorias_admin')
 
 
-@login_required
+@login_required(login_url='/login')
 @user_passes_test(lambda u: u.is_superuser)
 def listar_servicios_admin(request):
     servicios = Servicios.objects.all().order_by('-fecha_creacion')
@@ -850,7 +856,7 @@ def listar_servicios_admin(request):
     return render(request, 'admin/servicios/listar_servicios_admin.html', context)
 
 
-@login_required
+@login_required(login_url='/login')
 @user_passes_test(lambda u: u.is_superuser)
 def crear_servicio(request):
 
@@ -872,7 +878,7 @@ def crear_servicio(request):
 
 
 
-@login_required
+@login_required(login_url='/login')
 @user_passes_test(lambda u: u.is_superuser)
 def editar_servicio(request, id):
     servicio = get_object_or_404(Servicios, id=id)
@@ -891,7 +897,7 @@ def editar_servicio(request, id):
 
 
 
-@login_required
+@login_required(login_url='/login')
 @user_passes_test(lambda u: u.is_superuser)
 def eliminar_servicio(request, id):
     servicio = get_object_or_404(Servicios, id=id)
@@ -899,30 +905,161 @@ def eliminar_servicio(request, id):
     messages.success(request, "Servicio eliminado exitosamente.")
     return redirect('listar_servicios_admin')
 
-@login_required
+
+@login_required(login_url='/login')
 @user_passes_test(lambda u: u.is_superuser)
 def listar_subservicios_admin(request):
     subservicios = Subservicios.objects.all().order_by('-fecha_creacion')
     context = {'subservicios': subservicios}
-    return render(request, 'admin/subservicios/listar_subservicios_admin.html', context)
+    return render(request, 'admin/subservicios/listar_subservicios.html', context)
     
 
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def crear_subservicio(request):
+
+    if request.method == "POST":
+        form = SubservicioForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Subservicio creado exitosamente.")
+            return redirect('listar_subservicios_admin')
+        else:
+            messages.error(request, "Error al crear el subservicio.")
+            return redirect('crear_subservicio')
+
+    else:
+        pub_form = SubservicioForm()
+
+    return render(request, 'admin/subservicios/crear_subservicio.html', {'form': pub_form})
+
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def editar_subservicio(request, id):
+    subservicio = get_object_or_404(Subservicios, id=id)
+    if request.method == "POST":
+        form = SubservicioForm(request.POST, request.FILES, instance=subservicio)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Subservicio editado exitosamente.")
+            return redirect('listar_subservicios_admin')
+        else:
+            messages.error(request, "Error al editar el subservicio.")
+            return redirect('editar_subservicio', id=id)
+    else:
+        form = SubservicioForm(instance=subservicio)
+    return render(request, 'admin/subservicios/editar_subservicio.html', {'form': form, 'subservicio': subservicio})
+
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def eliminar_subservicio(request, id):
+    subservicio = get_object_or_404(Subservicios, id=id)
+    subservicio.delete()
+    messages.success(request, "Subservicio eliminado exitosamente.")
+    return redirect('listar_subservicios_admin')
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def listar_productos(request):
+    productos = Producto.objects.all().order_by('-fecha_creacion')
+    context = {'productos': productos}
+    return render(request, 'admin/producto/listar_productos.html', context)
+
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def crear_producto(request):
+    if request.method == "POST":
+        form = FormProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Producto creado exitosamente.")
+            return redirect('listar_productos')
+        else:
+            messages.error(request, "Error al crear el producto.")
+            return redirect('crear_producto')
+    else:
+        form = FormProductoForm()
+    return render(request, 'admin/producto/crear_producto.html', {'form': form})
+
+
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def editar_producto(request, id):
+    producto = get_object_or_404(Producto, id=id)
+    if request.method == "POST":
+        form = FormProductoForm(request.POST, request.FILES, instance=producto)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Producto editado exitosamente.")
+            return redirect('listar_productos')
+        else:
+            messages.error(request, "Error al editar el producto.")
+            return redirect('editar_producto', id=id)
+    else:
+        form = FormProductoForm(instance=producto)
+    return render(request, 'admin/producto/editar_producto.html', {'form': form, 'producto': producto})
+
+
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def eliminar_producto(request, id):
+    producto = get_object_or_404(Producto, id=id)
+    producto.delete()
+    messages.success(request, "Producto eliminado exitosamente.")
+    return redirect('listar_productos')
 
 
 
 
 
 
+pusher_client = pusher.Pusher(app_id=settings.PUSHER_APP_ID,key=settings.PUSHER_KEY,secret=settings.PUSHER_SECRET,cluster=settings.PUSHER_CLUSTER,ssl=True)
+
+
+@login_required(login_url='/login')
+@csrf_exempt
+def pusher_auth(request):
+    print("Llegó a pusher_auth!")
+
+    if not request.user.is_authenticated:
+        return HttpResponseForbidden()
+
+    channel_name = request.POST.get('channel_name')
+    socket_id = request.POST.get('socket_id')
+    expected_channel = f"private-user-{request.user.id}"
+
+
+    if channel_name != expected_channel:
+        return HttpResponseForbidden("Canal no autorizado")
+
+    auth = pusher_client.authenticate(channel=channel_name,socket_id=socket_id)
+    return JsonResponse(auth)
 
 
 
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def trigger_event(request, user_id):
+    channel_name = f"private-user-{user_id}"
+    pusher_client.trigger(channel_name, 'my-event', {'message': f'Hola, usuario {user_id}! Tienes una nueva notificación.'})
+    return JsonResponse({'status': 'Evento enviado correctamente'})
 
 
+@login_required(login_url='/login')
+def obtener_mensajes_usuario(request, user_id):
+    mensajes = Mensaje.objects.filter(usuario=user_id).values('titulo', 'asunto', 'contenido', 'estado')
+    return JsonResponse(list(mensajes), safe=False)
 
 
-
-
-
+@login_required(login_url='/login')
+def marcar_mensajes_leidos(request, user_id):
+    Mensaje.objects.filter(usuario=user_id, estado=True).update(estado=False)
+    return JsonResponse({'status': 'ok'})
 
 
 

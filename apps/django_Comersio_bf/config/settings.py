@@ -193,6 +193,16 @@ EMAIL_HOST_PASSWORD = 'sraj uiwt xzpf llvu'
 
 
 
+#Pusher
+
+PUSHER_APP_ID = "2028408"
+PUSHER_KEY = "3e0fb7f926cfffecfe16"
+PUSHER_SECRET = "0f37afa61a6ead39c961"
+PUSHER_CLUSTER = "us2"
+
+import pusher
+
+pusher_client = pusher.Pusher(app_id=PUSHER_APP_ID,key=PUSHER_KEY,secret=PUSHER_SECRET,cluster=PUSHER_CLUSTER,ssl=True)
 
 
 

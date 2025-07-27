@@ -60,4 +60,17 @@ urlpatterns = [
     path('editar_servicio/<int:id>/', views.editar_servicio, name='editar_servicio'),
     path('eliminar_servicio/<int:id>/', views.eliminar_servicio, name='eliminar_servicio'),
     path('listar_subservicios_admin', views.listar_subservicios_admin, name='listar_subservicios_admin'),
+    path('crear_subservicio', views.crear_subservicio, name='crear_subservicio'),
+    path('editar_subservicio/<int:id>/', views.editar_subservicio, name='editar_subservicio'),
+    path('eliminar_subservicio/<int:id>/', views.eliminar_subservicio, name='eliminar_subservicio'),
+    path('listar_productos', views.listar_productos, name='listar_productos'),
+    path('crear_producto', views.crear_producto, name='crear_producto'),
+    path('editar_producto/<int:id>/', views.editar_producto, name='editar_producto'),
+    path('eliminar_producto/<int:id>/', views.eliminar_producto, name='eliminar_producto'),
+    path('home', views.home, name='home'),
+    path('trigger-event/<int:user_id>/', views.trigger_event, name='trigger_event'),
+    path('pusher/auth/', views.pusher_auth, name='pusher_auth'),
+    path('obtener-mensajes-usuario/<int:user_id>/', views.obtener_mensajes_usuario, name='obtener_mensajes_usuario'),
+    path('mensajes-leidos/<int:user_id>/', views.marcar_mensajes_leidos, name='mensajes_leidos'),
+
 ]

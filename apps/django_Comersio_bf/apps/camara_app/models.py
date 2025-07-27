@@ -371,6 +371,7 @@ class Producto(models.Model):
     descripcion = models.CharField(max_length=255, blank=True, null=True)
     titulo = models.CharField(max_length=255, blank=True, null=True)
     url_html = models.CharField(max_length=255, blank=True, null=True) 
+    fecha_creacion = models.DateField(default=date.today)
     usuarios = models.ManyToManyField('PerfilUsuario', related_name='productos', blank=True)
 
 
@@ -386,6 +387,7 @@ class Subservicios(models.Model):
     """
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
+    fecha_creacion = models.DateField(default=date.today)
     img = models.ImageField(upload_to='subservicios/', null=True, blank=True)
 
     class Meta:
@@ -494,6 +496,7 @@ class Categorias(models.Model):
     fecha_creacion = models.DateField()
     img = models.ImageField(upload_to='categorias/', null=True, blank=True)
     servicios = models.ManyToManyField('Servicios', related_name='categorias')
+    
 
     class Meta:
         verbose_name = "Categoría"
@@ -581,6 +584,7 @@ class Mensaje(models.Model):
     asunto = models.CharField(max_length=255)
     contenido = models.TextField()
     fecha_envio = models.DateTimeField(auto_now_add=True)
+    estado = models.BooleanField(default=True)
 
     def __str__(self):
         return f"Mensaje a {self.usuario.username} - {self.titulo}"
