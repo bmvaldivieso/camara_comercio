@@ -27,10 +27,10 @@
           {% with perfil=socio.perfiles.first %}
           <tr>
             <td>
-              {% if perfil and perfil.imagen %}
-                <img src="{{ perfil.imagen.url }}" alt="{{ perfil.user.get_full_name }}" class="socio-avatar">
+              {% if perfil.imagen.url %}
+                <img src="{{perfil.imagen.url}}" alt="{{ perfil.user.get_full_name }}" class="socio-avatar" style="width: 50px; height: 50px;">
               {% else %}
-                <img src="{% static 'images/imagen2.png' %}" alt="Avatar por defecto" class="socio-avatar">
+                <img src="{% static 'images/imagen2.png' %}" alt="Avatar por defecto" class="socio-avatar" style="width: 50px; height: 50px;">
               {% endif %}
             </td>
             <td>
@@ -67,6 +67,7 @@
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 <script>
+
   $(document).ready(function () {
   $('#sociosTable').DataTable({
     language: {
@@ -75,23 +76,35 @@
   });
 
   document.querySelectorAll('.checkbox-estado').forEach(function (checkbox) {
+
     checkbox.addEventListener('change', function () {
       const socioId = this.dataset.id;
       const activo = this.checked;
+      let solicitudText = 'Socio'
+      let solicitudId = 0
 
       fetch("{% url 'toggle_estado_socio' %}", {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'X-CSRFToken': getCookie('csrftoken'),
-        },
-        body: new URLSearchParams({
-          'id': socioId,
-          'activo': activo,
-        })
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRFToken': getCookie('csrftoken'),},
+        body: new URLSearchParams({'id': socioId,'activo': activo,})
       })
       .then(response => response.json())
       .then(data => {
+
+        fetch(`http://127.0.0.1:8000/trigger-event-2/${solicitudId}/${solicitudText}/${socioId}/`)
+        .then(response => {
+          if (!response.ok) throw new Error("Error al enviar notificación");
+          return response.json();
+        })
+        .then(data => {
+          console.log('Notificación enviada:', data);
+        })
+        .catch(error => {
+          console.error('Error al enviar notificación:', error);
+          alert("Error al enviar la notificación. El formulario no se enviará.");
+        });
+              
+
         if (!data.success) {
           alert('Error al actualizar el estado');
         }

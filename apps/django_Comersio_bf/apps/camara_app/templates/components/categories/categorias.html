@@ -1,7 +1,5 @@
 {% extends 'master/side_bar/master.html' %}
 {% load static %}
-
-
 {% block page_content %}
 
 {% block extra_css %}
@@ -20,9 +18,17 @@
             <p class="card-description" style="color: black;">
                 {{ categoria.descripcion }}
             </p>
+
+            {% if estado %}
             <a href="/servicios/{{ categoria.id }}" class="btn btn-ingresar">
                 <span class="btn-text">Ingresar</span>
             </a>
+            {% else %}
+            <div style="color: #c0392b; font-weight: bold; padding: 8px 12px; border: 1px solid #e74c3c; background-color: #f9ebea; border-radius: 6px; display: inline-block;">
+                Lo siento no eres socio para ver los servicios.
+            </div>
+            {% endif %}
+
         </div>
     </div>
     {% endfor %}

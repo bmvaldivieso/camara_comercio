@@ -131,7 +131,7 @@ def login(request):
             if is_superuser:
                 return redirect('/dashboard')
             else:
-                return redirect('/categorias')
+                return redirect('/home')
 
         else:
             logging.warning("Usuario o contraseña incorrectos.")
@@ -246,6 +246,9 @@ def ser_socio(request):
                 id_seguro=info_seguro
             )
             socio.save()
+            perfil = request.user.perfil
+            perfil.socio = socio
+            perfil.save()
             logging.warning(f"Socio creado exitosamente: {socio}")
             return redirect('categorias')
 
@@ -424,13 +427,14 @@ def present_Socio(request):
 
 
 
-
-
 @login_required(login_url='/login')
 def categorias(request):
-
+    usuario = request.user
+    perfil = usuario.perfil
+    socio = perfil.socio
+    estado = socio.activo
     categorias = Categorias.objects.all()
-    context = {'categorias': categorias}
+    context = {'categorias': categorias,'estado':estado}
     return render(request, 'components/categories/categorias.html', context)
 
 
@@ -438,6 +442,13 @@ def categorias(request):
 @login_required(login_url='/login')
 def servicios(request, categoria_id):
     logging.warning("Servicios requestttttt")
+
+    usuario = request.user
+    perfil = usuario.perfil
+    socio = perfil.socio
+    estado = socio.activo
+    if estado == False:
+        return redirect('categorias')
     servicios = Servicios.objects.filter(categorias__id=categoria_id).all()
     context = {'servicios': servicios,'categoria_id':categoria_id}
     return render(request, 'components/services/servicios.html', context)
@@ -447,6 +458,12 @@ def servicios(request, categoria_id):
 @login_required(login_url='/login')
 def subservicios(request,servicio_id,categoria_id):
     logging.warning("Subservicios requestttttt")
+    usuario = request.user
+    perfil = usuario.perfil
+    socio = perfil.socio
+    estado = socio.activo
+    if estado == False:
+        return redirect('categorias')
     subservicios = Subservicios.objects.filter(servicios__id=servicio_id).all()
     context ={'subservicios':subservicios,'servicio_id':servicio_id,'categoria_id':categoria_id}
     return render(request, 'components/subservicios/subservicios.html', context)
@@ -459,6 +476,12 @@ from datetime import datetime
 def seguro_vida(request, servicio_id, producto_id,categoria_id):
     producto = Producto.objects.get(id=producto_id)
     perfil = request.user.perfil
+    usuario = request.user
+    perfil = usuario.perfil
+    socio = perfil.socio
+    estado = socio.activo
+    if estado == False:
+        return redirect('categorias')
 
     if request.method == 'POST':
         data = request.POST
@@ -499,6 +522,12 @@ def generar_poliza_pdf(perfil, formulario):
 @login_required(login_url='/login')
 def firma(request,servicio_id,producto_id,categoria_id):
     logging.warning("Firma requestttttt")
+    usuario = request.user
+    perfil = usuario.perfil
+    socio = perfil.socio
+    estado = socio.activo
+    if estado == False:
+        return redirect('categorias')
     producto = Producto.objects.get(id=producto_id)
     context ={'servicio_id':servicio_id,'producto':producto,'categoria_id':categoria_id}
     return render(request, 'components/subservicios/firmaElectronica/firma.html',context)
@@ -577,8 +606,14 @@ def home(request):
 def admin_socios_c(request):
     return render(request, 'admin/socios/socios.html')
 @login_required(login_url='/login')
-def admin_socios_formularios_c(request):
-    return render(request, 'admin/socios/socios_formularios.html')
+
+
+
+
+
+
+
+
 @login_required(login_url='/login')
 def seguro_vida_archivos_subidos(request):
     return render(request, 'components/subservicios/seguroVida/seguro_vida_archivos_subidos.html')
@@ -654,22 +689,6 @@ def admin_usuarios_incremento(request):
 
 
 
-@login_required(login_url='/login')
-@user_passes_test(lambda u: u.is_superuser)
-def enviar_mensaje_usuario(request, user_id):
-    usuario = get_object_or_404(User, id=user_id)
-    if request.method == 'POST':
-        form = MensajeForm(request.POST)
-        if form.is_valid():
-            mensaje = form.save(commit=False)
-            mensaje.usuario = usuario
-            mensaje.save()
-            #messages.success(request, "Mensaje enviado correctamente.")
-            return redirect('admin_usuarios_incremento')
-    else:
-        form = MensajeForm()
-    return render(request, 'admin/usuarios/enviar_mensaje.html', {'form': form, 'usuario': usuario})    
-
 
 
 
@@ -744,10 +763,10 @@ def ver_info_publicacion(request, publicacion_id):
 @login_required(login_url='/login')
 @user_passes_test(lambda u: u.is_superuser)
 def admin_socios(request):
+    logging.warning("Admin socios requestttttt")
     socios = Socio.objects.prefetch_related('perfiles').order_by('-id')  
-    context = {
-        'socios': socios,
-    }
+    context = {'socios': socios}
+    logging.warning(socios)
     return render(request, 'admin/socios/socios.html', context)
 
 
@@ -1016,8 +1035,6 @@ def eliminar_producto(request, id):
 
 
 
-
-
 pusher_client = pusher.Pusher(app_id=settings.PUSHER_APP_ID,key=settings.PUSHER_KEY,secret=settings.PUSHER_SECRET,cluster=settings.PUSHER_CLUSTER,ssl=True)
 
 
@@ -1036,12 +1053,14 @@ def pusher_auth(request):
 
     if channel_name != expected_channel:
         return HttpResponseForbidden("Canal no autorizado")
-
+    
     auth = pusher_client.authenticate(channel=channel_name,socket_id=socket_id)
     return JsonResponse(auth)
 
 
 
+
+@csrf_exempt
 @login_required(login_url='/login')
 @user_passes_test(lambda u: u.is_superuser)
 def trigger_event(request, user_id):
@@ -1052,8 +1071,9 @@ def trigger_event(request, user_id):
 
 @login_required(login_url='/login')
 def obtener_mensajes_usuario(request, user_id):
-    mensajes = Mensaje.objects.filter(usuario=user_id).values('titulo', 'asunto', 'contenido', 'estado')
+    mensajes = Mensaje.objects.filter(usuario_id=user_id).order_by('-fecha_envio').values('titulo', 'asunto', 'contenido', 'estado', 'fecha_envio')
     return JsonResponse(list(mensajes), safe=False)
+
 
 
 @login_required(login_url='/login')
@@ -1063,14 +1083,78 @@ def marcar_mensajes_leidos(request, user_id):
 
 
 
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def enviar_mensaje_usuario(request, user_id):
+    usuario = get_object_or_404(User, id=user_id)
+    if request.method == 'POST':
+        form = MensajeForm(request.POST)
+        if form.is_valid():
+            mensaje = form.save(commit=False)
+            mensaje.usuario = usuario
+            mensaje.save()
+            return redirect('admin_usuarios_incremento')
+    else:
+        form = MensajeForm()
+    return render(request, 'admin/usuarios/enviar_mensaje.html', {'form': form, 'usuario': usuario})    
 
 
 
 
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def toggle_estado_solicitud(request,solicitud_id):
+    solicitud = get_object_or_404(SolicitudSeguroVida, id=solicitud_id)
+    print("Llegó a toggle_estado_solicitud!")
+    print(solicitud)
+    if solicitud.estado:
+        solicitud.estado = False
+    else:
+        solicitud.estado = True
+    solicitud.save()
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 
+@csrf_exempt
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def trigger_event_2(request, solicitud_id,text,socio_id):
+    print("Llegó a trigger_event_222222222222!")
+    print(solicitud_id)
+    print(socio_id)
 
+    if socio_id == 0:
+        solicitud = get_object_or_404(SolicitudSeguroVida, id=solicitud_id)
+        perfil = solicitud.perfiles.first()
+    if solicitud_id == 0:
+        socio = get_object_or_404(Socio, id=socio_id)
+        perfil = socio.perfiles.first()
+
+    usuario = perfil.user
+    if socio_id == 0:
+        print("socio")
+        mensaje = Mensaje.objects.create(usuario=usuario,titulo=f'Hola, {usuario.username}!',asunto="Solicitud de Seguro de Vida",contenido=f'{usuario.username}! Tu solicitud de {text} ha sido {"aprobada" if solicitud.estado else "rechazada"}.',estado=True,fecha_envio=timezone.now())
+
+    if solicitud_id == 0:
+        print("solicitud")
+        mensaje = Mensaje.objects.create(usuario=usuario,titulo=f'Hola, {usuario.username}!',asunto="Solicitud de Socio",contenido=f'{usuario.username}! Tu solicitud de {text} ha sido {"aprobada" if socio.activo else "rechazada"}.',estado=True,fecha_envio=timezone.now())
+
+
+    mensaje.save()
+    channel_name = f"private-user-{usuario.id}"
+    pusher_client.trigger(channel_name, 'my-event',{'message': f'Hola'})
+    return JsonResponse({'status': 'Evento enviado correctamente'})
+
+
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser)
+def eliminar_solicitud(request,solicitud_id):
+    solicitud = get_object_or_404(SolicitudSeguroVida, id=solicitud_id)
+    print("Llegó a eliminar_solicitud!")
+    print(solicitud)
+    solicitud.delete()
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 

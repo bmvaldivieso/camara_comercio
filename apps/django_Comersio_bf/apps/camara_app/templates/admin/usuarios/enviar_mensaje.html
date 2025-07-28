@@ -11,10 +11,33 @@
       <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Enviar</button>
+        <button type="submit" class="btn btn-primary" onclick="trigger(event)">Enviar</button>
         <a href="{% url 'admin_usuarios_incremento' %}" class="btn btn-secondary">Cancelar</a>
       </form>
     </div>
   </div>
 </div>
+
+<script>
+  function trigger(e) {
+    e.preventDefault();
+
+    const userId = {{ usuario.id }};
+    const form = e.target.closest('form');
+    
+    fetch(`http://127.0.0.1:8000/trigger-event/${userId}/`)
+      .then(response => {
+        if (!response.ok) throw new Error("Error al enviar notificación");
+        return response.json();
+      })
+      .then(data => {
+        console.log('Notificación enviada:', data);
+        form.submit();
+      })
+      .catch(error => {
+        console.error('Error al enviar notificación:', error);
+        alert("Error al enviar la notificación. El formulario no se enviará.");
+      });
+  }
+</script> 
 {% endblock %}

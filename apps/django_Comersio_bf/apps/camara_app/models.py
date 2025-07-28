@@ -50,6 +50,7 @@ class SolicitudSeguroVida(models.Model):
     # firma_electronica_archivo = models.ImageField(upload_to='firmas/', blank=True, null=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
+    estado = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Solicitud de {self.nombres} {self.apellidos} - {self.numero_identificacion}"

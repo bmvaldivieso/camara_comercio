@@ -81,8 +81,100 @@
         <dd>{{ solicitud.declaracion_salud.peso_kg }}</dd>
         <dt>Estatura (cm):</dt>
         <dd>{{ solicitud.declaracion_salud.estatura_cm }}</dd>
-        <!-- Puedes seguir agregando todas las preguntas y respuestas de salud como se hace arriba -->
+        <dt>Tensión Arterial Sistólica:</dt>
+        <dd>{{ solicitud.declaracion_salud.tension_arterial_sistolica }}</dd>
+        <dt>¿Su peso ha aumentado o disminuido durante el último año?</dt>
+        <dd>{{ solicitud.declaracion_salud.peso_ha_cambiado|yesno:"Sí,No"}}</dd>
+        <dt>¿Cuánto peso cambió?</dt>
+        <dd>{{ solicitud.declaracion_salud.cuanto_peso_cambio }}</dd>
+        <dt>¿Cambio de peso intencional?</dt>
+        <dd>{{ solicitud.declaracion_salud.peso_cambio_intencional|yesno:"Sí,No"}}</dd>
+        <dt>¿Causa del cambio de peso?</dt>
+        <dd>{{ solicitud.declaracion_salud.causa_peso_cambio }}</dd>
+        <dt>1. ¿Afecciones del corazón o aparato circulatorio...?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta1_salud|yesno:"Sí,No"}}</dd>
+        <dt>2. ¿Afecciones de los órganos respiratorios...?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta2_salud|yesno:"Sí,No"}}</dd>
+        <dt>3. ¿Enfermedad circulatoria o accidente vascular cerebral?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta3_salud|yesno:"Sí,No"}}</dd>
+        <dt>4. ¿Enfermedades del sistema endocrino...?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta4_salud|yesno:"Sí,No"}}</dd>
+        <dt>5. ¿Cirrosis hepática, hepatitis C o insuficiencia hepática?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta5_salud|yesno:"Sí,No"}}</dd>
+        <dt>6. ¿Edema o supuración o aumento de volumen de los ganglios linfáticos?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta6_salud|yesno:"Sí,No"}}</dd>
+        <dt>7. Afecciones del cerebro o del sistema nervioso...?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta7_salud|yesno:"Sí,No"}}</dd>
+        <dt>8. Afecciones del aparato digestivo...?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta8_salud|yesno:"Sí,No"}}</dd>
+        <dt>9. ¿Enfermedad de la piel?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta9_salud|yesno:"Sí,No"}}</dd>
+        <dt>10. ¿Enfermedades infecciosas...?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta10_salud|yesno:"Sí,No"}}</dd>
+        <dt>11. ¿Afecciones urinarias o genitales? (riñones, próstata, etc.)</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta11_salud|yesno:"Sí,No"}}</dd>
+        <dt>12. ¿Enfermedades de la sangre, gota, hernia, etc.?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta12_salud|yesno:"Sí,No"}}</dd>
+        <dt>13. ¿Enfermedades venéreas o de transmisión sexual?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta13_salud|yesno:"Sí,No"}}</dd>
+        <dt>14. ¿Accidente grave o intoxicación?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta14_salud|yesno:"Sí,No"}}</dd>
+        <dt>15. ¿Enfermedades de los oídos?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta15_salud|yesno:"Sí,No"}}</dd>
+        <dt>16. ¿Enfermedades de los ojos?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta16_salud|yesno:"Sí,No"}}</dd>
+        <dt>17. ¿Tratamiento por psiquiatra o psicólogo?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta17_salud|yesno:"Sí,No"}}</dd>
+        <dt>18. ¿HIV o SIDA?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta18_salud|yesno:"Sí,No"}}</dd>
+        <dt>19. ¿Le han prescrito medicamentos en los últimos 12 meses?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta19_salud|yesno:"Sí,No"}}</dd>
+        <dt>20. ¿Le han indicado reposo o desintoxicación?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta20_salud|yesno:"Sí,No"}}</dd>
+        <dt>21. ¿Ha recibido transfusiones?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta21_salud|yesno:"Sí,No"}}</dd>
+        <dt>22. ¿Le han recomendado no donar sangre?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta22_salud|yesno:"Sí,No"}}</dd>
+        <dt>23. ¿Tiene capacidad de trabajo reducida?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta23_salud|yesno:"Sí,No"}}</dd>
+        <dt>24. ¿Ha dejado de trabajar por más de 3 semanas en los últimos 5 años?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta24_salud|yesno:"Sí,No"}}</dd>
+        <dt>25. ¿Antecedentes hereditarios (diabetes, corazón, etc.)?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta25_salud|yesno:"Sí,No"}}</dd>
+        <dt>26. ¿Intervención quirúrgica?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta26_salud|yesno:"Sí,No"}}</dd>
+        <dt>27. ¿Hospitalización pendiente?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta27_salud|yesno:"Sí,No"}}</dd>
+        <dt>28. ¿Cualquier otra enfermedad no declarada?</dt>
+        <dd>{{ solicitud.declaracion_salud.pregunta28_salud|yesno:"Sí,No"}}</dd>
     </dl>
+    <hr>
+    <div class="card-header bg-dark text-white">Mas información de Hábitos</div>
+    <dt>Fuma:</dt>
+    <dd>{{ solicitud.declaracion_salud.fuma|yesno:"Sí,No"}}</dd>
+    <dt>Cantidad fumada:</dt>
+    <dd>{{ solicitud.declaracion_salud.cantidad_fumada }}</dd>
+    <dt>detalles preguntas de salud:</dt>
+    <dd>{{ solicitud.declaracion_salud.detalle_preguntas_salud }}</dd>
+    <dt>nombre medico:</dt>
+    <dd>{{ solicitud.declaracion_salud.nombre_medico }}</dd>
+    <dt>medico por ultima vez:</dt>
+    <dd>{{ solicitud.declaracion_salud.medico_ultima_vez }}</dd>
+    <dt>motivo:</dt>
+    <dd>{{ solicitud.declaracion_salud.motivo_ultima_vez }}</dd>
+    <dt>consume alcohol:</dt>
+    <dd>{{ solicitud.declaracion_salud.consume_alcohol|yesno:"Sí,No"}}</dd>
+    <dt>cuales tipos de alcohol:</dt>
+    <dd>{{ solicitud.declaracion_salud.cuales_alcohol }}</dd>
+    <dt>cuanto alcohol diariamente:</dt>
+    <dd>{{ solicitud.declaracion_salud.cuanto_diariamente_alcohol }}</dd>
+    <dt>uso estupefacientes:</dt>
+    <dd>{{ solicitud.declaracion_salud.uso_estupefacientes|yesno:"Sí,No"}}</dd>
+    <dt>cuales estupefacientes:</dt>
+    <dd>{{ solicitud.declaracion_salud.cuales_estupefacientes }}</dd>
+    <dt>hasta cuando estupefacientes:</dt>
+    <dd>{{ solicitud.declaracion_salud.hasta_cuando_estupefacientes }}</dd>
+
     <hr>
     <div class="card-header bg-dark text-white">Detalles de Afecciones Declaradas</div>
     <hr>

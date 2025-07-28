@@ -31,7 +31,7 @@
           {% for solicitud in solicitudes %}
           <tr>
             <td>
-              <img src="{% static 'images/imagen2.png' %}" alt="{{ solicitud.nombres }} {{ solicitud.apellidos }}"
+              <img src="{{ solicitud.perfiles.first.imagen.url }}" alt="{{ solicitud.nombres }} {{ solicitud.apellidos }}"
                 class="table-user-avatar">
               {{ solicitud.nombres }} {{ solicitud.apellidos }}
             </td>
@@ -39,10 +39,10 @@
             <td>{{ solicitud.fecha_creacion|date:"H:i" }}</td>
             <td>
               <label class="switch">
-                <input type="checkbox" {% if solicitud.firma_electronica_generada %}checked{% endif %}>
+                <input type="checkbox" class="estado-toggle" data-id="{{ solicitud.id }}" {% if solicitud.estado %}checked{% endif %}>
                 <span class="slider round"></span>
               </label>
-              {% if solicitud.firma_electronica_generada %}
+              {% if solicitud.estado %}
               Aprobado
               {% else %}
               Pendiente
@@ -54,7 +54,7 @@
               </a>
             </td>
             <td>
-              <form action="{#}" method="post" style="display:inline;">
+              <form action="{% url 'eliminar_solicitud' solicitud.id %}" method="post" style="display:inline;">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-link p-0"
                   onclick="return confirm('¿Estás seguro de eliminar esta solicitud?');">
@@ -79,4 +79,42 @@
 
 {% block extra_js %}
 <script src="{% static 'js/socios_logic.js' %}" defer></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script>
+  $(document).on('change', '.estado-toggle', function () {
+      let checkbox = $(this);
+      let solicitudId = checkbox.data('id');
+      let solicitudText = 'Afiliación'
+      let socioId = 0
+  
+      $.ajax({
+          url: `/admin_socios_formularios/toggle-estado/${solicitudId}/`,
+          type: 'POST',
+          headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+          success: function (data) {
+              console.log('Estado actualizado:', data.nuevo_estado);
+
+              fetch(`http://127.0.0.1:8000/trigger-event-2/${solicitudId}/${solicitudText}/${socioId}/`)
+              .then(response => {
+                if (!response.ok) throw new Error("Error al enviar notificación");
+                return response.json();
+              })
+              .then(data => {
+                console.log('Notificación enviada:', data);
+              })
+              .catch(error => {
+                console.error('Error al enviar notificación:', error);
+                alert("Error al enviar la notificación. El formulario no se enviará.");
+              });
+              
+          },
+          error: function () {
+              alert('Error al cambiar el estado.');
+              checkbox.prop('checked', !checkbox.prop('checked')); 
+          }
+      });
+  });
+  </script>
 {% endblock %}

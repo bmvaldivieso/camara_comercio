@@ -15,8 +15,13 @@ urlpatterns = [
     path('dashboard', views.dashboard, name='dashboard'),
     path('admin_usuarios', views.admin_usuarios, name='admin_usuarios'),
     path('admin_usuarios_incremento', views.admin_usuarios_incremento, name='admin_usuarios_incremento'),
-    path('admin_socios', views.admin_socios_c, name='admin_socios'),
-    path('admin_socios_formularios', views.admin_socios_formularios_c, name='admin_socios_formularios'),
+
+
+
+
+    path('admin_socios_formularios', views.admin_socios_formularios, name='admin_socios_formularios'),
+
+
 
 
     path('seguro_vida/<int:servicio_id>/<int:producto_id>/<int:categoria_id>', views.seguro_vida, name='seguro_vida'),
@@ -50,7 +55,13 @@ urlpatterns = [
     path('admin_socios', views.admin_socios, name='admin_socios'),
     path('publicaciones/socios/toggle-estado/', views.toggle_estado_socio, name='toggle_estado_socio'),
     path('publicaciones/socios/ver_info/<int:socio_id>/', views.ver_info_socio, name='ver_info_socio'),
+
+
     path('admin_socios_formularios/ver_info/<int:solicitud_id>/', views.ver_info_solicitud, name='ver_info_solicitud'),
+    path('admin_socios_formularios/toggle-estado/<int:solicitud_id>/', views.toggle_estado_solicitud, name='toggle_estado_solicitud'),
+
+
+
     path('listar_categorias_admin', views.listar_categorias_admin, name='listar_categorias_admin'),
     path('crear_categoria', views.crear_categoria, name='crear_categoria'),
     path('editar_categoria/<int:id>/', views.editar_categoria, name='editar_categoria'),
@@ -69,6 +80,12 @@ urlpatterns = [
     path('eliminar_producto/<int:id>/', views.eliminar_producto, name='eliminar_producto'),
     path('home', views.home, name='home'),
     path('trigger-event/<int:user_id>/', views.trigger_event, name='trigger_event'),
+
+
+    path('trigger-event-2/<int:solicitud_id>/<str:text>/<int:socio_id>/', views.trigger_event_2, name='trigger_event_2'),
+    path('eliminar_solicitud/<int:solicitud_id>/', views.eliminar_solicitud, name='eliminar_solicitud'),
+
+
     path('pusher/auth/', views.pusher_auth, name='pusher_auth'),
     path('obtener-mensajes-usuario/<int:user_id>/', views.obtener_mensajes_usuario, name='obtener_mensajes_usuario'),
     path('mensajes-leidos/<int:user_id>/', views.marcar_mensajes_leidos, name='mensajes_leidos'),

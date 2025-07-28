@@ -54,22 +54,24 @@
       icon.appendChild(badge);
       badge.style.display = 'none';
       const panel = document.getElementById('notification-panel');
-      mensajes = [];
+      let mensajes = [];
 
       document.addEventListener('DOMContentLoaded', () => {
         fetchMensajes();
       });
 
-
+      
       //traemos todos los mensajes qu ele eprtenecen al usuario
       function fetchMensajes() {
         fetch(`/obtener-mensajes-usuario/${userId}`)
           .then(response => response.json())
           .then(data => {
               mensajes = data;
-              console.log(mensajes);
+              console.log('mensajes', mensajes);
+              console.log('data', data);
               const hayNuevos = data.some(msg => msg.estado === true);
               if (hayNuevos) { 
+                console.log('hayNuevos', hayNuevos);
                 badge.style.display = 'inline-block'; 
               }
           })
@@ -99,9 +101,6 @@
         }
       });
 
-
-
-
       //escuchamos el evento de pusher para mostrar nuevas notificaciones//
       channel.bind('my-event', function(data) {
         fetchMensajes();
@@ -113,27 +112,33 @@
       }, 1500);
       });
 
-
-
-
-
       //al darle clik al icono d enotificaciones se muestra el panel de notificaciones//
       icon.addEventListener('click', () => {
-        MensajesLeidos();
-        panel.classList.toggle('hidden');
-        badge.style.display = 'none';
-        panel.innerHTML = '';
 
-        const notificationList = document.createElement('div');
-        notificationList.id = 'notification-list';
-        notificationList.className = 'notification-list';
-        panel.appendChild(notificationList);
-        mensajes.forEach(msg => {
-          const item = document.createElement('div');
-          item.classList.add('notification-item');
-          item.innerHTML = `<strong>${msg.titulo}</strong><br><em>${msg.asunto}</em><br><p>${msg.contenido}</p><hr>`;
-          panel.appendChild(item);
-        });
+        fetch(`/obtener-mensajes-usuario/${userId}`)
+          .then(response => response.json())
+          .then(data => {
+              mensajes = data;
+              MensajesLeidos();
+
+              panel.classList.toggle('hidden');
+              badge.style.display = 'none';
+              panel.innerHTML = '';
+
+              const notificationList = document.createElement('div');
+              notificationList.id = 'notification-list';
+              notificationList.className = 'notification-list';
+              panel.appendChild(notificationList);
+              mensajes.forEach(msg => {
+                const item = document.createElement('div');
+                item.classList.add('notification-item');
+                item.innerHTML = `<strong>${msg.titulo}</strong><br><em>${msg.asunto}</em><br><p>${msg.contenido}</p><hr>`;
+                panel.appendChild(item);
+            });
+          })
+          .catch(error => {
+            console.error('Error al obtener mensajes:', error);
+          });
       });
       
     
@@ -147,3 +152,6 @@
 
 </body>
 </html>
+
+
+
