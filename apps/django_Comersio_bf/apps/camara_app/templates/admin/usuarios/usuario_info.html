@@ -12,10 +12,10 @@
             <div class="col-md-4 text-center">
                 {% if usuario.perfil.imagen %}
                 <img src="{{ usuario.perfil.imagen.url }}" alt="Foto de perfil" class="img-fluid rounded-circle mb-3"
-                    style="max-width: 200px;">
+                    style="max-width: 200px;height: 200px;">
                 {% else %}
                 <img src="{% static 'images/imagen2.png' %}" alt="Sin foto" class="img-fluid rounded-circle mb-3"
-                    style="max-width: 200px;">
+                    style="max-width: 200px;height: 200px;">
                 {% endif %}
                 <link rel="stylesheet" href="{% static 'css/usuario_info.css' %}">
             </div>

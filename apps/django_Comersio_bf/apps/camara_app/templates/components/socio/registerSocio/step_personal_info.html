@@ -1,46 +1,77 @@
 <div class="form-slide active" data-slide="1">
     <h4 class="slide-title">Datos Personales</h4>
-    <div class="mb-3">
-        {{ personal_form.razon_social.label_tag }}
-        {{ personal_form.razon_social }}
+    
+    <div class="form-grid">
+        <div class="form-group">
+            <label for="{{ personal_form.razon_social.id_for_label }}" class="form-label required">
+                {{ personal_form.razon_social.label }}
+            </label>
+            {{ personal_form.razon_social }}
+            <div class="field-help">Ingrese la razón social completa de su empresa</div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ personal_form.nombre_comercial.id_for_label }}" class="form-label">
+                {{ personal_form.nombre_comercial.label }}
+            </label>
+            {{ personal_form.nombre_comercial }}
+            <div class="field-help">Nombre con el que opera comercialmente</div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ personal_form.ruc_cedula.id_for_label }}" class="form-label required">
+                {{ personal_form.ruc_cedula.label }}
+            </label>
+            {{ personal_form.ruc_cedula }}
+            <div class="field-help">RUC para empresas o cédula para personas naturales</div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ personal_form.email_principal.id_for_label }}" class="form-label required">
+                {{ personal_form.email_principal.label }}
+            </label>
+            {{ personal_form.email_principal }}
+            <div class="field-help">Email principal para comunicaciones oficiales</div>
+        </div>
     </div>
-    <div class="mb-3">
-        {{ personal_form.nombre_comercial.label_tag }}
-        {{ personal_form.nombre_comercial }}
+
+    <div class="form-section">
+        <h5 class="section-title">
+            <i class="icon-social"></i>
+            Redes Sociales
+        </h5>
+        <div class="checkbox-grid">
+            {% for checkbox in personal_form.redes_sociales_checkboxes %}
+                <div class="checkbox-item">
+                    <div class="custom-checkbox">
+                        {{ checkbox.tag }}
+                        <label class="checkbox-label" for="{{ checkbox.id_for_label }}">
+                            <span class="checkmark"></span>
+                            {{ checkbox.choice_label }}
+                        </label>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-    <div class="mb-3">
-        {{ personal_form.ruc_cedula.label_tag }}
-        {{ personal_form.ruc_cedula }}
-    </div>
-    <div class="mb-3">
-        {{ personal_form.email_principal.label_tag }}
-        {{ personal_form.email_principal }}
-    </div>
-    <div class="mb-3">
-        {{ personal_form.redes_sociales_checkboxes.label_tag }}<br>
-        {% for checkbox in personal_form.redes_sociales_checkboxes %}
-            <div class="form-check form-check-inline">
-                {{ checkbox.tag }}
-                <label class="form-check-label" for="{{ checkbox.id_for_label }}">{{ checkbox.choice_label }}</label>
-            </div>
-        {% endfor %}
-    </div>
-    {# Campo para errores de formulario #}
     {% if personal_form.errors %}
         <div class="alert alert-danger">
-            {% for field in personal_form %}
-                {% if field.errors %}
-                    {% for error in field.errors %}
-                        <p>{{ field.label }}: {{ error }}</p>
+            <div class="alert-icon">⚠️</div>
+            <div class="alert-content">
+                <h6>Por favor, corrija los siguientes errores:</h6>
+                {% for field in personal_form %}
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            <p><strong>{{ field.label }}:</strong> {{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+                {% if personal_form.non_field_errors %}
+                    {% for error in personal_form.non_field_errors %}
+                        <p>{{ error }}</p>
                     {% endfor %}
                 {% endif %}
-            {% endfor %}
-            {% if personal_form.non_field_errors %}
-                {% for error in personal_form.non_field_errors %}
-                    <p>{{ error }}</p>
-                {% endfor %}
-            {% endif %}
+            </div>
         </div>
     {% endif %}
 </div>
-

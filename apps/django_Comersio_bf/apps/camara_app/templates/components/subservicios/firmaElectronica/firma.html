@@ -5,37 +5,1005 @@
 {% block page_title %}Firma Electronica{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/seguro_vida.css' %}">
-<link rel="stylesheet" href="{% static 'css/seguro_vida_archivos.css' %}">
-<link rel="stylesheet" href="{% static 'css/seguro_vida_estado.css' %}">
+<link rel="stylesheet" href="{% static 'css/firma.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 {% endblock %}
 
 {% block page_content %}
-<hr class="divider-line" />
+    <hr class="divider-line" />
 
-<a href="/subservicios/{{servicio_id}}/{{categoria_id}}" id="btn-volver" class="btn btn-volver mb-3">
-  <i class="fas fa-arrow-left me-2"></i> Volver a Subservicios
-</a>
+    <a href="/subservicios/{{servicio_id}}/{{categoria_id}}" id="btn-volver" class="btn btn-volver mb-3">
+      <i class="fas fa-arrow-left me-2"></i> Volver a Subservicios
+    </a>
 
-<div class="contenido-principal-con-banner">
+    <section class="hero-section">
+      <div class="container">
+          <div class="row align-items-center min-vh-100">
+              <div class="col-lg-6">
+                  <div class="hero-content">
+                      <h1 class="display-4 fw-bold text-white mb-4">
+                          Firma Electrónica
+                          <span class="text-primary">Digital</span>
+                      </h1>
+                      <p class="lead text-white-50 mb-4">
+                          La firma electrónica representa la identidad digital de la Persona o Empresa, 
+                          tiene la misma validez de la firma manuscrita, con la cual puede firmar documentos en línea
+                      </p>
+                      <div class="d-flex gap-3">
+                          <a href="#precios" class="btn btn-primary btn-lg px-4">
+                              <i class="fas fa-dollar-sign me-2"></i>Ver Precios
+                          </a>
+                          <a href="#formulario" class="btn btn-outline-light btn-lg px-4">
+                              <i class="fas fa-file-signature me-2"></i>Solicitar Ahora
+                          </a>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-6">
+                  <div class="hero-image">
+                      <div class="floating-card">
+                          <i class="fas fa-certificate fa-3x text-primary mb-3"></i>
+                          <h5>Certificado Digital</h5>
+                          <p class="text-muted">Validez legal garantizada</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </section>
 
-  <div class="service-detail-container">
-    <h3 class="service-title">FIRMA ELECTRONICA</h3>
-    <p class="service-subtitle">Firma Electronica</p>
+    <section class="benefits-section py-5">
+      <div class="container">
+          <div class="row text-center mb-5">
+              <div class="col-12">
+                  <h2 class="display-5 fw-bold mb-3">Beneficios</h2>
+                  <p class="lead text-muted">Descubre las ventajas de tener tu firma electrónica</p>
+              </div>
+          </div>
+          <div class="row g-4">
+              <div class="col-md-4">
+                  <div class="benefit-card h-100">
+                      <div class="benefit-icon">
+                          <i class="fas fa-rocket"></i>
+                      </div>
+                      <h4>Simplifica Trámites</h4>
+                      <p>Reduce el tiempo y los procesos burocráticos. Firma documentos desde cualquier lugar.</p>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="benefit-card h-100">
+                      <div class="benefit-icon">
+                          <i class="fas fa-shield-alt"></i>
+                      </div>
+                      <h4>Seguridad y Comodidad</h4>
+                      <p>Máxima seguridad en tus transacciones digitales con la comodidad de firmar desde casa.</p>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="benefit-card h-100">
+                      <div class="benefit-icon">
+                          <i class="fas fa-leaf"></i>
+                      </div>
+                      <h4>Amigable con el medio ambiente</h4>
+                      <p>Contribuye al cuidado del planeta reduciendo el uso de papel y traslados.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </section>
 
-    <div class="tab-bar">
-      <button class="tab-button active" data-tab-target="archivos-subidos">Archivos subidos</button>
-      <button class="tab-button" data-tab-target="estado">Estado</button>
-      <button class="tab-button" data-tab-target="archivos-recibidos">Archivos recibidos</button>
-    </div>
-  </div>
+    <section class="steps-section py-5 bg-light">
+      <div class="container">
+          <div class="row text-center mb-5">
+              <div class="col-12">
+                  <h2 class="display-5 fw-bold mb-3">Pasos para obtener tu Firma Electrónica</h2>
+                  <p class="lead text-muted">Con estos sencillos pasos podrás obtener en menos de 24 horas tu Firma Electrónica desde tu lugar de trabajo o desde la comodidad de tu hogar.</p>
+              </div>
+          </div>
+          <div class="row g-4">
+              <div class="col-md-4">
+                  <div class="step-card">
+                      <div class="step-number">1</div>
+                      <div class="step-icon">
+                          <i class="fas fa-user-plus"></i>
+                      </div>
+                      <h4>Regístrate</h4>
+                      <p>Completa el formulario con tus datos personales</p>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="step-card">
+                      <div class="step-number">2</div>
+                      <div class="step-icon">
+                          <i class="fas fa-edit"></i>
+                      </div>
+                      <h4>Ingresa tus datos</h4>
+                      <p>Proporciona la información requerida para la validación</p>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="step-card">
+                      <div class="step-number">3</div>
+                      <div class="step-icon">
+                          <i class="fas fa-download"></i>
+                      </div>
+                      <h4>Descarga tu Firma</h4>
+                      <p>Recibe tu certificado digital listo para usar</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </section>
 
-  <div class="banner-servicios">
-    <img src="{% static 'images/seguro.png' %}" alt="Banner Seguro de Vida" />
-  </div>
-</div>
+    <section id="precios" class="pricing-section py-5">
+      <div class="container">
+          <div class="row text-center mb-5">
+              <div class="col-12">
+                  <h2 class="display-5 fw-bold mb-3">Precios</h2>
+                  <p class="lead text-muted">¡Precios competitivos y asesoría personalizada, la combinación para un excelente servicio!</p>
+              </div>
+          </div>
+
+          <div class="alert alert-info mb-5">
+              <h5><i class="fas fa-info-circle me-2"></i>IMPORTANTE</h5>
+              <p class="mb-0">Para garantizar la seguridad y autenticidad de las firmas electrónicas, las personas con discapacidad visual, auditiva, motora y del habla deben tramitar su firma electrónica de forma presencial en nuestras sucursales. Para personas de la tercera edad, es esencial que estén en pleno uso de sus facultades y comprendan el propósito de la solicitud.</p>
+          </div>
+
+          <div class="pricing-category mb-5">
+              <h3 class="category-title">Firma para persona natural SIN RUC</h3>
+              <p class="category-description">Firma electrónica en archivo, NO VÁLIDA para facturación electrónica. (Cédula o pasaporte)</p>
+              <div class="row g-3">
+                  <div class="col-lg-2 col-md-4 col-sm-6">
+                      <div class="pricing-card">
+                          <div class="pricing-header">
+                              <h4>1 Año</h4>
+                              <div class="price">$15 <small>+IVA</small></div>
+                          </div>
+                          <ul class="pricing-features">
+                              <li><i class="fas fa-check"></i> Firmado de documentos</li>
+                              <li><i class="fas fa-check"></i> Archivo PFX/P12</li>
+                              <li><i class="fas fa-clock"></i> Emisión: 2 horas</li>
+                          </ul>
+                          <button class="btn btn-primary w-100">
+                              <i class="fas fa-shopping-cart me-2"></i>Solicitar
+                          </button>
+                      </div>
+                  </div>
+                  <div class="col-lg-2 col-md-4 col-sm-6">
+                      <div class="pricing-card">
+                          <div class="pricing-header">
+                              <h4>2 Años</h4>
+                              <div class="price">$25 <small>+IVA</small></div>
+                          </div>
+                          <ul class="pricing-features">
+                              <li><i class="fas fa-check"></i> Firmado de documentos</li>
+                              <li><i class="fas fa-check"></i> Archivo PFX/P12</li>
+                              <li><i class="fas fa-clock"></i> Emisión: 2 horas</li>
+                          </ul>
+                          <button class="btn btn-primary w-100">
+                              <i class="fas fa-shopping-cart me-2"></i>Solicitar
+                          </button>
+                      </div>
+                  </div>
+                  <div class="col-lg-2 col-md-4 col-sm-6">
+                      <div class="pricing-card popular">
+                          <div class="popular-badge">Más Popular</div>
+                          <div class="pricing-header">
+                              <h4>3 Años</h4>
+                              <div class="price">$35 <small>+IVA</small></div>
+                          </div>
+                          <ul class="pricing-features">
+                              <li><i class="fas fa-check"></i> Firmado de documentos</li>
+                              <li><i class="fas fa-check"></i> Archivo PFX/P12</li>
+                              <li><i class="fas fa-clock"></i> Emisión: 2 horas</li>
+                          </ul>
+                          <button class="btn btn-primary w-100">
+                              <i class="fas fa-shopping-cart me-2"></i>Solicitar
+                          </button>
+                      </div>
+                  </div>
+                  <div class="col-lg-2 col-md-4 col-sm-6">
+                      <div class="pricing-card">
+                          <div class="pricing-header">
+                              <h4>4 Años</h4>
+                              <div class="price">$45 <small>+IVA</small></div>
+                          </div>
+                          <ul class="pricing-features">
+                              <li><i class="fas fa-check"></i> Firmado de documentos</li>
+                              <li><i class="fas fa-check"></i> Archivo PFX/P12</li>
+                              <li><i class="fas fa-clock"></i> Emisión: 2 horas</li>
+                          </ul>
+                          <button class="btn btn-primary w-100">
+                              <i class="fas fa-shopping-cart me-2"></i>Solicitar
+                          </button>
+                      </div>
+                  </div>
+                  <div class="col-lg-2 col-md-4 col-sm-6">
+                      <div class="pricing-card">
+                          <div class="pricing-header">
+                              <h4>5 Años</h4>
+                              <div class="price">$55 <small>+IVA</small></div>
+                          </div>
+                          <ul class="pricing-features">
+                              <li><i class="fas fa-check"></i> Firmado de documentos</li>
+                              <li><i class="fas fa-check"></i> Archivo PFX/P12</li>
+                              <li><i class="fas fa-clock"></i> Emisión: 2 horas</li>
+                          </ul>
+                          <button class="btn btn-primary w-100">
+                              <i class="fas fa-shopping-cart me-2"></i>Solicitar
+                          </button>
+                      </div>
+                  </div>
+                  <div class="col-lg-2 col-md-4 col-sm-6">
+                      <div class="pricing-card express">
+                          <div class="express-badge">EXPRESS</div>
+                          <div class="pricing-header">
+                              <h4>15 Días</h4>
+                              <div class="price">$6.25 <small>+IVA</small></div>
+                          </div>
+                          <ul class="pricing-features">
+                              <li><i class="fas fa-check"></i> Firmado de documentos</li>
+                              <li><i class="fas fa-check"></i> Archivo PFX/P12</li>
+                              <li><i class="fas fa-bolt"></i> Express</li>
+                          </ul>
+                          <button class="btn btn-warning w-100">
+                              <i class="fas fa-shopping-cart me-2"></i>Solicitar
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="pricing-category mb-5">
+              <h3 class="category-title">Firma para persona natural CON RUC</h3>
+              <p class="category-description">Firma electrónica en archivo, válida para facturación electrónica</p>
+              <div class="row g-3">
+                  <div class="col-lg-2 col-md-4 col-sm-6">
+                      <div class="pricing-card">
+                          <div class="pricing-header">
+                              <h4>1 Año</h4>
+                              <div class="price">$18 <small>+IVA</small></div>
+                          </div>
+                          <ul class="pricing-features">
+                              <li><i class="fas fa-check text-success"></i> Facturación electrónica</li>
+                              <li><i class="fas fa-check"></i> Firmado de documentos</li>
+                              <li><i class="fas fa-check"></i> Archivo PFX/P12</li>
+                          </ul>
+                          <button class="btn btn-success w-100">
+                              <i class="fas fa-shopping-cart me-2"></i>Solicitar
+                          </button>
+                      </div>
+                  </div>
+                  <div class="col-lg-2 col-md-4 col-sm-6">
+                      <div class="pricing-card">
+                          <div class="pricing-header">
+                              <h4>2 Años</h4>
+                              <div class="price">$28 <small>+IVA</small></div>
+                          </div>
+                          <ul class="pricing-features">
+                              <li><i class="fas fa-check text-success"></i> Facturación electrónica</li>
+                              <li><i class="fas fa-check"></i> Firmado de documentos</li>
+                              <li><i class="fas fa-check"></i> Archivo PFX/P12</li>
+                          </ul>
+                          <button class="btn btn-success w-100">
+                              <i class="fas fa-shopping-cart me-2"></i>Solicitar
+                          </button>
+                      </div>
+                  </div>
+                  <div class="col-lg-2 col-md-4 col-sm-6">
+                      <div class="pricing-card popular">
+                          <div class="popular-badge">Más Popular</div>
+                          <div class="pricing-header">
+                              <h4>3 Años</h4>
+                              <div class="price">$38 <small>+IVA</small></div>
+                          </div>
+                          <ul class="pricing-features">
+                              <li><i class="fas fa-check text-success"></i> Facturación electrónica</li>
+                              <li><i class="fas fa-check"></i> Firmado de documentos</li>
+                              <li><i class="fas fa-check"></i> Archivo PFX/P12</li>
+                          </ul>
+                          <button class="btn btn-success w-100">
+                              <i class="fas fa-shopping-cart me-2"></i>Solicitar
+                          </button>
+                      </div>
+                  </div>
+                  <div class="col-lg-2 col-md-4 col-sm-6">
+                      <div class="pricing-card">
+                          <div class="pricing-header">
+                              <h4>4 Años</h4>
+                              <div class="price">$48 <small>+IVA</small></div>
+                          </div>
+                          <ul class="pricing-features">
+                              <li><i class="fas fa-check text-success"></i> Facturación electrónica</li>
+                              <li><i class="fas fa-check"></i> Firmado de documentos</li>
+                              <li><i class="fas fa-check"></i> Archivo PFX/P12</li>
+                          </ul>
+                          <button class="btn btn-success w-100">
+                              <i class="fas fa-shopping-cart me-2"></i>Solicitar
+                          </button>
+                      </div>
+                  </div>
+                  <div class="col-lg-2 col-md-4 col-sm-6">
+                      <div class="pricing-card">
+                          <div class="pricing-header">
+                              <h4>5 Años</h4>
+                              <div class="price">$58 <small>+IVA</small></div>
+                          </div>
+                          <ul class="pricing-features">
+                              <li><i class="fas fa-check text-success"></i> Facturación electrónica</li>
+                              <li><i class="fas fa-check"></i> Firmado de documentos</li>
+                              <li><i class="fas fa-check"></i> Archivo PFX/P12</li>
+                          </ul>
+                          <button class="btn btn-success w-100">
+                              <i class="fas fa-shopping-cart me-2"></i>Solicitar
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="pricing-category mb-5">
+              <h3 class="category-title">Firma para persona JURÍDICA</h3>
+              <p class="category-description">La firma electrónica para persona JURÍDICA es válida para facturación electrónica de compañías y sociedades.</p>
+              <div class="row g-3">
+                  <div class="col-lg-2 col-md-4 col-sm-6">
+                      <div class="pricing-card">
+                          <div class="pricing-header">
+                              <h4>1 Año</h4>
+                              <div class="price">$20 <small>+IVA</small></div>
+                          </div>
+                          <ul class="pricing-features">
+                              <li><i class="fas fa-check text-info"></i> Facturación electrónica</li>
+                              <li><i class="fas fa-check"></i> Firmado de documentos</li>
+                              <li><i class="fas fa-check"></i> Archivo PFX/P12</li>
+                          </ul>
+                          <button class="btn btn-info w-100">
+                              <i class="fas fa-shopping-cart me-2"></i>Solicitar
+                          </button>
+                      </div>
+                  </div>
+                  <div class="col-lg-2 col-md-4 col-sm-6">
+                      <div class="pricing-card">
+                          <div class="pricing-header">
+                              <h4>2 Años</h4>
+                              <div class="price">$30 <small>+IVA</small></div>
+                          </div>
+                          <ul class="pricing-features">
+                              <li><i class="fas fa-check text-info"></i> Facturación electrónica</li>
+                              <li><i class="fas fa-check"></i> Firmado de documentos</li>
+                              <li><i class="fas fa-check"></i> Archivo PFX/P12</li>
+                          </ul>
+                          <button class="btn btn-info w-100">
+                              <i class="fas fa-shopping-cart me-2"></i>Solicitar
+                          </button>
+                      </div>
+                  </div>
+                  <div class="col-lg-2 col-md-4 col-sm-6">
+                      <div class="pricing-card popular">
+                          <div class="popular-badge">Más Popular</div>
+                          <div class="pricing-header">
+                              <h4>3 Años</h4>
+                              <div class="price">$40 <small>+IVA</small></div>
+                          </div>
+                          <ul class="pricing-features">
+                              <li><i class="fas fa-check text-info"></i> Facturación electrónica</li>
+                              <li><i class="fas fa-check"></i> Firmado de documentos</li>
+                              <li><i class="fas fa-check"></i> Archivo PFX/P12</li>
+                          </ul>
+                          <button class="btn btn-info w-100">
+                              <i class="fas fa-shopping-cart me-2"></i>Solicitar
+                          </button>
+                      </div>
+                  </div>
+                  <div class="col-lg-2 col-md-4 col-sm-6">
+                      <div class="pricing-card">
+                          <div class="pricing-header">
+                              <h4>4 Años</h4>
+                              <div class="price">$50 <small>+IVA</small></div>
+                          </div>
+                          <ul class="pricing-features">
+                              <li><i class="fas fa-check text-info"></i> Facturación electrónica</li>
+                              <li><i class="fas fa-check"></i> Firmado de documentos</li>
+                              <li><i class="fas fa-check"></i> Archivo PFX/P12</li>
+                          </ul>
+                          <button class="btn btn-info w-100">
+                              <i class="fas fa-shopping-cart me-2"></i>Solicitar
+                          </button>
+                      </div>
+                  </div>
+                  <div class="col-lg-2 col-md-4 col-sm-6">
+                      <div class="pricing-card">
+                          <div class="pricing-header">
+                              <h4>5 Años</h4>
+                              <div class="price">$60 <small>+IVA</small></div>
+                          </div>
+                          <ul class="pricing-features">
+                              <li><i class="fas fa-check text-info"></i> Facturación electrónica</li>
+                              <li><i class="fas fa-check"></i> Firmado de documentos</li>
+                              <li><i class="fas fa-check"></i> Archivo PFX/P12</li>
+                          </ul>
+                          <button class="btn btn-info w-100">
+                              <i class="fas fa-shopping-cart me-2"></i>Solicitar
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="payment-section mt-5">
+              <h3 class="text-center mb-4">Formas de pago</h3>
+              <div class="row g-4">
+                  <div class="col-md-6">
+                      <div class="payment-card">
+                          <h5><i class="fas fa-credit-card me-2"></i>Tarjeta de crédito / débito</h5>
+                          <p>Botón de pago en línea seguro</p>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="payment-card">
+                          <h5><i class="fas fa-university me-2"></i>Transferencia</h5>
+                          <p>Banco Pichincha y Guayaquil</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </section>
+
+    <section id="formulario" class="form-section py-5 bg-light">
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="col-lg-8">
+                  <div class="form-container">
+                      <div class="form-header text-center mb-4">
+                          <h2 class="display-6 fw-bold">Solicitar Firma Electrónica</h2>
+                          <p class="lead text-muted">Completa el formulario para solicitar tu firma electrónica</p>
+                      </div>
+                      
+
+                      <form method="POST" novalidate class="signature-form">
+                          {% csrf_token %}
+                          <div class="row g-3">
+                              <div class="col-md-6">
+                                  <div class="form-floating">
+                                      <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Nombre" required>
+                                      <label for="nombre"><i class="fas fa-user me-2"></i>Nombre</label>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-floating">
+                                      <input name="apellido" type="text" class="form-control" id="apellido" placeholder="Apellido" required>
+                                      <label for="apellido"><i class="fas fa-user me-2"></i>Apellido</label>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-floating">
+                                      <input name="cedula" type="text" class="form-control" id="cedula" placeholder="Cédula" required>
+                                      <label for="cedula"><i class="fas fa-id-card me-2"></i>Cédula</label>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-floating">
+                                      <input name="correo" type="email" class="form-control" id="correo" placeholder="Correo electrónico" required>
+                                      <label for="correo"><i class="fas fa-envelope me-2"></i>Correo electrónico</label>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-floating">
+                                      <input name="telefono" type="tel" class="form-control" id="telefono" placeholder="Teléfono" required>
+                                      <label for="telefono"><i class="fas fa-phone me-2"></i>Teléfono</label>
+                                  </div>
+                              </div>
+                              
+                              <div class="col-12">
+                                  <div class="form-floating">
+                                      <textarea name="direccion" class="form-control" id="direccion" placeholder="Dirección" style="height: 100px" required></textarea>
+                                      <label for="direccion"><i class="fas fa-map-marker-alt me-2"></i>Dirección</label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="form-actions mt-4">
+                              <button type="submit" class="btn btn-success btn-lg w-100">
+                                  <i class="fas fa-shopping-cart me-2"></i>
+                                  Agregar Servicio al Carrito
+                                  <span class="btn-shine"></span>
+                              </button>
+                          </div>
+                      </form>
+
+
+                  </div>
+              </div>
+          </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-4 bg-dark text-white">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-6">
+                  <h5>Cámara de Comercio</h5>
+                  <p class="text-white-50">Facilitando el comercio digital con soluciones seguras y confiables.</p>
+              </div>
+              <div class="col-md-6 text-md-end">
+                  <p class="text-white-50">© 2024 Cámara de Comercio. Todos los derechos reservados.</p>
+              </div>
+          </div>
+      </div>
+    </footer>
+
+
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/seguro_vida_tabs.js' %}" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      initScrollAnimations();
+      
+      initFormInteractions();
+      
+      initPricingInteractions();
+      
+      initCartButton();
+      
+      initParallaxEffects();
+      
+      initTypingEffect();
+    });
+
+    function initScrollAnimations() {
+      const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  entry.target.classList.add('animate-in');
+                  
+                  // Add stagger animation for children
+                  const children = entry.target.querySelectorAll('.benefit-card, .step-card, .pricing-card');
+                  children.forEach((child, index) => {
+                      setTimeout(() => {
+                          child.style.opacity = '1';
+                          child.style.transform = 'translateY(0)';
+                      }, index * 100);
+                  });
+              }
+          });
+      }, observerOptions);
+
+      const sections = document.querySelectorAll('.benefits-section, .steps-section, .pricing-section, .form-section');
+      sections.forEach(section => observer.observe(section));
+
+      const animatedElements = document.querySelectorAll('.benefit-card, .step-card, .pricing-card');
+      animatedElements.forEach(element => {
+          element.style.opacity = '0';
+          element.style.transform = 'translateY(30px)';
+          element.style.transition = 'all 0.6s ease-out';
+      });
+    }
+
+    function initFormInteractions() {
+      const form = document.querySelector('.signature-form');
+      const inputs = form.querySelectorAll('input, select, textarea');
+      
+      inputs.forEach(input => {
+          input.addEventListener('focus', function() {
+              this.parentElement.classList.add('focused');
+          });
+          
+          input.addEventListener('blur', function() {
+              if (!this.value) {
+                  this.parentElement.classList.remove('focused');
+              }
+          });
+          
+          input.addEventListener('input', function() {
+              validateField(this);
+          });
+      });
+    }
+
+    function validateField(field) {
+      const value = field.value.trim();
+      let isValid = true;
+      
+      field.classList.remove('is-valid', 'is-invalid');
+      
+      switch(field.type) {
+          case 'email':
+              isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+              break;
+          case 'tel':
+              isValid = /^[\d\s\-\+\(\)]{7,}$/.test(value);
+              break;
+          case 'text':
+              if (field.id === 'cedula') {
+                  isValid = /^\d{10}$/.test(value.replace(/\D/g, ''));
+              } else {
+                  isValid = value.length >= 2;
+              }
+              break;
+          default:
+              isValid = value.length > 0;
+      }
+      
+      if (value && isValid) {
+          field.classList.add('is-valid');
+      } else if (value) {
+          field.classList.add('is-invalid');
+      }
+    }
+
+    function initPricingInteractions() {
+      const pricingCards = document.querySelectorAll('.pricing-card');
+      
+      pricingCards.forEach(card => {
+          card.addEventListener('mouseenter', function() {
+              this.style.transform = 'translateY(-10px) scale(1.02)';
+          });
+          
+          card.addEventListener('mouseleave', function() {
+              if (!this.classList.contains('popular')) {
+                  this.style.transform = 'translateY(0) scale(1)';
+              } else {
+                  this.style.transform = 'translateY(0) scale(1.05)';
+              }
+          });
+          
+          const button = card.querySelector('.btn');
+          if (button) {
+              button.addEventListener('click', function(e) {
+                  showPricingSelection(card);
+              });
+          }
+      });
+    }
+
+    function initCartButton() {
+      const cartButton = document.querySelector('.add-to-cart-btn');
+      
+      if (cartButton) {
+          cartButton.addEventListener('click', function(e) {
+              e.preventDefault();
+              
+              const originalText = this.innerHTML;
+              this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Procesando...';
+              this.disabled = true;
+              
+              setTimeout(() => {
+                  this.innerHTML = '<i class="fas fa-check me-2"></i>¡Agregado al Carrito!';
+                  this.classList.remove('btn-success');
+                  this.classList.add('btn-info');
+                  
+                  showSuccessAnimation();
+                  
+                  setTimeout(() => {
+                      this.innerHTML = originalText;
+                      this.disabled = false;
+                      this.classList.remove('btn-info');
+                      this.classList.add('btn-success');
+                  }, 3000);
+              }, 1500);
+          });
+      }
+    }
+
+    function initParallaxEffects() {
+      window.addEventListener('scroll', function() {
+          const scrolled = window.pageYOffset;
+          const parallaxElements = document.querySelectorAll('.floating-card');
+          
+          parallaxElements.forEach(element => {
+              const speed = 0.5;
+              const yPos = -(scrolled * speed);
+              element.style.transform = `translateY(${yPos}px)`;
+          });
+      });
+    }
+
+    function initTypingEffect() {
+      const titleElement = document.querySelector('.hero-content h1');
+      if (!titleElement) return;
+      
+      const titleText = titleElement.textContent;
+      titleElement.textContent = '';
+      titleElement.style.opacity = '1';
+      
+      let i = 0;
+      const typingSpeed = 100;
+      
+      function typeWriter() {
+          if (i < titleText.length) {
+              titleElement.innerHTML += titleText.charAt(i);
+              i++;
+              setTimeout(typeWriter, typingSpeed);
+          } else {
+              titleElement.innerHTML += '<span class="blinking-cursor">|</span>';
+          }
+      }
+      
+      setTimeout(typeWriter, 500);
+    }
+
+    function showPricingSelection(card) {
+      document.querySelectorAll('.pricing-card').forEach(c => {
+          c.classList.remove('selected');
+      });
+      
+      card.classList.add('selected');
+      
+      const priceType = card.closest('.pricing-category').querySelector('.category-title').textContent;
+      const years = card.querySelector('h4').textContent;
+      const price = card.querySelector('.price').textContent;
+      
+      showToast(`Seleccionado: ${priceType} - ${years} (${price})`, 'success');
+      
+      document.querySelector('#formulario').scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+      });
+    }
+
+    function showFormSubmissionFeedback() {
+      showToast('Formulario completado (solo demostración)', 'info');
+    }
+
+    function showSuccessAnimation() {
+      for (let i = 0; i < 5; i++) {
+          createFloatingIcon();
+      }
+      
+      createConfettiEffect();
+    }
+
+    function createFloatingIcon() {
+      const icon = document.createElement('div');
+      icon.innerHTML = '<i class="fas fa-check-circle"></i>';
+      icon.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 2rem;
+          color: #28a745;
+          pointer-events: none;
+          z-index: 9999;
+          animation: floatUp 2s ease-out forwards;
+      `;
+      
+      const offsetX = (Math.random() - 0.5) * 200;
+      const offsetY = (Math.random() - 0.5) * 200;
+      icon.style.left = `calc(50% + ${offsetX}px)`;
+      icon.style.top = `calc(50% + ${offsetY}px)`;
+      
+      document.body.appendChild(icon);
+      
+      setTimeout(() => {
+          if (icon.parentNode) {
+              icon.parentNode.removeChild(icon);
+          }
+      }, 2000);
+    }
+
+    function createConfettiEffect() {
+      const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57'];
+      
+      for (let i = 0; i < 30; i++) {
+          const confetti = document.createElement('div');
+          confetti.style.cssText = `
+              position: fixed;
+              top: -10px;
+              left: ${Math.random() * 100}%;
+              width: 10px;
+              height: 10px;
+              background: ${colors[Math.floor(Math.random() * colors.length)]};
+              pointer-events: none;
+              z-index: 9999;
+              animation: confettiFall ${2 + Math.random() * 3}s linear forwards;
+          `;
+          
+          document.body.appendChild(confetti);
+          
+          setTimeout(() => {
+              if (confetti.parentNode) {
+                  confetti.parentNode.removeChild(confetti);
+              }
+          }, 5000);
+      }
+    }
+
+    function showToast(message, type = 'info') {
+      const toast = document.createElement('div');
+      toast.className = `toast-notification toast-${type}`;
+      toast.innerHTML = `
+          <div class="toast-content">
+              <i class="fas fa-${getToastIcon(type)} me-2"></i>
+              <span>${message}</span>
+          </div>
+      `;
+      
+      toast.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          padding: 1rem 1.5rem;
+          z-index: 10000;
+          transform: translateX(400px);
+          transition: transform 0.3s ease;
+          border-left: 4px solid ${getToastColor(type)};
+      `;
+      
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+          toast.style.transform = 'translateX(0)';
+      }, 100);
+      
+      setTimeout(() => {
+          toast.style.transform = 'translateX(400px)';
+          setTimeout(() => {
+              if (toast.parentNode) {
+                  toast.parentNode.removeChild(toast);
+              }
+          }, 300);
+      }, 3000);
+    }
+
+    function getToastIcon(type) {
+      const icons = {
+          'success': 'check-circle',
+          'error': 'exclamation-circle',
+          'warning': 'exclamation-triangle',
+          'info': 'info-circle'
+      };
+      return icons[type] || 'info-circle';
+    }
+
+    function getToastColor(type) {
+      const colors = {
+          'success': '#28a745',
+          'error': '#dc3545',
+          'warning': '#ffc107',
+          'info': '#17a2b8'
+      };
+      return colors[type] || '#17a2b8';
+    }
+
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes floatUp {
+          0% {
+              opacity: 1;
+              transform: translate(-50%, -50%) scale(0);
+          }
+          50% {
+              opacity: 1;
+              transform: translate(-50%, -50%) scale(1);
+          }
+          100% {
+              opacity: 0;
+              transform: translate(-50%, -150%) scale(0.8);
+          }
+      }
+      
+      @keyframes confettiFall {
+          0% {
+              transform: translateY(-100vh) rotate(0deg);
+              opacity: 1;
+          }
+          100% {
+              transform: translateY(100vh) rotate(360deg);
+              opacity: 0;
+          }
+      }
+      
+      .blinking-cursor {
+          animation: blink 1s infinite;
+      }
+      
+      @keyframes blink {
+          0%, 50% { opacity: 1; }
+          51%, 100% { opacity: 0; }
+      }
+      
+      .pricing-card.selected {
+          border-color: #28a745 !important;
+          box-shadow: 0 0 20px rgba(40, 167, 69, 0.3) !important;
+      }
+      
+      .form-floating.focused label {
+          color: var(--primary-color) !important;
+      }
+      
+      .is-valid {
+          border-color: #28a745 !important;
+      }
+      
+      .is-invalid {
+          border-color: #dc3545 !important;
+      }
+      
+      .animate-in {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+      }
+    `;
+
+    document.head.appendChild(style);
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+              target.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+              });
+          }
+      });
+    });
+
+    function addScrollProgress() {
+      const progressBar = document.createElement('div');
+      progressBar.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 0%;
+          height: 3px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          z-index: 10000;
+          transition: width 0.1s ease;
+      `;
+      document.body.appendChild(progressBar);
+      
+      window.addEventListener('scroll', () => {
+          const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const scrolled = (window.scrollY / windowHeight) * 100;
+          progressBar.style.width = scrolled + '%';
+      });
+    }
+
+    addScrollProgress();
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Tab') {
+          document.body.classList.add('keyboard-navigation');
+      }
+    });
+
+    document.addEventListener('mousedown', function(e) {
+      document.body.classList.remove('keyboard-navigation');
+    });
+
+    function lazyLoadImages() {
+      const images = document.querySelectorAll('img[data-src]');
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  const img = entry.target;
+                  img.src = img.dataset.src;
+                  img.classList.remove('lazy');
+                  imageObserver.unobserve(img);
+              }
+          });
+      });
+      
+      images.forEach(img => imageObserver.observe(img));
+    }
+
+    lazyLoadImages();
+</script>
 {% endblock %}
+
+

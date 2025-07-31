@@ -57,6 +57,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseForbidden
 import pusher
 
+from django.core.files.base import ContentFile
+from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.hazmat.primitives import serialization
+
 
 
 
@@ -144,53 +148,69 @@ def login(request):
 
 
 
-
+import requests
 def register(request):
     logging.warning("Register requestttttt")
     
     if request.method == "POST":
-        nombres = request.POST.get("nombres")
-        apellidos = request.POST.get("apellidos")
-        cedula = request.POST.get("cedula")
-        usuario = request.POST.get("usuario")
-        contrasena = request.POST.get("contrasena")
-        correo = request.POST.get("correo")
-        imagen = request.FILES.get("imagen")
         
-        user = User.objects.create_user(username=usuario, password=contrasena, first_name=nombres, last_name=apellidos, email=correo)
-        user.is_superuser = False
-        user.is_staff = False
-        user.is_active = True
-        user.save()
-        perfil_usuario = PerfilUsuario.objects.create(user=user, cedula=cedula,imagen=imagen)
-        perfil_usuario.save()
+        captcha_token = request.POST.get('g-recaptcha-response')
+        if validar_captcha(captcha_token):
+            print("Captcha válidooooooooooooooo")   
+            nombres = request.POST.get("nombres")
+            apellidos = request.POST.get("apellidos")
+            cedula = request.POST.get("cedula")
+            usuario = request.POST.get("usuario")
+            contrasena = request.POST.get("contrasena")
+            correo = request.POST.get("correo")
+            imagen = request.FILES.get("imagen")
+        
+            user = User.objects.create_user(username=usuario, password=contrasena, first_name=nombres, last_name=apellidos, email=correo)
+            user.is_superuser = False
+            user.is_staff = False
+            user.is_active = True
+            user.save()
+            perfil_usuario = PerfilUsuario.objects.create(user=user, cedula=cedula,imagen=imagen)
+            perfil_usuario.save()
 
-        user = authenticate(request, username=usuario, password=contrasena)
+            user = authenticate(request, username=usuario, password=contrasena)
 
-        if user is not None:
-            auth_login(request, user)
+            if user is not None:
+                auth_login(request, user)
 
-            refresh = RefreshToken.for_user(user)
-            access_token = str(refresh.access_token)
-            refresh_token = str(refresh)
+                refresh = RefreshToken.for_user(user)
+                access_token = str(refresh.access_token)
+                refresh_token = str(refresh)
 
-            is_superuser = user.is_superuser
+                is_superuser = user.is_superuser
 
-            context = {
-                "access_token": access_token,
-                "refresh_token": refresh_token,
-                "is_superuser": is_superuser
-            }
-            print(context)
-            messages.success(request, "Usuario creado exitosamente.")
-            return redirect('/present_Socio')
+                context = {
+                    "access_token": access_token,
+                    "refresh_token": refresh_token,
+                    "is_superuser": is_superuser
+                }
+                print(context)
+                messages.success(request, "Usuario creado exitosamente.")
+                return redirect('/present_Socio')
 
+            else:
+                logging.warning("Usuario no creado.")
+                messages.error(request, "Usuario no creado.")
+        
         else:
-            logging.warning("Usuario no creado.")
-            messages.error(request, "Usuario no creado.")
+            print("Captcha inválido")
 
     return render(request, 'auth/register/register.html')
 
+
+
+
+def validar_captcha(token):
+    secreto = "6LfucpIrAAAAAEIThDe38njfx79XPNHrwHhnfpoA"
+    url = "https://www.google.com/recaptcha/api/siteverify"
+    respuesta = requests.post(url, data={'secret': secreto,'response': token})
+    resultado = respuesta.json()
+    return resultado.get('success', False)
 
 
 # Create your views here.
@@ -263,8 +283,8 @@ def ser_socio(request):
             if seguro_form.errors:
                 logging.error(f"Errores en Seguro Form: {seguro_form.errors}")
 
-            context = {'personal_form': personal_form,'business_form': business_form,'activity_contact_form': activity_contact_form,'seguro_form': seguro_form,}
-            return render(request, 'components/socio/registerSocio/ser_socio.html', context)
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+
 
     else: 
         personal_form = SocioPersonalForm()
@@ -431,8 +451,11 @@ def present_Socio(request):
 def categorias(request):
     usuario = request.user
     perfil = usuario.perfil
-    socio = perfil.socio
-    estado = socio.activo
+    try:
+        socio = perfil.socio
+        estado = socio.activo
+    except:
+        estado = False
     categorias = Categorias.objects.all()
     context = {'categorias': categorias,'estado':estado}
     return render(request, 'components/categories/categorias.html', context)
@@ -445,8 +468,11 @@ def servicios(request, categoria_id):
 
     usuario = request.user
     perfil = usuario.perfil
-    socio = perfil.socio
-    estado = socio.activo
+    try:
+        socio = perfil.socio
+        estado = socio.activo
+    except:
+        estado = False
     if estado == False:
         return redirect('categorias')
     servicios = Servicios.objects.filter(categorias__id=categoria_id).all()
@@ -460,8 +486,11 @@ def subservicios(request,servicio_id,categoria_id):
     logging.warning("Subservicios requestttttt")
     usuario = request.user
     perfil = usuario.perfil
-    socio = perfil.socio
-    estado = socio.activo
+    try:
+        socio = perfil.socio
+        estado = socio.activo
+    except:
+        estado = False
     if estado == False:
         return redirect('categorias')
     subservicios = Subservicios.objects.filter(servicios__id=servicio_id).all()
@@ -478,8 +507,11 @@ def seguro_vida(request, servicio_id, producto_id,categoria_id):
     perfil = request.user.perfil
     usuario = request.user
     perfil = usuario.perfil
-    socio = perfil.socio
-    estado = socio.activo
+    try:
+        socio = perfil.socio
+        estado = socio.activo
+    except:
+        estado = False
     if estado == False:
         return redirect('categorias')
 
@@ -518,19 +550,71 @@ def generar_poliza_pdf(perfil, formulario):
 
 
 
-
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 @login_required(login_url='/login')
 def firma(request,servicio_id,producto_id,categoria_id):
     logging.warning("Firma requestttttt")
     usuario = request.user
     perfil = usuario.perfil
-    socio = perfil.socio
-    estado = socio.activo
+    try:
+        socio = perfil.socio
+        estado = socio.activo
+    except:
+        estado = False
     if estado == False:
         return redirect('categorias')
+
     producto = Producto.objects.get(id=producto_id)
-    context ={'servicio_id':servicio_id,'producto':producto,'categoria_id':categoria_id}
+    if request.method == 'POST':
+        logging.warning("Firma postttttt")
+        data = request.POST
+        nombre = data.get('nombre')
+        apellido = data.get('apellido')
+        cedula = data.get('cedula')
+        correo = data.get('correo')
+        telefono = data.get('telefono')
+        direccion = data.get('direccion')
+
+        formulario = Firma.objects.create(perfil=perfil,producto=producto,nombre=nombre,apellido=apellido,cedula=cedula,correo=correo,
+            telefono=telefono,direccion=direccion,fecha_solicitud=datetime.now(),firma_generada=bool(False))
+        formulario.save()   
+        logging.warning("Formulario guardado exitosamente sobre firma electronica")
+        return HttpResponseRedirect(reverse('productos_carrito_add', args=[producto_id, servicio_id, categoria_id]))
+
+    context ={'servicio_id':servicio_id,'categoria_id':categoria_id,'usuario':usuario}
     return render(request, 'components/subservicios/firmaElectronica/firma.html',context)
+
+
+
+
+
+
+@login_required(login_url='/login')
+def procesar_firma(request,firma,perfil):
+    clave = rsa.generate_private_key(public_exponent=65537,key_size=2048)
+    pem = clave.private_bytes(encoding=serialization.Encoding.PEM,format=serialization.PrivateFormat.TraditionalOpenSSL,encryption_algorithm=serialization.NoEncryption())
+    nombre_archivo = f"firma_{firma.id}.pem"
+    archivo_django = ContentFile(pem, name=nombre_archivo)
+    firma.archivo_firma.save(nombre_archivo, archivo_django)
+    firma.firma_generada = True
+    firma.save()
+    logging.warning("Firma procesada exitosamente")
+    url = f'http://127.0.0.1:8000/download/{firma.id}'
+    enviar_firma_por_correo(request,perfil,url)
+
+
+
+@login_required(login_url='/login')
+def download_firma(request,firma_id):
+    firma = get_object_or_404(Firma, id=firma_id)
+    if not firma.archivo_firma:
+        return render(request, 'error.html', {'mensaje': 'No hay archivo disponible para esta firma.'})
+    return render(request, 'components/subservicios/firmaElectronica/descargar_firma.html', {'firma': firma})
+
+
+
+
 
 
 @login_required(login_url='/login')
@@ -563,15 +647,23 @@ def productos_carrito_count(request):
     perfil = request.user.perfil
     productos = perfil.productos.all() 
     total = 0
+    importes = 0
     if len(productos) != 0:
         for producto in productos:
             total += producto.precio
+            for firma in producto.firmas.all():
+                procesar_firma(request,firma,perfil)
+
+        factura = Factura.objects.create(first_name=perfil.user.first_name,last_name=perfil.user.last_name,cedula=perfil.cedula,correo=perfil.user.email,
+            fecha=datetime.now(),importes=importes,descuento_socio=0.0,total=total,id_perfil_usuario=perfil)
+        factura.productos.set(productos)   
+        factura.save()
         enviar_factura(request,total,productos,perfil)    
         perfil.productos.remove(*productos)
         perfil.save()
     else:
         messages.error(request, "No hay productos en el carrito.")
-    return JsonResponse({'total': total})
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 
@@ -580,14 +672,30 @@ def enviar_factura(request,total,productos,perfil):
         subject = 'Factura de Compra'
         from_email = settings.EMAIL_HOST_USER
         to_email = [request.user.email]
-
         html_message = render_to_string('factura_compra.html', {'usuario': request.user,'perfil': perfil,'productos': productos,'total': total})
-
         try:
             send_mail(subject, '', from_email, to_email, html_message=html_message)
             logging.warning(f"Factura enviada a {request.user.email}")
         except Exception as e:
             logging.warning(f"Error al enviar la factura: {e}")
+
+
+def enviar_firma_por_correo(request,perfil,url):
+    subject = 'Firma Electronica'
+    from_email = settings.EMAIL_HOST_USER
+    to_email = [request.user.email]
+
+    html_message = render_to_string('firma_electronica.html', {'usuario': request.user,'perfil': perfil,'url': url})
+
+    try:
+        send_mail(subject, '', from_email, to_email, html_message=html_message)
+        logging.warning(f"Firma enviada a {request.user.email}")
+    except Exception as e:
+        logging.warning(f"Error al enviar la firma: {e}")
+    
+
+
+
 
 
 @login_required(login_url='/login')
@@ -597,20 +705,10 @@ def home(request):
 
 
 
-
-
-
-
-  
 @login_required(login_url='/login')
 def admin_socios_c(request):
     return render(request, 'admin/socios/socios.html')
 @login_required(login_url='/login')
-
-
-
-
-
 
 
 
@@ -632,21 +730,6 @@ def formularios_form_a(request):
 @login_required(login_url='/login')
 def formularios_form_b(request):
     return render(request, 'components/forms/formularios_form_b.html')     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1157,6 +1240,15 @@ def eliminar_solicitud(request,solicitud_id):
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
+
+@login_required(login_url='/login')
+def historial(request,user_id):
+    usuario = get_object_or_404(User, id=user_id)
+    perfil = usuario.perfil
+    print(perfil)
+    facturas = Factura.objects.filter(id_perfil_usuario=perfil).all()
+    context = {'facturas': facturas}
+    return render(request, 'components/historial/historial.html', context)
 
 
 

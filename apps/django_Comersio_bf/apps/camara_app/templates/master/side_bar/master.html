@@ -44,36 +44,31 @@
 
     <nav class="navbar-menu">
       <ul>
-        <li class="{% if request.resolver_match.url_name == 'home' %}activo{% endif %}">
+        <li >
           <a href="{% url 'home' %}">
             <img src="{% static 'images/icono1.svg' %}" alt="Icono" class="icono-svg">
             Home
           </a>
         </li>
-        <li class="{% if request.resolver_match.url_name == 'categorias' %}activo{% endif %}">
+        <li >
           <a href="{% url 'categorias' %}">
             <img src="{% static 'images/icono2.svg' %}" alt="Icono" class="icono-svg">
             Categorías
           </a>
         </li>
-        <li class="{% if request.resolver_match.url_name == 'formularios' %}activo{% endif %}">
+        <li >
           <a href="{% url 'formularios' %}">
             <img src="{% static 'images/icono3.svg' %}" alt="Icono" class="icono-svg">
             Formulario de Afiliación
           </a>
-        </li>
+        </li>       
         <li>
-          <a href="#">
-            <i class="bi bi-receipt me-2"></i> Facturación
-          </a>
-        </li>        
-        <li>
-          <a href="#">
+          <a href="{% url 'historial' user.id %}">
             <img src="{% static 'images/icono5.svg' %}" alt="Icono" class="icono-svg">
             Historial
           </a>
         </li>
-        <li class="{% if request.resolver_match.url_name == 'ser_socio' %}activo{% endif %}">
+        <li >
           <a href="{% url 'ser_socio' %}">
             <img src="{% static 'images/community-group-leader-svgrepo-com.svg' %}" alt="Icono" class="icono-svg">
             Ser Socio
@@ -90,11 +85,9 @@
     
   </aside>
 
-
-  <main class="main-content">
-    {% block content %}
+  <main class="main-content" style="border-radius: 1px;padding: 0px;">
     {% include 'master/topbar/top.html' %}
-    <hr/>
+    {% block content %}
     {% block page_content %}{% endblock %}
     {% endblock %}
     <!--{% include 'master/footer/footer.html' %}-->

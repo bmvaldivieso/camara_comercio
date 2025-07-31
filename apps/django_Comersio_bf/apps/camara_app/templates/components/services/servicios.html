@@ -18,12 +18,11 @@
   {% for servicio in servicios %}
   <div class="category-card" style="background-image: url('{{ servicio.img.url }}'); background-repeat: no-repeat; background-position: center; background-size: cover;">
     <div class="card-content text-center">
-      <h2 class="card-title"><i class="fas fa-heartbeat fa-2x"></i></h2>
-      <h2 style="color: white;">{{ servicio.nombre }}</h2>
-      <p class="card-description" sty>
+      <h2 style="color: black;">{{ servicio.nombre }}</h2>
+      <p class="card-description" style="color: black;">
         {{ servicio.descripcion }}
       </p>
-      <a href="/subservicios/{{servicio.id}}/{{categoria_id}}" class="btn btn-ingresar">Ingresarrrrrrrrrrrr</a>
+      <a href="/subservicios/{{servicio.id}}/{{categoria_id}}" class="btn btn-ingresar">Ingresar</a>
     </div>
   </div>
 

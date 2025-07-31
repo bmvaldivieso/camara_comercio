@@ -1,3 +1,4 @@
+{% load static %}
 <aside class="cart-sidebar" id="cart-sidebar">
   <div class="cart-header">
     <h3><i class="fas fa-shopping-cart"></i> Carrito</h3>
@@ -7,7 +8,19 @@
     <!-- Aquí van los productos insertados desde JS -->
   </div>
   <div class="cart-footer">
-    <button class="btn btn-pay" onclick="window.location.href='/carrito_count'">Pagar</button>
+    <button class="btn btn-pay" onclick= "closeCartSidebar()">Pagar</button>
   </div>
 </aside>
 <div class="overlay" id="overlay"></div>
+<script>
+  function closeCartSidebar() {
+    window.location.href='/carrito_count'
+    const cartSidebar = document.getElementById('cart-sidebar');
+    const overlay = document.getElementById('overlay');
+    const navCartSidebar = document.getElementById('nav-carrito-sidebar');
+    cartSidebar.classList.remove('open');
+    overlay.classList.remove('active');
+    navCartSidebar.classList.remove('active');
+    document.getElementById('nav-categorias').classList.add('active');
+  }
+</script>

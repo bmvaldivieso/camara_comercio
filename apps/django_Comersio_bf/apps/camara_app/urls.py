@@ -21,9 +21,6 @@ urlpatterns = [
 
     path('admin_socios_formularios', views.admin_socios_formularios, name='admin_socios_formularios'),
 
-
-
-
     path('seguro_vida/<int:servicio_id>/<int:producto_id>/<int:categoria_id>', views.seguro_vida, name='seguro_vida'),
     path('firma/<int:servicio_id>/<int:producto_id>/<int:categoria_id>', views.firma, name='firma'),
     path('carrito/', views.productos_carrito, name='productos_carrito'),
@@ -89,5 +86,6 @@ urlpatterns = [
     path('pusher/auth/', views.pusher_auth, name='pusher_auth'),
     path('obtener-mensajes-usuario/<int:user_id>/', views.obtener_mensajes_usuario, name='obtener_mensajes_usuario'),
     path('mensajes-leidos/<int:user_id>/', views.marcar_mensajes_leidos, name='mensajes_leidos'),
-
+    path('historial/<int:user_id>/', views.historial, name='historial'),
+    path('download/<int:firma_id>/', views.download_firma, name='download_firma'),
 ]

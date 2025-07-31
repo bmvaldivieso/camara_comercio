@@ -689,3 +689,42 @@ class FormProductoForm(forms.ModelForm):
             }),
         }
 
+
+
+class SolicitudFirmaForm(forms.ModelForm):
+    class Meta:
+        model = Firma
+        fields = ['nombre', 'apellido', 'cedula', 'correo', 'telefono', 'direccion']
+        widgets = {
+            'nombre': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Nombre',
+                'required': 'required'
+            }),
+            'apellido': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Apellido',
+                'required': 'required'
+            }),
+            'cedula': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Cédula',
+                'required': 'required'
+            }),
+            'correo': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Correo electrónico',
+                'required': 'required'
+            }),
+            'telefono': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Teléfono',
+                'required': 'required'
+            }),
+            'direccion': Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Dirección',
+                'rows': 4,
+                'required': 'required'
+            }),
+        }

@@ -1,0 +1,188 @@
+{% extends 'master/side_bar/master.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/socios.css' %}" />
+<link rel="stylesheet" href="{% static 'css/socios_formularios.css' %}" />
+<link rel="stylesheet" href="{% static 'css/historial_compras.css' %}" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block page_content %}
+<div class="header-section">
+    <div class="header-content">
+      <div class="header-icon">
+        <i class="fas fa-receipt"></i>
+      </div>
+      <div class="header-text">
+        <h1>Historial de Compras</h1>
+        <p>Consulta todas tus facturas y compras realizadas</p>
+      </div>
+    </div>
+    <div class="stats-cards">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number">{{ facturas|length }}</span>
+          <span class="stat-label">Total Facturas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters-section">
+    <div class="search-box2">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Buscar por cédula, correo o productos...">
+    </div>
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">
+        <i class="fas fa-list"></i> Todas
+      </button>
+      <button class="filter-btn" data-filter="recent">
+        <i class="fas fa-clock"></i> Recientes
+      </button>
+    </div>
+  </div>
+
+  <div class="table-section">
+    {% if facturas %}
+      <div class="table-container">
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th><i class="fas fa-id-card"></i> Cédula</th>
+              <th><i class="fas fa-envelope"></i> Correo</th>
+              <th><i class="fas fa-calendar"></i> Fecha</th>
+              <th><i class="fas fa-dollar-sign"></i> Importe</th>
+              <th><i class="fas fa-percentage"></i> Descuento</th>
+              <th><i class="fas fa-calculator"></i> Total</th>
+              <th><i class="fas fa-box"></i> Productos</th>
+              <th><i class="fas fa-cog"></i> Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for factura in facturas %}
+            <tr class="table-row" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+              <td>
+                <div class="cedula-cell">
+                  <div class="cedula-icon">
+                    <i class="fas fa-user"></i>
+                  </div>
+                  <span class="cedula-number">{{ factura.cedula }}</span>
+                </div>
+              </td>
+              <td>
+                <div class="email-cell">
+                  <i class="fas fa-at"></i>
+                  <span>{{ factura.correo }}</span>
+                </div>
+              </td>
+              <td>
+                <div class="date-cell">
+                  <div class="date-day">{{ factura.fecha|date:"d" }}</div>
+                  <div class="date-month">{{ factura.fecha|date:"M Y" }}</div>
+                </div>
+              </td>
+              <td>
+                <div class="amount-cell">
+                    <span class="currency">$</span>
+                    <span class="amount">{{ factura.importes|floatformat:2 }}</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="discount-cell">
+                    {% if factura.descuento_socio > 0 %}
+                      <span class="discount-badge">
+                        <i class="fas fa-tags"></i>
+                        ${{ factura.descuento_socio|floatformat:2 }}
+                      </span>
+                    {% else %}
+                      <span class="no-discount">Sin descuento</span>
+                    {% endif %}
+                  </div>
+                </td>
+                <td>
+                  <div class="total-cell">
+                    <span class="total-amount">${{ factura.total|floatformat:2 }}</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="products-cell">
+                    {% for producto in factura.productos.all %}
+                      <span class="product-tag">
+                        <i class="fas fa-tag"></i>
+                        {{ producto.titulo }}
+                      </span>
+                    {% empty %}
+                      <span class="no-products">
+                        <i class="fas fa-times"></i>
+                        Sin productos
+                      </span>
+                    {% endfor %}
+                  </div>
+                </td>
+                <td>
+                  <div class="actions-cell">
+                    <button class="action-btn view-btn" title="Ver detalles">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="action-btn download-btn" title="Descargar PDF">
+                      <i class="fas fa-download"></i>
+                    </button>
+                    <button class="action-btn print-btn" title="Imprimir">
+                      <i class="fas fa-print"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="empty-state">
+          <div class="empty-icon">
+            <i class="fas fa-receipt"></i>
+          </div>
+          <h3>No hay facturas disponibles</h3>
+          <p>Aún no se han generado facturas a tu nombre.</p>
+          <a href="{% url 'categorias' %}" class="cta-button">
+            <i class="fas fa-shopping-cart"></i>
+            Realizar primera compra
+          </a>
+        </div>
+      {% endif %}
+    </div>
+</div> 
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 600,
+    easing: 'ease-in-out'
+  });
+
+  document.getElementById('searchInput').addEventListener('keyup', function() {
+    const searchValue = this.value.toLowerCase();
+    const tableRows = document.querySelectorAll('.table-row');
+    
+    tableRows.forEach(row => {
+      const text = row.textContent.toLowerCase();
+      row.style.display = text.includes(searchValue) ? '' : 'none';
+    });
+  });
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      
+      const filter = this.dataset.filter;
+      console.log('Filter selected:', filter);
+    });
+  });
+</script>
+{% endblock %}

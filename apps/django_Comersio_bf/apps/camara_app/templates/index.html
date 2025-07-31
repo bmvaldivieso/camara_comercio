@@ -9,227 +9,452 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
-  <link rel="stylesheet" href="static/css/index.css" />
+  <link rel="stylesheet" href="{% static 'css/g_index_b.css' %}?v=1.1">
+
 </head>
 
+  <header>
+        <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg px-4">
+       <div class="titulo1">Cámara de Comercio de Loja</div>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Contenedor para los dos primeros links centrados -->
+        <ul class="navbar-nav mx-auto">
+          <a class="navbar-brand fw-bold text-primary" href="#">
+            <img src="static/images/camara.png" alt="Logo Cámara de Comercio Loja" height="25" />
+          </a>
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom" href="#">Servicios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom" href="#">Socios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom" href="#">Beneficios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom" href="#">Quiénes somos</a>
+          </li>
+        </ul>
+
+        <!-- Contenedor para el ícono a la derecha -->
+        <ul class="navbar-nav" style="display: flex;">
+          <li class="nav-item">
+            <a href="/login" class="icon-container" id="icono-login">
+              <div class="circle">
+                <img src="static/images/usuario1.svg" alt="Usuario" id="usuarioIcono" class="icono-svg">
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </nav>
+  </header>
+
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
-    <a class="navbar-brand fw-bold text-primary" href="#">
-      <img src="static/images/logo.png" alt="Logo Cámara de Comercio Loja" height="55" />
-    </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link nav-link-custom" href="#">Servicios</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-link-custom" href="#">Quiénes somos</a>
-        </li>
 
-        <li class="nav-item">
-          <a href="/login" class="btn btn-dorado rounded-pill px-4 py-2">Login</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
 
   <!-- Hero Section -->
-  <section class="hero-section text-center text-md-start">
-    <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
-      <div class="col-md-6 mb-4">
-        <h1 class="fw-bold text-gold mb-3">¿Quiénes somos?</h1>
-        <br />
-        <br />
-        <p class="mb-4">
+     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+
+    
+    <div class="carousel-indicators n1">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">
+        <svg style="display:none;" class="svg">
+          <circle class="loader-circle" cx="25" cy="11" r="10"></circle>
+        </svg>
+      </button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2">
+        <svg style="display:none;">
+          <circle class="loader-circle" cx="25" cy="11" r="10"></circle>
+        </svg>
+      </button>
+
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3">
+        <svg style="display:none;">
+          <circle class="loader-circle" cx="25" cy="11" r="10"></circle>
+        </svg>
+      </button>
+    </div>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active position-relative">
+        <img src="static/images/primera.jpg" alt="Imagen representativa" class="primera w-100 h-80" />
+
+        <!-- Overlay oscuro transparente -->
+        <div class="overlay"></div>
+        <!-- Contenido encima de la imagen -->
+        <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+          <img src="static/images/logo2.png" alt="Imagen representativa" class="img-fluid1" />
+          <h2 class="animated-text">¿Quiénes somos?</h2>
+          <p class="animated-text1">
           La Cámara de Comercio de Loja es una organización comprometida con
           el desarrollo económico y empresarial de nuestra provincia.
           Brindamos apoyo, asesoría y servicios especializados a
           emprendedores, comerciantes y empresas, fortaleciendo sus
           capacidades y generando oportunidades de crecimiento.
         </p>
-        <a href="/register" class="btn btn-dorado rounded-pill px-4 py-2">Registrarse</a>
+          <button class="btn btn-primary animated-button" style="margin-top: 100px;">Descubre Más</button>
+        </div>
       </div>
-      <div class="col-md-5 text-center p-5 rounded shadow-sm" style="background-color: transparent;">
-        <img src="static/images/logo2.png" alt="Imagen representativa" class="img-fluid" />
+            <div class="carousel-item position-relative">
+        <img src="static/images/camaracom2.png" alt="Imagen representativa" class="primera w-100 h-80" />
+
+        <!-- Overlay oscuro transparente -->
+        <div class="overlay"></div>
+
+        <!-- Contenido encima de la imagen -->
+        <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+          <img src="static/images/logo2.png" alt="Imagen representativa" class="img-fluid1" />
+          <h2 class="animated-text">Bienvenido a Nuestra Página</h2>
+          <p class="animated-text1">
+          La Cámara de Comercio de Loja es una organización comprometida con
+          el desarrollo económico y empresarial de nuestra provincia.
+          Brindamos apoyo, asesoría y servicios especializados a
+          emprendedores, comerciantes y empresas, fortaleciendo sus
+          capacidades y generando oportunidades de crecimiento.
+        </p>
+          <button class="btn btn-primary animated-button mt-3">Descubre Más</button>
+        </div>
+      </div>
+            <div class="carousel-item position-relative">
+        <img src="static/images/administracion1.png" alt="Imagen representativa" class="primera w-100 h-80" />
+
+        <!-- Overlay oscuro transparente -->
+        <div class="overlay"></div>
+
+        <!-- Contenido encima de la imagen -->
+        <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+          <img src="static/images/logo2.png" alt="Imagen representativa" class="img-fluid1" />
+          <h2 class="animated-text">Bienvenido a Nuestra Página</h2>
+          <p class="animated-text1">
+          La Cámara de Comercio de Loja es una organización comprometida con
+          el desarrollo económico y empresarial de nuestra provincia.
+          Brindamos apoyo, asesoría y servicios especializados a
+          emprendedores, comerciantes y empresas, fortaleciendo sus
+          capacidades y generando oportunidades de crecimiento.
+        </p>
+          <button class="btn btn-primary animated-button mt-3">Descubre Más</button>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- Beneficios -->
-  <section class="py-5 bg-white">
-    <div class="container">
-      <h2 class="fw-bold mb-4 text-azul">Beneficios de ser un socio</h2>
-      <br />
-      <div class="row">
-        <div class="col-md-5 mb-4 text-center">
-          <div class="bg-light rounded shadow p-4">
-            <img src="static/images/imagen1.png" alt="Imagen representativa" class="img-fluid" />
-          </div>
-        </div>
-        <div class="col-md-7">
-          <div class="mb-3 tabs-beneficios">
-            <div class="btn-group w-100" role="group">
-              <button type="button" class="btn btn-outline-warning active">Capacitación</button>
-              <button type="button" class="btn btn-outline-warning">Red de contactos</button>
-              <button type="button" class="btn btn-outline-warning">Promoción</button>
-              <button type="button" class="btn btn-outline-warning">Soporte legal</button>
-            </div>
-          </div>
-          <div class="bg-light p-4 rounded shadow text-dark mb-4 text-center">
-            <p class="fs-5 mb-0">
-              Accede a capacitaciones exclusivas para fortalecer tu
-              emprendimiento.
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Siguiente</span>
+    </button>
+
+
+  </div>
+
+
+<div class="titulo6">Nuestros servicios</div>
+<div class="fila6">
+  <div class="contenedor-rectangulo6">
+    <img src="static/images/firma3.jpg" class="imagen6" />
+    <div class="info6">
+      <h3>Firma electronica</h3>
+      <p> Ofrecemos emisión y 
+          renovación de firma 
+          electrónica con
+          respaldo legal.
+      </p>
+    </div>
+  </div>
+
+  <div class="contenedor-rectangulo6">
+    <img src="static/images/salud2.jpg" class="imagen6" />
+    <div class="info6">
+      <h3>Título 4</h3>
+      <p>Texto adicional
+
+      </p>
+    </div>
+  </div>
+
+  <div class="contenedor-rectangulo6">
+    <img src="static/images/educacion1.jpg" class="imagen6" />
+    <div class="info6">
+      <h3>Título 5</h3>
+      <p>Contenido extra
+
+      </p>
+    </div>
+  </div>
+
+  <div class="contenedor-rectangulo6">
+    <img src="static/images/administracion1.png" class="imagen6" />
+      <div class="info6">
+      <h3>Asesoría Legal</h3>
+      <p> Apoyo jurídico especializado
+          para tus decisiones
+          empresariales.
+      </p>
+    </div>
+  </div>
+
+  <div class="contenedor-rectangulo6">
+    <img src="static/images/asesoria1.jpg" class="imagen6" />
+    <div class="info6">
+      <h3>Capacitaciones</h3>
+      <p> Accede a cursos, talleres
+          y formación empresarial
+          continua.
+      </p>
+    </div>
+  </div>
+  </div>
+    <div class="container-tres">
+    <a href="#" class="magnetic-tres">Comenzar</a>
+  </div>
+  <hr>
+
+
+
+
+<!-- Cursor personalizado -->
+<div id="customCursor5">
+  <div class="circulo5">
+    <i class="bi bi-eye"></i> <!-- ícono Bootstrap -->
+  </div>
+  <span class="texto5">Ver más</span>
+</div>
+
+
+<!-- Cuadro emergente -->
+<!-- Cuadro emergente actualizado -->
+<!-- Cuadro emergente actualizado -->
+<div id="popup5">
+  <div class="popup-contenido5">
+    <div class="popup-texto5">
+      <h2 id="popupTitulo5">Título emergente</h2>
+      <p id="popupMensaje5">Mensaje</p>
+      <p id="popupMensaje5_1">Mensaje</p>
+      <button class="btn btn-danger mt-3" onclick="cerrarPopup5()">Cerrar</button>
+    </div>
+    <div class="popup-imagen5">
+      <img id="popupImagen5" src="salud.png" alt="Imagen emergente">
+    </div>
+  </div>
+</div>
+
+<div class="titulo6">Beneficio de ser socio</div>
+<div class="fila5">
+  <!-- Carrusel -->
+  <div id="miCarouselPersonalizado5" class="mi-carousel5 carousel slide" data-bs-ride="carousel">
+
+    <div class="carousel-indicators i5">
+      <button type="button" data-bs-target="#miCarouselPersonalizado5" data-bs-slide-to="0" class="active" style="background-color: black;"></button>
+      <button type="button" data-bs-target="#miCarouselPersonalizado5" data-bs-slide-to="1" style="background-color: black;"></button>
+      <button type="button" data-bs-target="#miCarouselPersonalizado5" data-bs-slide-to="2" style="background-color: black;"></button>
+    </div>
+
+
+    <div class="carousel-inner mi-carousel-inner5">
+
+      <div class="carousel-item mi-carousel-item5 active" data-mensaje="Mensaje para la diapositiva 1">
+        <div class="mi-contenido5">
+          <div class="mi-texto5 entrada" id="textoSlide1">
+            <p class="titulo5">¿Para qué ser socio?</p>
+            Asociarte a la Cámara te permite <strong>potenciar tu negocio</strong> con el respaldo de una institución sólida. Como socio, accedes a herramientas clave para formalizar, fortalecer y expandir tu empresa. 
+            También generas contactos estratégicos, participas en eventos exclusivos, accedes a programas de capacitación y posicionas tu marca en nuevos mercados.
             </p>
           </div>
-          <div class="text-center">
-            <a href="/register" class="btn btn-dark btn-lg">Registrarse →</a>
+          <div class="mi-imagen5 entrada" id="imagenSlide1">
+            <img src="static/images/persona3.jpg" class="d-block" alt="Imagen 1">
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-item mi-carousel-item5" data-mensaje="Mensaje para la diapositiva 2">
+        <div class="mi-contenido5">
+          <div class="mi-texto5 entrada" id="textoSlide1">
+            <p class="titulo5">Beneficios de ser socio</p>
+            <p>
+              Ser socio de la Cámara te brinda acceso exclusivo a herramientas, contactos y oportunidades únicas.
+            </p>
+            <p class="contenido5">    
+              <li>Asesoría legal y contable gratuita</li>
+              <li>Capacitaciones y certificaciones</li>
+              <li>Participación en ferias y ruedas de negocios</li>
+              <li>Promoción digital y presencial</li>
+            </p>
+          </div>
+          <div class="mi-imagen5 entrada" id="imagenSlide1">
+            <img src="static/images/asesoria1.jpg" class="d-block" alt="Imagen 1">
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-item mi-carousel-item5" data-mensaje="Mensaje para la diapositiva 3">
+        <div class="mi-contenido5">
+          <div class="mi-texto5 entrada" id="textoSlide1">
+            <p class="titulo5">La Cámara reconoce al socio del año</p>
+            <p>
+              Como cada año, dentro de la sesión solemne donde se celebra
+              el aniversario de la institución, esta vez por los 103 años,
+              se realizó la entrega de reconocimientos a varias entidades
+              y negocios de la localidad.
+            </p>
+
+          </div>
+          <div class="mi-imagen5 entrada" id="imagenSlide1">
+            <img src="static/images/1.png" class="d-block" alt="Imagen 1">
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <button class="carousel-control-prev p5" type="button" data-bs-target="#miCarouselPersonalizado5" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon mi-carousel-control-prev-icon5"></span>
+    </button>
+    <button class="carousel-control-next n5" type="button" data-bs-target="#miCarouselPersonalizado5" data-bs-slide="next">
+      <span class="carousel-control-next-icon mi-carousel-control-next-icon5"></span>
+    </button>
+
+  </div>
+
+</div>
+
+
+<div class="fila4">
+
+  <div class="card4">
+    <div class="carrusel4">
+      <div class="imagen-wrapper4"><img src="static/images/administracion1.png"></div>
+      <div class="imagen-wrapper4"><img src="static/images/educacion.png"></div>
+      <div class="imagen-wrapper4"><img src="static/images/primera.jpg"></div>
+      <div class="imagen-wrapper4"><img src="static/images/fondo5.png"></div>
+      <div class="imagen-wrapper4"><img src="static/images/salud.png"></div>
+      <div class="imagen-wrapper4"><img src="static/images/imagen1.png"></div>
+    </div>
+  </div>
+
+  <div class="text4">
+    <div class="cuadro4">
+      <p class="titulo4">¿Por qué elegirnos?</p>
+      <p class="textofila4-1">
+        Mantenemos su negocio seguro y garantizamos una alta disponibilidad
+      </p>
+      <p class="textofila4">
+          Brindamos herramientas que permiten mejorar tu actividad económica y garantizamos servicios de calidad.
+      </p>
+      <p class="textofila4">
+            Para nosotros el componente humano es fundamental, por ello estamos 
+            siempre comprometidos con el trabajo que permita el desarrollo de
+            cada uno de nuestros socios, sus familias y negocios.
+      </p>
+    </div>
+  </div>
+  <div class="container-tres">
+    <a href="#" class="magnetic-tres">Comenzar</a>
+  </div>
+
+</div>
+
+
+  <div class="titulo6">Nuestros socios</div>
+  <section class="flipzone-tres">
+    <!-- Tarjeta 1 -->
+    <div class="flipcard-tres">
+      <div class="flipinner-tres">
+        <div class="flipfront-tres">
+          <img src="static/images/persona2.jpg" alt="Imagen del Doctor">
+          <div class="info">
+            <div class="name-cargo">Dr. Juan Pérez</div>
+            <div class="cargo">Doctor de la Clínica San José</div>
+          </div>
+        </div>
+        <div class="flipback-tres">
+          <div class="name-cargo1">Dr. Juan Pérez</div>
+          <div class="cargo1">Doctor General</div>
+          <div class="phone1">Tel: +123 456 7890</div>
+          <div class="contact-info">
+            <div class="description">Médico con más de 15 años de experiencia en la atención de pacientes.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Tarjeta 2 -->
+    <div class="flipcard-tres">
+      <div class="flipinner-tres">
+        <div class="flipfront-tres">
+          <img src="static/images/persona1.jpg" alt="Imagen del Abogado">
+          <div class="info">
+            <div class="name-cargo">Lic. Marta Gómez</div>
+            <div class="cargo">Abogada de la Séptima</div>
+          </div>
+        </div>
+        <div class="flipback-tres">
+          <div class="name-cargo1">Lic. Marta Gómez</div>
+          <div class="cargo1">Abogada Penalista</div>
+          <div class="phone1">Tel: +123 456 7891</div>
+          <div class="contact-info">
+            <div class="description">Especializada en derecho penal con más de 10 años de experiencia.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Tarjeta 3 -->
+    <div class="flipcard-tres">
+      <div class="flipinner-tres">
+        <div class="flipfront-tres">
+          <img src="static/images/persona3.jpg" alt="Imagen del Ingeniero">
+          <div class="info">
+            <div class="name-cargo">Ing. Carlos Sánchez</div>
+            <div class="cargo" >Ingeniero de Sistemas</div>
+          </div>
+        </div>
+        <div class="flipback-tres">
+          <div class="name-cargo1">Ing. Carlos Sánchez</div>
+          <div class="cargo1">Ingeniero en Telecomunicaciones</div>
+          <div class="phone1">Tel: +123 456 7892</div>
+          <div class="contact-info">
+            <div class="description">Experto en sistemas de comunicación y redes de datos.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tarjeta 4 -->
+    <div class="flipcard-tres">
+      <div class="flipinner-tres">
+        <div class="flipfront-tres">
+          <img src="static/images/persona5.jpg" alt="Imagen del Psicólogo">
+          <div class="info">
+            <div class="name-cargo">Psic. Ana Martínez</div>
+            <div class="cargo">Psicóloga Clínica</div>
+          </div>
+        </div>
+        <div class="flipback-tres">
+          <div class="name-cargo1">Psic. Ana Martínez</div>
+          <div class="cargo1">Psicóloga Clínica</div>
+          <div class="phone1">Tel: +123 456 7893</div>
+          <div class="contact-info">
+            <div class="description">Especialista en terapia cognitivo-conductual con experiencia en psicoterapia.</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Servicios (Carrusel) -->
-  <section class="py-5" style="background-color: #111; position: relative;">
-    <div class="container">
-      <h1 class="fw-bold text-white mb-4 text-center">Servicios</h1>
-      <div id="carouselServicios" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="card-servicio bg-celeste text-white p-4 rounded text-center"
-              style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('static/images/3.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-              <h3>Firma Electrónica</h3>
-              <p>
-                Ofrecemos emisión y renovación de firma electrónica con
-                respaldo legal.
-              </p>
-              <a href="/register" class="btn btn-warning px-4 py-2 mx-auto text-white fw-bold">
-                Registrarse →
-              </a>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="card-servicio bg-celeste text-white p-4 rounded text-center"
-              style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('static/images/2.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-              <h3>Asesoría Legal</h3>
-              <p>
-                Apoyo jurídico especializado para tus decisiones
-                empresariales.
-              </p>
-              <a href="/register" class="btn btn-warning px-4 py-2 mx-auto text-white fw-bold">
-                Registrarse →
-              </a>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="card-servicio bg-celeste text-white p-4 rounded text-center"
-              style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('static/images/1.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-              <h3>Capacitaciones</h3>
-              <p>
-                Accede a cursos, talleres y formación empresarial continua.
-              </p>
-              <a href="/register" class="btn btn-warning px-4 py-2 mx-auto text-white fw-bold">
-                Registrarse →
-              </a>
-            </div>
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselServicios" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselServicios" data-bs-slide="next">
-          <span class="carousel-control-next-icon"></span>
-        </button>
-      </div>
-    </div>
-    <div style="
-          position: absolute;
-          bottom: 20px;
-          right: 20px;
-          background-color: rgba(255, 255, 255, 0.65); /* blanco semitransparente */
-          padding: 12px 20px;
-          border-radius: 8px;
-          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-          z-index: 10;">
-      <h6 class="fw-bold mb-2 text-center">Servicios</h6>
-      <a href="#" class="btn fw-bold px-3 py-1" style="background-color: #000; color: #d4af37; border: none;">
-        Servicios →
-      </a>
-    </div>
-  </section>
 
-  <!-- Nuestros Socios -->
-  <section class="bg-white py-5">
-    <div class="container">
-      <h2 class="fw-bold mb-4 text-azul">Nuestros Socios</h2>
-      <br />
-      <div class="row g-4">
-        <!-- Socio 1 -->
-        <div class="col-md-4">
-          <div class="card card-socio border-0 shadow">
-            <img src="static/images/imagen2.png" class="card-img-top" alt="Socio 1" />
-            <div class="card-body text-center">
-              <h5 class="card-title">Dr. Joaquín Lopez</h5>
-              <p class="card-text">Director de Clínica Santa Inés</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Socio 2 -->
-        <div class="col-md-4">
-          <div class="card card-socio border-0 shadow">
-            <img src="static/images/imagen2.png" class="card-img-top" alt="Socio 2" />
-            <div class="card-body text-center">
-              <h5 class="card-title">Dra. Marlene Ojeda</h5>
-              <p class="card-text">Gerente de Salud Integral</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Socio 3 -->
-        <div class="col-md-4">
-          <div class="card card-socio border-0 shadow">
-            <img src="static/images/imagen2.png" class="card-img-top" alt="Socio 3" />
-            <div class="card-body text-center">
-              <h5 class="card-title">Ing. Marco Ruiz</h5>
-              <p class="card-text">Fundador de TechLoja</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Socio 4 -->
-        <div class="col-md-4">
-          <div class="card card-socio border-0 shadow">
-            <img src="static/images/imagen2.png" class="card-img-top" alt="Socio 4" />
-            <div class="card-body text-center">
-              <h5 class="card-title">Lic. Sofía Andrade</h5>
-              <p class="card-text">CEO de Consultora Loja</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Socio 5 -->
-        <div class="col-md-4">
-          <div class="card card-socio border-0 shadow">
-            <img src="static/images/imagen2.png" class="card-img-top" alt="Socio 5" />
-            <div class="card-body text-center">
-              <h5 class="card-title">Eco. Luis Rivadeneira</h5>
-              <p class="card-text">Asesor Económico Independiente</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Footer -->
-  <footer class="text-white mt-5 pt-5"
-    style="background: linear-gradient(to top, #0d6efd, #003f88); border-radius: 3rem 3rem 0 0;">
+  <footer class="text-white pt-5"
+    style="background: linear-gradient(to top, #080808, #003f88); border-radius: 0%;">
     <div class="container pb-0">
       <div class="border-top border-light mb-4"></div>
       <div class="row">
@@ -305,18 +530,131 @@
           <strong>Horario de atención:</strong> 08h30 a 12h30 | 14h00 a 18h00 -
           Lunes a Viernes
         </p>
-        <p class="mb-0">
-          Estamos gustosos de atender cada una de tus consultas. <a href="#contactos"
-            class="text-warning text-decoration-none fw-bold">Contáctanos</a>
-        </p>
       </div>
       <div class="border-top border-light mt-4"></div>
     </div>
 
-    <div class="text-center py-3 bg-primary mt-4" style="border-radius: 0 0 3rem 3rem;">
-      <small>© 2025 Cámara de Comercio de Loja | Todos los derechos reservados</small>
+    <div class="contact">
+      <p>Estamos gustosos de atender cada una de tus consultas. Contáctanos:</p>
+      <a href="mailto:contacto@ejemplo.com">
+        <img src="https://img.icons8.com/ios/50/ffffff/email.png" alt="Correo electrónico">
+        contacto@ejemplo.com
+      </a>
     </div>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const indicators = document.querySelectorAll('.n1 button');
+    const interval = 5000;  // 1 segundo
+
+    function resetAnimations() {
+      indicators.forEach((btn, index) => {
+        const svg = btn.querySelector('svg');
+        const circle = svg.querySelector('.loader-circle');
+
+        if (btn.classList.contains('active')) {
+          svg.style.display = 'block';
+          circle.style.animation = 'none'; // reset
+          void circle.offsetWidth; // force reflow
+          circle.style.animation = `progress ${interval/1000}s linear forwards`;
+        } else {
+          svg.style.display = 'none';
+          circle.style.animation = 'none';
+        }
+      });
+    }
+
+    // Ejecutar al inicio
+    resetAnimations();
+
+    // Configura el carrusel con el mismo intervalo para que cambie rápido
+    const carouselElement = document.querySelector('#carouselExampleIndicators');
+    const carousel = new bootstrap.Carousel(carouselElement, {
+      interval: interval,  // 1 segundo para el cambio rápido
+      ride: 'carousel'
+    });
+
+    // Escuchar evento slide para reiniciar animación
+    carouselElement.addEventListener('slid.bs.carousel', () => {
+      resetAnimations();
+    });
+
+
+
+
+  const cursor5 = document.getElementById("customCursor5");
+  const popup5 = document.getElementById("popup5");
+  const popupMensaje5 = document.getElementById("popupMensaje5");
+  const carousel5 = document.getElementById("miCarouselPersonalizado5");
+
+  document.addEventListener("mousemove", (e) => {
+    const rect = carousel5.getBoundingClientRect();
+    const dentro = (
+      e.clientX >= rect.left &&
+      e.clientX <= rect.right &&
+      e.clientY >= rect.top &&
+      e.clientY <= rect.bottom
+    );
+
+    const target = e.target;
+    const esBotonDeCarrusel =
+      target.closest(".p5") ||
+      target.closest(".n5") ||
+      target.closest(".i5");
+
+    if (dentro && !esBotonDeCarrusel) {
+      cursor5.style.display = "block";
+      cursor5.style.left = e.clientX + "px";
+      cursor5.style.top = e.clientY + "px";
+    } else {
+      cursor5.style.display = "none";
+    }
+  });
+
+  carousel5.addEventListener("click", (e) => {
+    const item = e.target.closest(".carousel-item");
+    if (item) {
+      const index = [...carousel5.querySelectorAll(".carousel-item")].indexOf(item);
+
+      const mensajes = [
+        {
+          titulo: "Salud Preventiva",
+          mensaje: "Conoce cómo mantenerte saludable con chequeos regulares.",
+          imagen: "static/images/camaracom2.png"
+        },
+        {
+          titulo: "Nutrición",
+          mensaje: "Aprende sobre una dieta balanceada y sus beneficios.",
+          imagen: "static/images/camaracom2.png"
+        },
+        {
+          titulo: "Ejercicio",
+          mensaje: "Descubre cómo el ejercicio mejora tu calidad de vida.",
+          mensaje1: "hola",
+          imagen: "static/images/camaracom2.png",
+        }
+      ];
+
+      const datos = mensajes[index] || {
+        titulo: "Mensaje",
+        mensaje: "Mensaje por defecto",
+        imagen: "salud.png"
+      };
+
+      popupTitulo5.textContent = datos.titulo;
+      popupMensaje5.textContent = datos.mensaje;
+      popupMensaje5_1.textContent = datos.mensaje1;
+      popupImagen5.src = datos.imagen;
+
+      popup5.style.display = "flex";
+    }
+  });
+
+  function cerrarPopup5() {
+    popup5.style.display = "none";
+  }
+
+  </script>
 </body>
 
 </html>

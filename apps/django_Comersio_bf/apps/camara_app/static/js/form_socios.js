@@ -1,197 +1,513 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const slides = document.querySelectorAll('.form-slide');
-    const progressSteps = document.querySelectorAll('.progress-step');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const submitBtn = document.getElementById('submitBtn'); // Este es tu botón de submit final
+class FormSocios {
+    constructor() {
+        this.currentStep = 1;
+        this.totalSteps = 4;
+        this.isSubmitting = false;
+        
+        this.init();
+    }
 
-    let currentSlide = 0; // Índice del slide actual (empezando en 0)
+    init() {
+        this.bindEvents();
+        this.updateStepDisplay();
+        this.initializeValidation();
+        this.setupKeyboardNavigation();
+    }
 
-    /**
-     * Muestra un slide específico del formulario con una animación de deslizamiento.
-     * @param {number} n El índice del slide a mostrar.
-     * @param {string} direction La dirección de la animación ('next' para avanzar, 'prev' para retroceder).
-     */
-    function showSlide(n, direction = 'next') {
-        // Asegúrate de que n esté dentro de los límites válidos
-        if (n < 0 || n >= slides.length) {
-            console.error("Índice de slide fuera de rango:", n);
-            return;
+    bindEvents() {
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => this.previousStep());
         }
 
-        // Ocultar todos los slides y remover clases de animación
-        slides.forEach(slide => {
-            slide.classList.remove('active', 'animate-left', 'animate-right');
-            slide.style.display = 'none'; // Oculta para que no ocupe espacio
-        });
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => this.nextStep());
+        }
 
-        // Actualizar la barra de progreso
-        progressSteps.forEach((step, index) => {
+        if (submitBtn) {
+            submitBtn.addEventListener('click', (e) => this.handleSubmit(e));
+        }
+
+        document.querySelectorAll('.progress-step').forEach((step, index) => {
+            step.addEventListener('click', () => this.goToStep(index + 1));
+        });
+        this.setupRealTimeValidation();
+    }
+
+    setupRealTimeValidation() {
+        const inputs = document.querySelectorAll('input, textarea, select');
+        
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => this.validateField(input));
+            input.addEventListener('input', () => this.clearFieldError(input));
+        });
+    }
+
+    setupKeyboardNavigation() {
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        this.previousStep();
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        this.nextStep();
+                        break;
+                    case 'Enter':
+                        if (this.currentStep === this.totalSteps) {
+                            e.preventDefault();
+                            this.handleSubmit(e);
+                        }
+                        break;
+                }
+            }
+        });
+    }
+
+    goToStep(stepNumber) {
+        if (stepNumber < 1 || stepNumber > this.totalSteps) return;
+        
+        if (stepNumber > this.currentStep) {
+            for (let i = this.currentStep; i < stepNumber; i++) {
+                if (!this.validateStep(i)) {
+                    this.showNotification('Por favor, complete correctamente todos los campos del paso actual antes de continuar.', 'warning');
+                    return;
+                }
+            }
+        }
+
+        this.hideCurrentStep();
+        this.currentStep = stepNumber;
+        this.showCurrentStep();
+        this.updateStepDisplay();
+        this.updateProgressBar();
+        this.focusFirstField();
+    }
+
+    nextStep() {
+        if (this.currentStep >= this.totalSteps) return;
+
+        if (this.validateStep(this.currentStep)) {
+            this.goToStep(this.currentStep + 1);
+        } else {
+            this.showNotification('Por favor, complete todos los campos requeridos antes de continuar.', 'error');
+        }
+    }
+
+    previousStep() {
+        if (this.currentStep <= 1) return;
+        this.goToStep(this.currentStep - 1);
+    }
+
+    hideCurrentStep() {
+        const currentSlide = document.querySelector(`.form-slide[data-slide="${this.currentStep}"]`);
+        if (currentSlide) {
+            currentSlide.classList.add('slide-out-left');
+            setTimeout(() => {
+                currentSlide.classList.remove('active', 'slide-out-left');
+            }, 300);
+        }
+    }
+
+    showCurrentStep() {
+        const targetSlide = document.querySelector(`.form-slide[data-slide="${this.currentStep}"]`);
+        if (targetSlide) {
+            setTimeout(() => {
+                targetSlide.classList.add('active');
+                targetSlide.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+        }
+    }
+
+    updateStepDisplay() {
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+
+        if (prevBtn) {
+            prevBtn.classList.toggle('d-none', this.currentStep === 1);
+        }
+
+        if (nextBtn) {
+            nextBtn.classList.toggle('d-none', this.currentStep === this.totalSteps);
+        }
+
+        if (submitBtn) {
+            submitBtn.classList.toggle('d-none', this.currentStep !== this.totalSteps);
+        }
+
+        const currentStepNum = document.getElementById('currentStepNum');
+        if (currentStepNum) {
+            currentStepNum.textContent = this.currentStep;
+        }
+    }
+
+    updateProgressBar() {
+        document.querySelectorAll('.progress-step').forEach((step, index) => {
+            const stepNumber = index + 1;
+            
             step.classList.remove('active', 'completed');
-            if (index < n) {
-                step.classList.add('completed'); // Marcar pasos previos como completados
-            }
-            if (index === n) {
-                step.classList.add('active'); // Marcar el paso actual como activo
-            }
-        });
-
-        // Mostrar el slide actual y aplicar animación
-        slides[n].style.display = 'block';
-        // Esto añade la clase de animación para que la transición ocurra
-        requestAnimationFrame(() => { // Usa requestAnimationFrame para asegurar que el display: block se aplique antes de la animación
-            if (direction === 'next') {
-                slides[n].classList.add('active', 'animate-right');
-            } else {
-                slides[n].classList.add('active', 'animate-left');
+            
+            if (stepNumber === this.currentStep) {
+                step.classList.add('active');
+            } else if (stepNumber < this.currentStep) {
+                step.classList.add('completed');
             }
         });
 
-        // Remover las clases de animación después de que termine la transición
-        slides[n].addEventListener('transitionend', function handler() {
-            slides[n].classList.remove('animate-left', 'animate-right');
-            slides[n].removeEventListener('transitionend', handler);
-        }, { once: true }); // { once: true } asegura que el listener se ejecute una sola vez
-
-        // Actualizar la visibilidad de los botones de navegación
-        prevBtn.classList.toggle('d-none', n === 0); // Ocultar 'Anterior' en el primer slide
-        nextBtn.classList.toggle('d-none', n === slides.length - 1); // Ocultar 'Siguiente' en el último slide
-        submitBtn.classList.toggle('d-none', n !== slides.length - 1); // Mostrar 'Registrarme' solo en el último slide
-
-        // *** IMPORTANTE: Se elimina la llamada a populateSummary() aquí ***
-        // Si en el futuro quieres un resumen, deberás actualizar esta función
-        // para que acceda a los valores correctos de los formularios de Django
-        // y los IDs de los elementos donde mostrar el resumen.
+        this.updateProgressLine();
     }
 
-    /**
-     * Avanza al siguiente slide si la validación del slide actual es exitosa.
-     */
-    function nextSlide() {
-        if (!validateCurrentSlide()) {
-            return false; // Detener la navegación si la validación falla
+    updateProgressLine() {
+        const progressContainer = document.querySelector('.progress-bar-container');
+        let progressLine = progressContainer.querySelector('.progress-line');
+        
+        if (!progressLine) {
+            progressLine = document.createElement('div');
+            progressLine.className = 'progress-line';
+            progressContainer.appendChild(progressLine);
         }
-        if (currentSlide < slides.length - 1) {
-            currentSlide++;
-            showSlide(currentSlide, 'next');
-        }
+
+        const progressPercent = ((this.currentStep - 1) / (this.totalSteps - 1)) * 100;
+        progressLine.style.width = `${progressPercent}%`;
     }
 
-    /**
-     * Retrocede al slide anterior.
-     */
-    function prevSlide() {
-        if (currentSlide > 0) {
-            currentSlide--;
-            showSlide(currentSlide, 'prev');
-        }
-    }
+    validateStep(stepNumber) {
+        const step = document.querySelector(`.form-slide[data-slide="${stepNumber}"]`);
+        if (!step) return false;
 
-    /**
-     * Realiza una validación básica de los campos requeridos en el slide actual.
-     * Añade/remueve la clase 'is-invalid' de Bootstrap para retroalimentación visual.
-     * @returns {boolean} true si todos los campos requeridos son válidos, false en caso contrario.
-     */
-    function validateCurrentSlide() {
-        // Asegúrate de que los inputs required tienen los IDs correctos si no son generados por Django
-        // Si estás usando los forms de Django, los IDs serán 'id_nombre_del_campo'.
-        // Tu código de forms.py ya asigna los IDs de tu HTML original a los widgets,
-        // así que 'id_razon_social', 'id_email', etc., no deberían usarse en JS directamente,
-        // sino los IDs que definiste ('razon_social', 'email').
-
-        const currentInputs = slides[currentSlide].querySelectorAll('input[required], select[required], textarea[required]');
+        const requiredFields = step.querySelectorAll('input[required], select[required], textarea[required]');
         let isValid = true;
-        let firstInvalidInput = null;
 
-        currentInputs.forEach(input => {
-            // Especialmente para checkboxes o radios, la validación de .value.trim() no es suficiente.
-            // Aquí se valida que tengan un valor, lo cual funciona para text, email, number, date, etc.
-            if (input.type === 'checkbox' || input.type === 'radio') {
-                // Para checkboxes/radios, si son requeridos, debes asegurarte de que al menos uno esté seleccionado en su grupo.
-                // Esta lógica sería más compleja y debería ir por grupo de nombre (name="redes[]", name="tipo_negocio[]")
-                // Por ahora, asumimos que input.value.trim() es suficiente para otros tipos.
-            } else if (!input.value.trim()) {
-                input.classList.add('is-invalid');
+        requiredFields.forEach(field => {
+            if (!this.validateField(field)) {
                 isValid = false;
-                if (!firstInvalidInput) {
-                    firstInvalidInput = input;
-                }
-            } else {
-                input.classList.remove('is-invalid');
             }
         });
 
-        // Validación específica para el campo de email (asumiendo que está en el primer slide)
-        // Usamos el ID que le asignamos en el forms.py: 'email'
-        if (currentSlide === 0) {
-            const emailInput = document.getElementById('email'); // Usar 'email', no 'id_email'
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (emailInput && emailInput.hasAttribute('required') && !emailRegex.test(emailInput.value.trim())) {
-                emailInput.classList.add('is-invalid');
-                isValid = false;
-                if (!firstInvalidInput) {
-                    firstInvalidInput = emailInput;
-                }
-            } else if (emailInput) {
-                emailInput.classList.remove('is-invalid');
-            }
+        switch(stepNumber) {
+            case 1:
+                isValid = this.validatePersonalInfo(step) && isValid;
+                break;
+            case 2:
+                isValid = this.validateBusinessInfo(step) && isValid;
+                break;
+            case 3:
+                isValid = this.validateServicesInfo(step) && isValid;
+                break;
+            case 4:
+                isValid = this.validateConfirmation(step) && isValid;
+                break;
         }
 
-        // Si hay campos inválidos, enfocar el primero y mostrar alerta
-        if (!isValid) {
-            if (firstInvalidInput) {
-                firstInvalidInput.focus();
-            }
-            // Muestra una alerta solo si la validación JS falla,
-            // pero recuerda que Django también validará al hacer submit.
-            alert('Por favor, completa correctamente todos los campos requeridos antes de continuar.');
-        }
         return isValid;
     }
 
-    // *** ELIMINAMOS LA FUNCIÓN populateSummary() YA QUE NO ES NECESARIA CON LA ESTRUCTURA ACTUAL ***
-    /*
-    function populateSummary() {
-        // ... (todo el contenido de la función populateSummary) ...
-    }
-    */
+    validateField(field) {
+        const value = field.value.trim();
+        let isValid = true;
+        let errorMessage = '';
 
-    // --- Listeners de Eventos ---
+        this.clearFieldError(field);
 
-    // Listener para el botón "Siguiente"
-    nextBtn.addEventListener('click', nextSlide);
-
-    // Listener para el botón "Anterior"
-    prevBtn.addEventListener('click', prevSlide);
-
-    // Listeners para los pasos de la barra de progreso (clic)
-    progressSteps.forEach((step, index) => {
-        step.addEventListener('click', () => {
-            // Permitir ir a pasos anteriores sin validación estricta
-            if (index < currentSlide) {
-                currentSlide = index;
-                showSlide(currentSlide, 'prev');
-            }
-            // Permitir ir a pasos posteriores solo si el slide actual es válido
-            else if (index > currentSlide) {
-                 if (validateCurrentSlide()) { // Valida el slide actual antes de avanzar
-                    currentSlide = index;
-                    showSlide(currentSlide, 'next');
-                 }
-            }
-            // Si hace clic en el paso actual, no hacer nada
-        });
-    });
-
-
-     submitBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (validateCurrentSlide()) {
-            e.target.form.submit();
+        if (field.hasAttribute('required') && !value) {
+            isValid = false;
+            errorMessage = 'Este campo es obligatorio';
         }
-     });
 
+        if (value && isValid) {
+            switch(field.type) {
+                case 'email':
+                    if (!this.isValidEmail(value)) {
+                        isValid = false;
+                        errorMessage = 'Ingrese un email válido';
+                    }
+                    break;
+                case 'tel':
+                    if (!this.isValidPhone(value)) {
+                        isValid = false;
+                        errorMessage = 'Ingrese un número de teléfono válido';
+                    }
+                    break;
+                case 'url':
+                    if (!this.isValidURL(value)) {
+                        isValid = false;
+                        errorMessage = 'Ingrese una URL válida';
+                    }
+                    break;
+            }
 
-    // Inicializar el formulario mostrando el primer slide
-    showSlide(currentSlide);
+            if (field.name === 'ruc_cedula' && !this.isValidRucCedula(value)) {
+                isValid = false;
+                errorMessage = 'Ingrese un RUC o cédula válido';
+            }
+        }
+
+        if (!isValid) {
+            this.showFieldError(field, errorMessage);
+        } else {
+            this.showFieldSuccess(field);
+        }
+
+        return isValid;
+    }
+
+    validatePersonalInfo(step) {
+        const socialMediaCheckboxes = step.querySelectorAll('input[name*="redes_sociales"]:checked');
+        return true;
+    }
+
+    validateBusinessInfo(step) {
+        return true;
+    }
+
+    validateServicesInfo(step) {
+        const businessTypeCheckboxes = step.querySelectorAll('input[name*="tipo_negocio"]:checked');
+        if (businessTypeCheckboxes.length === 0) {
+            this.showNotification('Debe seleccionar al menos un tipo de negocio', 'error');
+            return false;
+        }
+        return true;
+    }
+
+    validateConfirmation(step) {
+        return true;
+    }
+
+    showFieldError(field, message) {
+        field.classList.add('is-invalid');
+        field.classList.remove('valid');
+        
+        let errorDiv = field.parentNode.querySelector('.field-error');
+        if (!errorDiv) {
+            errorDiv = document.createElement('div');
+            errorDiv.className = 'field-error';
+            field.parentNode.appendChild(errorDiv);
+        }
+        errorDiv.textContent = message;
+    }
+
+    showFieldSuccess(field) {
+        field.classList.add('valid');
+        field.classList.remove('is-invalid');
+        this.clearFieldError(field);
+    }
+
+    clearFieldError(field) {
+        field.classList.remove('is-invalid');
+        const errorDiv = field.parentNode.querySelector('.field-error');
+        if (errorDiv) {
+            errorDiv.remove();
+        }
+    }
+
+    focusFirstField() {
+        setTimeout(() => {
+            const currentStep = document.querySelector(`.form-slide[data-slide="${this.currentStep}"]`);
+            if (currentStep) {
+                const firstInput = currentStep.querySelector('input, select, textarea');
+                if (firstInput) {
+                    firstInput.focus();
+                }
+            }
+        }, 400);
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        
+        if (this.isSubmitting) return;
+
+        if (!this.validateStep(this.currentStep)) {
+            this.showNotification('Por favor, complete todos los campos requeridos.', 'error');
+            return;
+        }
+
+        this.isSubmitting = true;
+        this.showLoadingState();
+
+        setTimeout(() => {
+            document.querySelector('.registration-form').submit();
+        }, 1000);
+    }
+
+    showLoadingState() {
+        const submitBtn = document.getElementById('submitBtn');
+        if (submitBtn) {
+            submitBtn.innerHTML = '<div class="spinner"></div> Procesando...';
+            submitBtn.disabled = true;
+        }
+    }
+
+    showNotification(message, type = 'info') {
+        const existingNotification = document.querySelector('.form-notification');
+        if (existingNotification) {
+            existingNotification.remove();
+        }
+
+        const notification = document.createElement('div');
+        notification.className = `form-notification notification-${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <span class="notification-icon">${this.getNotificationIcon(type)}</span>
+                <span class="notification-message">${message}</span>
+            </div>
+        `;
+
+        const container = document.querySelector('.registration-container');
+        container.insertBefore(notification, container.firstChild);
+
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 5000);
+    }
+
+    getNotificationIcon(type) {
+        const icons = {
+            'success': '✅',
+            'error': '❌',
+            'warning': '⚠️',
+            'info': 'ℹ️'
+        };
+        return icons[type] || icons.info;
+    }
+
+    isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    isValidPhone(phone) {
+        const re = /^[\d\s\-\+\(\)]{7,15}$/;
+        return re.test(phone);
+    }
+
+    isValidURL(url) {
+        try {
+            new URL(url);
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
+    isValidRucCedula(value) {
+        const cleaned = value.replace(/\D/g, '');
+        return cleaned.length >= 10 && cleaned.length <= 13;
+    }
+}
+
+const notificationStyles = `
+    .form-notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        max-width: 400px;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        animation: slideInRight 0.3s ease-out;
+    }
+
+    .notification-info {
+        background: linear-gradient(135deg, #E8EEFF 0%, #F0F4FF 100%);
+        border-left: 4px solid #4A66E8;
+        color: #2A3B8F;
+    }
+
+    .notification-success {
+        background: linear-gradient(135deg, #E8F5E8 0%, #F0FFF0 100%);
+        border-left: 4px solid #28A745;
+        color: #155724;
+    }
+
+    .notification-warning {
+        background: linear-gradient(135deg, #FFF3CD 0%, #FFFBF0 100%);
+        border-left: 4px solid #FFC107;
+        color: #856404;
+    }
+
+    .notification-error {
+        background: linear-gradient(135deg, #F8D7DA 0%, #FFF0F0 100%);
+        border-left: 4px solid #DC3545;
+        color: #721C24;
+    }
+
+    .notification-content {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .notification-icon {
+        font-size: 1.2rem;
+        flex-shrink: 0;
+    }
+
+    .notification-message {
+        font-weight: 500;
+        flex: 1;
+    }
+
+    .field-error {
+        color: #DC3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        font-weight: 500;
+    }
+
+    .is-invalid {
+        border-color: #DC3545 !important;
+        box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1) !important;
+    }
+
+    .progress-line {
+        position: absolute;
+        top: 25px;
+        left: 50px;
+        height: 3px;
+        background: linear-gradient(135deg, #4A66E8 0%, #5B73F0 100%);
+        border-radius: 2px;
+        z-index: 1;
+        width: 0;
+        transition: width 0.5s ease;
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .form-notification {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            max-width: none;
+        }
+    }
+`;
+
+document.addEventListener('DOMContentLoaded', function() {
+    const style = document.createElement('style');
+    style.textContent = notificationStyles;
+    document.head.appendChild(style);
+    window.formSocios = new FormSocios();
 });
+
+window.FormSocios = FormSocios;
